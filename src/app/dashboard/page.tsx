@@ -2,6 +2,14 @@ import { fetchBalance, fetchTransactions } from "@/lib/data";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 export default async function Dashboard() {
   const balance = await fetchBalance();
@@ -22,23 +30,24 @@ export default async function Dashboard() {
           );
         })}
       </div>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="w-[100px]" colSpan={2}>
+              Transactions
+            </TableHead>
 
-      <table className="table-auto">
-        <thead>
-          <tr>
-            <th colSpan={2}>Transactions</th>
-
-            <th>
+            <TableHead className="text-right">
               <Link href="/dashboard/transactions">View all</Link>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
+            </TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {transactions.map((item, index) => {
             if (index > 4) return;
             return (
-              <tr key={Math.random()}>
-                <td>
+              <TableRow key={Math.random()}>
+                <TableCell>
                   <Image
                     src={"/" + item.avatar}
                     alt={item.name}
@@ -46,16 +55,16 @@ export default async function Dashboard() {
                     width={50}
                     height={50}
                   />
-                </td>
-                <td> {item.name}</td>
-                <td>
+                </TableCell>
+                <TableCell> {item.name}</TableCell>
+                <TableCell>
                   <div>{item.amount}</div> <div>{item.date}</div>
-                </td>
-              </tr>
+                </TableCell>
+              </TableRow>
             );
           })}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
     </main>
   );
 }
