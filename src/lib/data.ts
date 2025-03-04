@@ -54,7 +54,7 @@ export async function fetchTransactions() {
 }
 
 const ITEMS_PER_PAGE = 10;
-export async function fetchFiltredTransactions(
+export async function fetchFilteredTransactions(
   query: string,
   currentPage: number
 ) {
@@ -67,10 +67,25 @@ export async function fetchFiltredTransactions(
       .ilike("name", `%${query}%`)
       .range(offset, offset + ITEMS_PER_PAGE - 1);
 
+    //,category.in.(${category.join(",")})`);
+    //  .range(offset, offset + ITEMS_PER_PAGE - 1);
+    console.log(transactions);
     return transactions;
   } catch (error) {
     console.error("Database Error:", error);
     throw new Error("Failed to fetch transactions data.");
+  }
+}
+
+export async function fetchCategories() {
+  try {
+    const data = await supabase.from("categories").select("*");
+
+    console.log(data, "data");
+    return data;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch revenue data.");
   }
 }
 
@@ -93,7 +108,7 @@ export async function fetchUniqueTransactions() {
   try {
     const { data, error } = await supabase
       .from("transactions")
-      .select("category", { distinct: true });
+      .select("category");
 
     if (error) throw error;
 
@@ -114,5 +129,18 @@ export async function fetchPots() {
   } catch (error) {
     console.error("Database Error:", error);
     throw new Error("Failed to fetch revenue data.");
+  }
+}
+
+export async function fetchRecurringBills() {
+  try {
+    const data = await supabase
+      .from("transactions")
+      .select("*")
+      .eq("recurring", "TRUE");
+    return data;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch recurring data.");
   }
 }
