@@ -19,7 +19,6 @@ export default function NavLinks() {
     fetchSidebarPages();
   }, []);
 
-  console.log(pages, "pages from nav-links.tsx");
   return (
     <>
       {pages?.map((link) => {
