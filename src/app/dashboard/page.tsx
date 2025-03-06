@@ -4,6 +4,7 @@ import {
   fetchPots,
   fetchUniqueTransactions,
   fetchRecurringBills,
+  fetchBudgets,
 } from "@/lib/data";
 import Image from "next/image";
 import Link from "next/link";
@@ -18,6 +19,8 @@ import {
 } from "@/components/ui/table";
 import { Card, CardContent } from "@/components/ui/card";
 import clsx from "clsx";
+import Chart from "../ui/budgets/chart";
+import { USDollar } from "@/lib/utils";
 
 export default async function Dashboard() {
   const balance = await fetchBalance();
@@ -26,6 +29,7 @@ export default async function Dashboard() {
   const recurringBills = await fetchUniqueTransactions();
   const uniqueArray = [...new Set(recurringBills.map((item) => item.category))];
   const rBills = await fetchRecurringBills();
+  const budgets = await fetchBudgets();
   // let uniqueBills = [...new Set(rBills.map((item) => item.category))];
 
   let potsTotal = 0;
@@ -41,15 +45,15 @@ export default async function Dashboard() {
               className="rounded p-4 justify-content flex flex-col bg-gray-900 text-white flex-1"
               key={Math.random()}
             >
-              <p>{item.expenses}$</p>
+              <p> {USDollar.format(item.expenses)}</p>
               <div className="text-2xl">dsadsa</div>
             </div>
           );
         })}
       </div>
 
-      <div className="grid grid-cols-3 gap-4">
-        <Card className="col-span-2">
+      <div className="grid grid-cols-3 grid-rows-3 gap-4">
+        <Card className="col-span-2 ">
           <CardContent>
             <div className="flex justify-between mb-3">
               <h2 className="text-xl text-grey-900 font-semibold font-public-sans">
@@ -63,7 +67,7 @@ export default async function Dashboard() {
               </Link>
             </div>
             <div className="flex justify-between flex-row gap-4 flex-row-reverse content-between">
-              <div className="grid grid-cols-2 mb-3 flex-1 content-between">
+              <div className="grid grid-cols-2 mb-3 flex-1 content-between ">
                 {pots.map((item, index) => {
                   {
                     potsTotal += item.total;
@@ -81,7 +85,7 @@ export default async function Dashboard() {
                           {item.name}{" "}
                         </span>
                         <div className="text-grey-900 font-bold font-public-sans ">
-                          $ {item.total}
+                          {USDollar.format(item.total)}
                         </div>
                       </div>
                     </div>
@@ -89,11 +93,21 @@ export default async function Dashboard() {
                 })}
               </div>
 
-              <div className="bg-beige-100 p-3 rounded-2xl flex flex-col w-full  flex-1">
-                <span className="text-gray-400">Total savings</span>
-                <span className="text-gray-900 font-extrabold font-public-sans text-4xl">
-                  $ {potsTotal}
-                </span>
+              <div className="bg-beige-100 p-3 rounded-2xl flex flex-col w-full  flex-1 items-center justify-center">
+                <div className="flex items-center justify-center content-center gap-3">
+                  <Image
+                    src="./assets/images/icon-pot.svg"
+                    alt={"Total saved icon"}
+                    width={40}
+                    height={40}
+                  />
+                  <div className="flex flex-col pl-3">
+                    <span className="text-gray-400 mb-3">Total savings</span>
+                    <span className="text-gray-900 font-extrabold font-public-sans text-4xl">
+                      $ {potsTotal}
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </CardContent>
@@ -103,10 +117,7 @@ export default async function Dashboard() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead
-                    className="w-[100px] font-public-sans text-black text-xl font-semibold"
-                    colSpan={2}
-                  >
+                  <TableHead className="w-[100px] font-public-sans text-black text-xl font-semibold">
                     Transactions
                   </TableHead>
 
@@ -120,7 +131,7 @@ export default async function Dashboard() {
                   if (index > 4) return;
                   return (
                     <TableRow key={Math.random()}>
-                      <TableCell className="w-auto">
+                      <TableCell className="w-auto flex items-center">
                         <Image
                           src={"/" + item.avatar}
                           alt={item.name}
@@ -128,8 +139,9 @@ export default async function Dashboard() {
                           width={40}
                           height={40}
                         />
+                        <span className="pl-2">{item.name}</span>
                       </TableCell>
-                      <TableCell className="text-left"> {item.name}</TableCell>
+
                       <TableCell className="text-right">
                         <div
                           className={clsx({
@@ -138,8 +150,8 @@ export default async function Dashboard() {
                             "font-semibold": true,
                           })}
                         >
-                          $ {item.amount > 0 ? "+" : ""}
-                          {item.amount}
+                          {item.amount > 0 ? "+" : ""}
+                          {USDollar.format(item.amount)}
                         </div>
                         <div>{item.date}</div>
                       </TableCell>
@@ -150,6 +162,9 @@ export default async function Dashboard() {
             </Table>
           </CardContent>
         </Card>
+        <div className="col-span-1">
+          <Chart dataProps={budgets} />
+        </div>
 
         {uniqueArray}
         {/* {uniqueArray.map((item, index) => {

@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import React, { useState } from "react";
 import { Modal } from "../modal";
+import { USDollar } from "@/lib/utils";
 
 export default function PotCard({
   category,
@@ -36,7 +37,7 @@ export default function PotCard({
           Total Saved
         </div>
         <div className="text-grey-900 font-bold text-3xl font-public-sans">
-          $ {total}
+          {USDollar.format(total)}
         </div>
       </div>
       <Progress value={progress} indicatorColor={category} />
@@ -45,7 +46,7 @@ export default function PotCard({
           {Math.round(progress * 100) / 100}%
         </div>
         <div className="text-grey-300 font-semibold font-public-sans">
-          Total savings of ${total}
+          Total savings of {USDollar.format(total)}
         </div>
       </div>
       <div className="flex gap-2 justify-between">

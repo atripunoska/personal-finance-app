@@ -1,44 +1,30 @@
 import {
   Table,
   TableBody,
-  TableRow,
   TableCell,
-  TableHeader,
   TableHead,
+  TableHeader,
+  TableRow,
 } from "@/components/ui/table";
-import Image from "next/image";
-import clsx from "clsx";
-
-import React from "react";
-import { fetchFilteredTransactions } from "@/lib/data";
+import { getPaymentsDueSoon } from "@/lib/data";
 import { USDollar } from "@/lib/utils";
+import clsx from "clsx";
+import Image from "next/image";
 
-export default async function TransactionsTable({
-  query,
-  currentPage,
-}: {
-  query: string;
-  currentPage: number;
-}) {
-  const transactions = await fetchFilteredTransactions(
-    query,
-    currentPage
-    //category
-  );
-
+export default async function RecurringBillsTable({ bills }) {
   return (
     <div>
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Recipient/Sender</TableHead>
-            <TableHead className="text-center">Category</TableHead>
-            <TableHead className="text-center">Transaction Date</TableHead>
+            <TableHead>Bill Title</TableHead>
+            <TableHead>Due Date</TableHead>
+
             <TableHead className="text-right">Amount</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {transactions.data?.map((item) => {
+          {bills?.map((item) => {
             return (
               <TableRow key={Math.random()}>
                 <TableCell>
@@ -56,15 +42,8 @@ export default async function TransactionsTable({
                   </div>
                 </TableCell>
 
-                <TableCell className="text-center">
-                  <div className="font-light text-muted-foreground">
-                    {item.category}
-                  </div>
-                </TableCell>
-                <TableCell className="text-center">
-                  <div className="font-light text-muted-foreground">
-                    {item.date}
-                  </div>
+                <TableCell>
+                  <div>{item.date}</div>
                 </TableCell>
                 <TableCell className="text-right">
                   <div
