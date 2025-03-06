@@ -1,67 +1,69 @@
 "use client";
-import React, { useEffect } from "react";
+import Image from "next/image";
+import React, { useEffect, useRef } from "react";
 
-interface Props {
-  open: boolean;
-  cancelFn?: () => void;
-  primaryFn?: () => void;
-  secondaryFn?: () => void;
-  closeIcon?: string;
-  content?: React.ReactNode;
-  titleContent?: React.ReactNode;
-  className?: string;
+interface ModalProps {
+  isOpen: boolean;
+  hasCloseBtn?: boolean;
+  onClose?: () => void;
+  title: string;
+  children?: React.ReactNode;
 }
 
-export const Modal: React.FC<Props> = (props) => {
-  const {
-    open,
-    cancelFn,
-    primaryFn,
-    secondaryFn,
-    closeIcon,
-    titleContent,
-    content,
-  } = props;
+export const Modal: React.FC<ModalProps> = (props) => {
+  const { isOpen, hasCloseBtn, onClose, title, children } = props;
+  const modalRef = useRef<HTMLDialogElement>(null);
 
   // simple useEffect to capture ESC key to close the modal
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && open) {
-        if (cancelFn) {
-          cancelFn();
-        }
-      }
-    };
+    // Grabbing a reference to the modal in question
+    const modalElement = modalRef.current;
+    if (!modalElement) return;
 
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [open, cancelFn]);
+    // Open modal when `isOpen` changes to true
+    if (isOpen) {
+      modalElement.showModal();
+    } else {
+      modalElement.close();
+    }
+  }, [isOpen]);
 
-  if (!open) return null;
+  const handleCloseModal = () => {
+    if (onClose) {
+      onClose();
+    }
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDialogElement>) => {
+    if (event.key === "Escape") {
+      handleCloseModal();
+    }
+  };
 
   return (
-    <div className="modalBackground">
-      <div className="modalContainer">
-        {titleContent && (
-          <div className="title">
-            {titleContent}
-            <div className="titleCloseBtn">
-              <button onClick={cancelFn}>{closeIcon ?? "X"}</button>
-            </div>
-          </div>
-        )}
-
-        <div className="body">{content}</div>
-
-        <div className="footer">
-          {secondaryFn && (
-            <button onClick={secondaryFn} id="cancelBtn">
-              Cancel
+    <dialog
+      id="modal"
+      className="flex self-center justify-self-center rounded-md"
+      ref={modalRef}
+      onKeyDown={handleKeyDown}
+    >
+      <div className="bg-white p-4 w-[600px] rounded-md ">
+        <div className="flex justify-between mb-4">
+          {title && <div className="font-bold text-3xl">{title}</div>}
+          {hasCloseBtn && (
+            <button onClick={handleCloseModal}>
+              <Image
+                src="/./assets/images/icon-close-modal.svg"
+                height={30}
+                width={30}
+                alt="Modal close icon"
+              />
             </button>
           )}
-          {primaryFn && <button onClick={primaryFn}>Continue</button>}
         </div>
+
+        <div className="font-light text-muted-foreground">{children}</div>
       </div>
-    </div>
+    </dialog>
   );
 };
