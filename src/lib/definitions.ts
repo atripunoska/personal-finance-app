@@ -18,3 +18,8 @@ export type User = {
   email: string;
   password: string;
 };
+export interface Pot {
+  name: string;
+  theme: string;
+  // Add other properties of Pot here
+}

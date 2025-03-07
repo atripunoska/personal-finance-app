@@ -3,6 +3,7 @@ import AddPotModal from "@/app/ui/pots/AddPotModal";
 import PotCard from "@/app/ui/pots/Card";
 import { Button } from "@/components/ui/button";
 import { fetchPots } from "@/lib/data";
+import { Pot } from "@/lib/definitions";
 
 import React, { useEffect, useState } from "react";
 
@@ -26,11 +27,11 @@ export default function PotsPage() {
     setModalOpen(false);
   };
 
-  const handleAddPot = (newPot: any) => {
+  const handleAddPot = (newPot: Pot) => {
     setPots([...pots, newPot]);
   };
 
-  let themes: string[] = [];
+  const themes: string[] = [];
 
   return (
     <div>
