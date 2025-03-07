@@ -2,6 +2,7 @@ import React, { ChangeEvent, useState } from "react";
 import { Modal } from "../modal";
 import { updatePot } from "@/lib/data";
 import { Button } from "@/components/ui/button";
+import { closest } from "color-2-name";
 
 const EditPotModal: React.FC<{
   onClose: () => void;
@@ -95,7 +96,7 @@ const EditPotModal: React.FC<{
           >
             {themes.map((item) => (
               <option value={item} key={(Math.random() * 25) / 2}>
-                {item}
+                {closest(item.toString()).name}
               </option>
             ))}
           </select>

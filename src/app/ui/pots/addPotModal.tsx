@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { createPortal } from "react-dom";
 import { Modal } from "../modal";
 import { addNewPot } from "@/lib/data";
+import { closest } from "color-2-name";
 
 export default function AddPotModal({
   onClose,
@@ -86,7 +87,7 @@ export default function AddPotModal({
           >
             {themes.map((item) => (
               <option value={item} key={(Math.random() * 25) / 2}>
-                {item}
+                {closest(item.toString()).name}
               </option>
             ))}
           </select>
