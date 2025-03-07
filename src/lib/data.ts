@@ -70,7 +70,7 @@ export async function fetchFilteredTransactions(
 
     //,category.in.(${category.join(",")})`);
     //  .range(offset, offset + ITEMS_PER_PAGE - 1);
-    console.log(transactions);
+
     return transactions;
   } catch (error) {
     console.error("Database Error:", error);
@@ -82,7 +82,6 @@ export async function fetchCategories() {
   try {
     const data = await supabase.from("categories").select("*");
 
-    console.log(data, "data");
     return data;
   } catch (error) {
     console.error("Database Error:", error);
@@ -218,16 +217,15 @@ export async function getPaymentsDueSoon() {
     // Step 3: Filter transactions due within five days of the latest transaction date
     const dueSoonTransactions = recurringTransactions.filter((transaction) => {
       const transactionDate = new Date(transaction.date);
-      console.log(transactionDate, "transactionDate");
+
       const timeDiff = Math.abs(
         transactionDate.getTime() - latestDate.getTime()
       );
 
       const dayDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
-      console.log(dayDiff, "dayDiff");
+
       return dayDiff <= 15;
     });
-    console.log(dueSoonTransactions, "xxxxx");
 
     return dueSoonTransactions;
   } catch (error) {
@@ -236,11 +234,13 @@ export async function getPaymentsDueSoon() {
   }
 }
 
-export async function addAmountToPot(amount: number, pot_id: string) {
+// POTS
+
+export async function addAmountToPot(pot_id: string, amount: number) {
   try {
-    const { data, error } = await supabase.rpc("add_amount_to_pot1", {
-      pot_name: pot_id,
-      total: amount,
+    const { data, error } = await supabase.rpc("add_amount_to_pot", {
+      pot_id: pot_id,
+      amount: amount,
     });
 
     if (error) throw error;
@@ -249,6 +249,22 @@ export async function addAmountToPot(amount: number, pot_id: string) {
   } catch (error) {
     console.error("Database Error:", error);
     throw new Error("Failed to add amount to pot.");
+  }
+}
+
+export async function withdrawAmountFromPot(potId: string, amount: number) {
+  try {
+    const { data, error } = await supabase.rpc("withdraw_amount_from_pot", {
+      pot_id: potId,
+      amount: amount,
+    });
+
+    if (error) throw error;
+
+    return data;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to withdraw amount from pot.");
   }
 }
 

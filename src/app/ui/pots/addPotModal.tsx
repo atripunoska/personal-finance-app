@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { createPortal } from "react-dom";
 import { Modal } from "../modal";
-import { addNewPot, fetchPots } from "@/lib/data"; // Import the function to add a new pot
+import { addNewPot } from "@/lib/data";
 
 export default function AddPotModal({
   onClose,
@@ -12,7 +12,7 @@ export default function AddPotModal({
 }: {
   onClose: () => void;
   hasCloseBtn: boolean;
-  onAddPot: (pot: any) => void;
+  onAddPot: (pot: { name: string; theme: string; target: number }) => void;
   themes: string[];
 }) {
   const [name, setName] = useState<string>("");
@@ -82,9 +82,10 @@ export default function AddPotModal({
             id="theme"
             value={theme}
             onChange={(e) => setTheme((e.target as HTMLSelectElement).value)}
+            className="border border-gray-300 rounded-md p-2"
           >
             {themes.map((item) => (
-              <option value={item} key={item}>
+              <option value={item} key={(Math.random() * 25) / 2}>
                 {item}
               </option>
             ))}

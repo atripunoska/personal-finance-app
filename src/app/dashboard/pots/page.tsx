@@ -1,6 +1,6 @@
 "use client";
-import AddPotModal from "@/app/ui/pots/addPotModal";
-import PotCard from "@/app/ui/pots/card";
+import AddPotModal from "@/app/ui/pots/AddPotModal";
+import PotCard from "@/app/ui/pots/Card";
 import { Button } from "@/components/ui/button";
 import { fetchPots } from "@/lib/data";
 
@@ -41,7 +41,7 @@ export default function PotsPage() {
       <div className="grid grid-cols-2 gap-3">
         {pots.map((pot) => {
           themes.push(pot.theme);
-          return <PotCard key={pot.name} {...pot} />;
+          return <PotCard key={pot.name} {...pot} potId={pot.name} />;
         })}
       </div>
       {isModalOpen && (
