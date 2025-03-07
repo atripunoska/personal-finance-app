@@ -1,13 +1,14 @@
 "use client";
-
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import React, { useState } from "react";
 import { addAmountToPot, withdrawAmountFromPot } from "@/lib/data";
 import { USDollar } from "@/lib/utils";
 import WithdrawMoneyModal from "./WithdrawMoneyModal";
-import AddMoneyModal from "./addMoneyModal";
+import AddMoneyModal from "./AddMoneyModal";
+import Dropdown from "./Dropdown";
+import { ModalType } from "@/lib/definitions";
 
 export default function PotCard({
   name,
@@ -23,34 +24,23 @@ export default function PotCard({
   potId: string;
 }>) {
   const progress = (total / target) * 100;
-  const [isAddMoneyModalOpen, setAddMoneyModalOpen] = useState<boolean>(false);
 
-  const [isWithdrawMoneyModalOpen, setWithdrawMoneyModalOpen] =
-    useState<boolean>(false);
-
+  const [modalType, setModalType] = useState<ModalType>(ModalType.NONE);
   const [potTotal, setPotTotal] = useState<number>(total);
 
-  const handleOpenAddMoneyModal = () => {
-    setAddMoneyModalOpen(true);
+  const handleOpenModal = (type: ModalType) => {
+    setModalType(type);
   };
 
-  const handleCloseAddMoneyModal = () => {
-    setAddMoneyModalOpen(false);
-  };
-
-  const handleOpenWithdrawMoneyModal = () => {
-    setWithdrawMoneyModalOpen(true);
-  };
-
-  const handleCloseWithdrawMoneyModal = () => {
-    setWithdrawMoneyModalOpen(false);
+  const handleCloseModal = () => {
+    setModalType(ModalType.NONE);
   };
 
   const handleAddMoney = async (amount: number) => {
     try {
       await addAmountToPot(potId, amount);
       setPotTotal(potTotal + amount);
-      handleCloseAddMoneyModal();
+      handleCloseModal();
     } catch (error) {
       console.error("Failed to add money to pot:", error);
     }
@@ -60,7 +50,7 @@ export default function PotCard({
     try {
       await withdrawAmountFromPot(potId, amount);
       setPotTotal(potTotal - amount);
-      handleCloseWithdrawMoneyModal();
+      handleCloseModal();
     } catch (error) {
       console.error("Failed to withdraw money from pot:", error);
     }
@@ -69,13 +59,18 @@ export default function PotCard({
   return (
     <Card className="p-4">
       <div className="flex gap-3 items-center">
-        <div
-          className="w-4 h-4 rounded-full flex"
-          style={{ backgroundColor: `${theme}` }}
-        ></div>
-        <h3 className="font-bold text-xl text-grey-900 font-public-sans">
-          {name}
-        </h3>
+        <div className="flex justify-between gap-2 w-full">
+          <div className="flex items-center gap-3">
+            <div
+              className="w-4 h-4 rounded-full flex"
+              style={{ backgroundColor: `${theme}` }}
+            ></div>
+            <h3 className="font-bold text-xl text-grey-900 font-public-sans">
+              {name}
+            </h3>
+          </div>
+          <Dropdown potId={name} target={target} initialTheme={theme} />
+        </div>
       </div>
       <div className="flex justify-between">
         <div className="text-grey-300 font-bold font-public-sans">
@@ -97,30 +92,30 @@ export default function PotCard({
       <div className="flex gap-2 justify-between">
         <Button
           className="font-bold font-public-sans text-grey-900 bg-grey-100 flex flex-grow border-2 border-grey-100 hover:bg-white hover:text-black hover:border-2"
-          onClick={handleOpenAddMoneyModal}
+          onClick={() => handleOpenModal(ModalType.ADD)}
         >
           + Add Money
         </Button>
 
         <Button
           className="font-bold font-public-sans text-grey-900 bg-grey-100 border-2 border-grey-100 flex flex-grow hover:bg-white hover:text-black hover:border-2"
-          onClick={handleOpenWithdrawMoneyModal}
+          onClick={() => handleOpenModal(ModalType.WITHDRAW)}
         >
           Withdraw
         </Button>
       </div>
 
-      {isAddMoneyModalOpen && (
+      {modalType === ModalType.ADD && (
         <AddMoneyModal
-          onClose={handleCloseAddMoneyModal}
+          onClose={handleCloseModal}
           hasCloseBtn={true}
           onAddMoney={handleAddMoney}
         />
       )}
 
-      {isWithdrawMoneyModalOpen && (
+      {modalType === ModalType.WITHDRAW && (
         <WithdrawMoneyModal
-          onClose={handleCloseWithdrawMoneyModal}
+          onClose={handleCloseModal}
           hasCloseBtn={true}
           onWithdrawMoney={handleWithdrawMoney}
         />

@@ -17,7 +17,7 @@ const AddMoneyModal: React.FC<{
     <Modal
       isOpen={true}
       onClose={onClose}
-      title="Add to savings"
+      title="Add Money"
       hasCloseBtn={hasCloseBtn}
     >
       {/* Modal content */}

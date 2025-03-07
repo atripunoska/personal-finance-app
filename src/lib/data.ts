@@ -224,7 +224,7 @@ export async function getPaymentsDueSoon() {
 
       const dayDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
-      return dayDiff <= 15;
+      return dayDiff <= 5;
     });
 
     return dueSoonTransactions;
@@ -280,5 +280,40 @@ export async function addNewPot(name: string, theme: string, target: number) {
   } catch (error) {
     console.error("Database Error:", error);
     throw new Error("Failed to add new pot.");
+  }
+}
+
+export async function deletePot(name: string) {
+  try {
+    const { data, error } = await supabase
+      .from("pots")
+      .delete()
+      .eq("name", name);
+
+    if (error) throw error;
+
+    return data;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to add new pot.");
+  }
+}
+
+export async function updatePot(
+  potId: string,
+  updates: { name: string; target: number; theme: string }
+) {
+  try {
+    const { data, error } = await supabase
+      .from("pots")
+      .update(updates)
+      .eq("name", potId);
+
+    if (error) throw error;
+
+    return data;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to update pot.");
   }
 }
