@@ -34,7 +34,6 @@ export default async function Dashboard() {
 
   let potsTotal = 0;
 
-  console.log(rBills, "rBills");
   return (
     <main>
       <h1 className="text-xl font-bold font-public-sans">Overview</h1>
