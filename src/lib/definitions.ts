@@ -38,3 +38,8 @@ export interface RecurringBillsTableProps {
   upcoming: Bill[];
   latestTransactionDate: Date;
 }
+
+export interface SearchBillsProps {
+  placeholder: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}

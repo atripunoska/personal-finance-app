@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Table,
   TableBody,
@@ -11,6 +13,8 @@ import { USDollar } from "@/lib/utils";
 import clsx from "clsx";
 import { format, getDate } from "date-fns";
 import Image from "next/image";
+import { useState } from "react";
+import SearchBills from "./SearchBills";
 
 export default function RecurringBillsTable({
   paid,
@@ -18,8 +22,29 @@ export default function RecurringBillsTable({
   latestTransactionDate,
 }: RecurringBillsTableProps) {
   const dueSoon = getDate(latestTransactionDate);
+
+  const [query, setQuery] = useState("");
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value.toLowerCase());
+  };
+
+  const filteredPaidBills = paid.filter((el) =>
+    el.name.toLowerCase().includes(query)
+  );
+
+  const filteredUpcomingBills = upcoming.filter((el) =>
+    el.name.toLowerCase().includes(query)
+  );
   return (
-    <div className="bg-white text-grey-900 p-6 rounded-md flex">
+    <div className="bg-white text-grey-900 p-6 rounded-md">
+      <div className="flex justify-content">
+        <SearchBills
+          placeholder={"Search bills"}
+          onChange={handleSearchChange}
+        />
+      </div>
+
       <Table>
         <TableHeader>
           <TableRow>
@@ -29,7 +54,7 @@ export default function RecurringBillsTable({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {paid?.map((item) => {
+          {filteredPaidBills?.map((item) => {
             return (
               <TableRow key={item.name}>
                 <TableCell>
@@ -68,7 +93,7 @@ export default function RecurringBillsTable({
             );
           })}
 
-          {upcoming?.map((item) => {
+          {filteredUpcomingBills?.map((item) => {
             return (
               <TableRow key={item.name}>
                 <TableCell>
