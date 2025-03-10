@@ -119,19 +119,6 @@ export async function fetchUniqueTransactions() {
   }
 }
 
-export async function fetchPots() {
-  try {
-    const { data, error } = await supabase.from("pots").select("*");
-
-    if (error) throw error;
-
-    return data;
-  } catch (error) {
-    console.error("Database Error:", error);
-    throw new Error("Failed to fetch revenue data.");
-  }
-}
-
 export async function fetchRecurringBillCategories() {
   try {
     const { data, error } = await supabase
@@ -149,22 +136,14 @@ export async function fetchRecurringBillCategories() {
   }
 }
 
+//RECURRING BILLS
+
 export async function fetchRecurringBills() {
   try {
     const data = await supabase
       .from("transactions")
       .select("*")
-      .eq("recurring", "TRUE");
-    return data;
-  } catch (error) {
-    console.error("Database Error:", error);
-    throw new Error("Failed to fetch recurring data.");
-  }
-}
-
-export async function fetchTotalBills() {
-  try {
-    const data = await supabase.from("transactions").select("amount");
+      .eq("recurring", true);
 
     return data;
   } catch (error) {
@@ -186,6 +165,37 @@ export async function fetchTotalAmountByCategory() {
   } catch (error) {
     console.error("Database Error:", error);
     throw new Error("Failed to fetch total amount by category.");
+  }
+}
+
+export async function getLatestTransaction() {
+  try {
+    const { data: latestTransaction, error: latestError } = await supabase
+      .from("transactions")
+      .select("date")
+      .order("date", { ascending: false })
+      .limit(1)
+      .single();
+    if (latestError) throw latestError;
+    return latestTransaction;
+  } catch (error) {
+    console.error("Error fetching payments due soon:", error);
+    throw error;
+  }
+}
+export async function getOldestTransaction() {
+  try {
+    const { data: latestTransaction, error: latestError } = await supabase
+      .from("transactions")
+      .select("date")
+      .order("date", { ascending: true })
+      .limit(1)
+      .single();
+    if (latestError) throw latestError;
+    return latestTransaction;
+  } catch (error) {
+    console.error("Error fetching payments due soon:", error);
+    throw error;
   }
 }
 
@@ -214,6 +224,8 @@ export async function getPaymentsDueSoon() {
 
     if (recurringError) throw recurringError;
 
+    console.log(recurringTransactions, "recc");
+
     // Step 3: Filter transactions due within five days of the latest transaction date
     const dueSoonTransactions = recurringTransactions.filter((transaction) => {
       const transactionDate = new Date(transaction.date);
@@ -235,6 +247,19 @@ export async function getPaymentsDueSoon() {
 }
 
 // POTS
+
+export async function fetchPots() {
+  try {
+    const { data, error } = await supabase.from("pots").select("*");
+
+    if (error) throw error;
+
+    return data;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch revenue data.");
+  }
+}
 
 export async function addAmountToPot(pot_id: string, amount: number) {
   try {
