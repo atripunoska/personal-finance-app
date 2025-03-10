@@ -15,6 +15,7 @@ import { format, getDate } from "date-fns";
 import Image from "next/image";
 import { useState } from "react";
 import SearchBills from "./SearchBills";
+import SortBills from "./SortBills";
 
 export default function RecurringBillsTable({
   paid,
@@ -24,25 +25,48 @@ export default function RecurringBillsTable({
   const dueSoon = getDate(latestTransactionDate);
 
   const [query, setQuery] = useState("");
+  const [sortBy, setSortBy] = useState("latest");
 
+  const filteredAllBills = paid.concat(upcoming);
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value.toLowerCase());
   };
 
-  const filteredPaidBills = paid.filter((el) =>
-    el.name.toLowerCase().includes(query)
+  const handleSortChange = (sortBy: string) => {
+    setSortBy(sortBy);
+  };
+
+  const sortBills = (bills: any[]) => {
+    return bills.sort((a, b) => {
+      if (sortBy === "aToZ") {
+        return a.name.localeCompare(b.name);
+      } else if (sortBy === "zToA") {
+        return b.name.localeCompare(a.name);
+      } else if (sortBy === "latest") {
+        return new Date(a.date).getTime() - new Date(b.date).getTime();
+      } else if (sortBy === "oldest") {
+        return new Date(b.date).getTime() - new Date(a.date).getTime();
+      } else if (sortBy === "highest") {
+        return a.amount - b.amount;
+      } else if (sortBy === "lowest") {
+        return b.amount - a.amount;
+      }
+      return 0;
+    });
+  };
+
+  const filteredBills = sortBills(
+    filteredAllBills.filter((el) => el.name.toLowerCase().includes(query))
   );
 
-  const filteredUpcomingBills = upcoming.filter((el) =>
-    el.name.toLowerCase().includes(query)
-  );
   return (
     <div className="bg-white text-grey-900 p-6 rounded-md">
-      <div className="flex justify-content">
+      <div className="flex justify-between mb-4">
         <SearchBills
           placeholder={"Search bills"}
           onChange={handleSearchChange}
         />
+        <SortBills onSortChange={handleSortChange} />
       </div>
 
       <Table>
@@ -54,7 +78,7 @@ export default function RecurringBillsTable({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {filteredPaidBills?.map((item) => {
+          {filteredBills?.map((item) => {
             return (
               <TableRow key={item.name}>
                 <TableCell>
@@ -72,75 +96,52 @@ export default function RecurringBillsTable({
                   </div>
                 </TableCell>
                 <TableCell>
-                  <div className="text-green flex items-center ">
+                  <div
+                    className={clsx({
+                      " flex items-center ": true,
+                      "text-green": getDate(item.date) < dueSoon,
+                      "text-red-700 ":
+                        getDate(item.date) > dueSoon &&
+                        getDate(item.date) < dueSoon + 5,
+                    })}
+                  >
                     <span className="mr-2">
                       Monthly - {format(item.date, "do")}
                     </span>
-                    <Image
-                      src="/./assets/images/icon-bill-paid.svg"
-                      alt="Icon Bill Paid"
-                      width={18}
-                      height={18}
-                    />
+                    {getDate(item.date) > dueSoon &&
+                      getDate(item.date) < dueSoon + 5 && (
+                        <Image
+                          src="/./assets/images/icon-bill-due.svg"
+                          alt="Icon Bill Due"
+                          width={18}
+                          height={18}
+                        />
+                      )}
+
+                    {getDate(item.date) < dueSoon && (
+                      <Image
+                        src="/./assets/images/icon-bill-paid.svg"
+                        alt="Icon Bill Paid"
+                        width={18}
+                        height={18}
+                      />
+                    )}
                   </div>
                 </TableCell>
                 <TableCell className="text-right">
                   <div className="font-bold">
-                    {USDollar.format(Math.abs(item.amount))}
-                  </div>
-                </TableCell>
-              </TableRow>
-            );
-          })}
-
-          {filteredUpcomingBills?.map((item) => {
-            return (
-              <TableRow key={item.name}>
-                <TableCell>
-                  <div className="flex gap-2 items-center">
-                    <Image
-                      src={"/" + item.avatar}
-                      alt={item.name}
-                      className="rounded size-[40px] rounded-full"
-                      width={40}
-                      height={40}
-                    />
-                    <div className="pl-2 font-semibold font-public-sans">
-                      {item.name}
+                    <div
+                      className={
+                        clsx({
+                          " flex items-center ": true,
+                          "text-red-700 ":
+                            getDate(item.date) > dueSoon &&
+                            getDate(item.date) < dueSoon + 5,
+                        }) + `font-bold`
+                      }
+                    >
+                      {USDollar.format(Math.abs(item.amount))}
                     </div>
-                  </div>
-                </TableCell>
-                <TableCell>
-                  {getDate(item.date) > dueSoon &&
-                  getDate(item.date) < dueSoon + 5 ? (
-                    <div className="flex items-center">
-                      <span className="mr-2">
-                        Monthly - {format(item.date, "do")}{" "}
-                      </span>
-                      <Image
-                        src="/./assets/images/icon-bill-due.svg"
-                        alt="Icon Bill Due"
-                        width={18}
-                        height={18}
-                      />
-                    </div>
-                  ) : (
-                    <div className="text-grey-600">
-                      Monthly - {format(item.date, "do")}
-                    </div>
-                  )}
-                </TableCell>
-                <TableCell className="text-right">
-                  <div
-                    className={
-                      clsx({
-                        "text-red-700 ":
-                          getDate(item.date) > dueSoon &&
-                          getDate(item.date) < dueSoon + 5,
-                      }) + `font-bold`
-                    }
-                  >
-                    {USDollar.format(Math.abs(item.amount))}
                   </div>
                 </TableCell>
               </TableRow>

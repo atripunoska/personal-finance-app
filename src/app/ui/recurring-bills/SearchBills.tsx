@@ -10,7 +10,7 @@ export default function SearchBills({
       type="text"
       placeholder={placeholder}
       onChange={onChange}
-      className="border border-gray-300 rounded-md p-2 w-full"
+      className="border border-gray-300 rounded-md p-2 w-auto"
     />
   );
 }

@@ -43,3 +43,7 @@ export interface SearchBillsProps {
   placeholder: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
+
+export interface SortBillsProps {
+  onSortChange: (sortBy: string) => void;
+}
