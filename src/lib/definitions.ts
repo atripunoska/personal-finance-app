@@ -25,3 +25,16 @@ export interface Pot {
   total: number;
   // Add other properties of Pot here
 }
+
+export interface Bill {
+  name: string;
+  avatar: string;
+  date: Date;
+  amount: number;
+}
+
+export interface RecurringBillsTableProps {
+  paid: Bill[];
+  upcoming: Bill[];
+  latestTransactionDate: Date;
+}
