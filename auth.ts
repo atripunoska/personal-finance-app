@@ -14,7 +14,7 @@ async function getUser(email: string): Promise<User | undefined> {
       .from("transactions")
       .select("*")
       .like("email", `%${email}%`);
-    return user[0];
+    return user.data ? user.data[0] : undefined;
   } catch (error) {
     console.error("Failed to fetch user:", error);
     throw new Error("Failed to fetch user.");
