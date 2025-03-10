@@ -33,7 +33,6 @@ export default async function Transactions(props: {
   const categories = [...new Set(recurringBills.map((item) => item.category))];
   const allCategories = await fetchCategories();
 
-  console.log(allCategories, "categoris in page.tsx");
   // const [filterCategory, setFilterCategory] = useState("");
   return (
     <main>
