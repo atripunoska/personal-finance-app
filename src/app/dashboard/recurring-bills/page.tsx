@@ -1,37 +1,24 @@
 import RecurringBillsTable from "@/app/ui/recurring-bills/RecurringBillsTable";
-import {
-  fetchRecurringBills,
-  fetchTotalBills,
-  getLatestTransaction,
-} from "@/lib/data";
-import { USDollar } from "@/lib/utils";
+import SummaryCard from "@/app/ui/recurring-bills/SummaryCard";
+import TotalBillsCard from "@/app/ui/recurring-bills/TotalBillsCard";
+import { fetchRecurringBills, getLatestTransaction } from "@/lib/data";
 import { getDate } from "date-fns";
-import Image from "next/image";
 import React from "react";
 
 export default async function RecurringBills() {
   const recurringBills = await fetchRecurringBills();
   const latestTransaction = await getLatestTransaction();
 
-  let totalAmount = 0;
   let totalAmountPaid = 0;
   let totalAmountUpcoming = 0;
-
-  if (recurringBills.data) {
-    totalAmount = recurringBills.data.reduce(
-      (acc, transaction) => acc + transaction.amount,
-      0
-    );
-  } else {
-    console.error("Failed to fetch total bills:", recurringBills.error);
-  }
+  let totalAmountDue = 0;
 
   // Filter out duplicate items with the same name
   const uniqueRecurringBills = recurringBills.data?.filter(
     (item, index, self) => index === self.findIndex((t) => t.name === item.name)
   );
   const latestTransactionDate = new Date(latestTransaction.date);
-
+  const dueSoon = getDate(latestTransactionDate);
   // Separate paid and due soon transactions
   const paidTransactions = uniqueRecurringBills?.filter(
     (item) =>
@@ -39,64 +26,68 @@ export default async function RecurringBills() {
       new Date(item.date) > new Date("2024-08-01")
   );
 
-  const paidTransactionsTotalAmount = uniqueRecurringBills?.filter((item) => {
+  uniqueRecurringBills?.forEach((item) => {
     const itemDate = new Date(item.date);
     if (
       itemDate <= latestTransactionDate &&
       itemDate > new Date("2024-08-01")
     ) {
       totalAmountPaid += item.amount;
-      return true;
     }
-    return false;
   });
+
   const upcomingTransactions = uniqueRecurringBills?.filter((item) => {
     const itemDate = new Date(item.date);
-    totalAmountUpcoming = totalAmountUpcoming + item.amount;
+    if (getDate(itemDate) > getDate(latestTransactionDate))
+      totalAmountUpcoming = totalAmountUpcoming + item.amount;
     return getDate(itemDate) > getDate(latestTransactionDate);
   });
 
-  const totalPaid = paidTransactions?.length;
-  const totalUpcoming = upcomingTransactions?.length;
-  console.log(totalAmountPaid, "totalAmountPaid");
+  const dueSoonTransaction = uniqueRecurringBills?.filter((item) => {
+    const itemDate = new Date(item.date);
+
+    if (getDate(itemDate) > getDate(latestTransactionDate)) {
+      if (getDate(item.date) > dueSoon && getDate(item.date) < dueSoon + 5) {
+        totalAmountDue = totalAmountDue + item.amount;
+      }
+    }
+
+    return getDate(item.date) > dueSoon && getDate(item.date) < dueSoon + 5;
+  });
+
+  const totalPaid = paidTransactions?.length ?? 0;
+  const totalUpcoming = upcomingTransactions?.length ?? 0;
+  const totalDue = dueSoonTransaction?.length ?? 0;
+  const totalAmount =
+    totalAmountPaid && totalAmountUpcoming && totalAmountDue
+      ? totalAmountPaid + totalAmountUpcoming + totalAmountDue
+      : 0;
 
   return (
     <main>
       <h2 className="font-public-sans font-bold text-2xl mb-3">
         Recurring Bills
       </h2>
-      <div className="bg-grey-900 text-white p-4 rounded-md flex flex-col gap-3">
-        <Image
-          src="/./assets/images/icon-recurring-bills.svg"
-          width={30}
-          height={30}
-          alt="Recurring Bills icon"
-          className="mb-6"
-        />
-        <div className="font-light mb-3">Total Bills</div>
-        <span className="font-bold text-2xl">
-          {USDollar.format(Math.abs(totalAmount))}
-        </span>
-      </div>
-      <div className="bg-white text-grey-900 p-4 rounded-md flex flex-col mt-3">
-        <h4>Summary</h4>
-        <div className="flex justify-between">
-          <div>Paid Bills</div>{" "}
-          <div>
-            {totalPaid} ({USDollar.format(Math.abs(totalAmountPaid))})
-          </div>
-          <div>Total Upcoming</div>{" "}
-          <div>
-            {totalUpcoming} ({USDollar.format(Math.abs(totalAmountUpcoming))})
-          </div>
-          <div>Due soon</div> <div>{totalUpcoming}</div>
+      <div className="grid grid-cols-3 gap-3">
+        <div className="col-span-3 lg:col-span-1">
+          <TotalBillsCard totalAmount={totalAmount} />
+          <SummaryCard
+            totalPaid={totalPaid}
+            totalAmountPaid={totalAmountPaid}
+            totalUpcoming={totalUpcoming}
+            totalAmountUpcoming={totalAmountUpcoming}
+            totalDue={totalDue}
+            totalAmountDue={totalAmountDue}
+          />
+        </div>
+        <div className="col-span-3 lg:col-span-2">
+          <RecurringBillsTable
+            paid={paidTransactions ?? []}
+            upcoming={upcomingTransactions ?? []}
+            latestTransactionDate={latestTransactionDate}
+          />
         </div>
       </div>
-      <RecurringBillsTable
-        paid={paidTransactions}
-        upcoming={upcomingTransactions}
-        latestTransactionDate={latestTransactionDate}
-      />
     </main>
   );
 }
