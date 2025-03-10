@@ -8,7 +8,7 @@ import { Pot } from "@/lib/definitions";
 import React, { useEffect, useState } from "react";
 
 export default function PotsPage() {
-  const [pots, setPots] = useState<any[]>([]);
+  const [pots, setPots] = useState<Pot[]>([]);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
   useEffect(() => {

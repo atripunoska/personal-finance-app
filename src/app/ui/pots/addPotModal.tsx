@@ -4,6 +4,7 @@ import { createPortal } from "react-dom";
 import { Modal } from "../modal";
 import { addNewPot } from "@/lib/data";
 import { closest } from "color-2-name";
+import { Pot } from "@/lib/definitions";
 
 export default function AddPotModal({
   onClose,
@@ -13,7 +14,7 @@ export default function AddPotModal({
 }: {
   onClose: () => void;
   hasCloseBtn: boolean;
-  onAddPot: (pot: { name: string; theme: string; target: number }) => void;
+  onAddPot: (pot: Pot) => void;
   themes: string[];
 }) {
   const [name, setName] = useState<string>("");

@@ -21,5 +21,7 @@ export type User = {
 export interface Pot {
   name: string;
   theme: string;
+  target: number;
+  total: number;
   // Add other properties of Pot here
 }
