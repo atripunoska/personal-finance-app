@@ -6,6 +6,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { RecurringBillsTableProps } from "@/lib/definitions";
 import { USDollar } from "@/lib/utils";
 import clsx from "clsx";
 import { format, getDate } from "date-fns";
@@ -15,10 +16,10 @@ export default function RecurringBillsTable({
   paid,
   upcoming,
   latestTransactionDate,
-}) {
+}: RecurringBillsTableProps) {
   const dueSoon = getDate(latestTransactionDate);
   return (
-    <div>
+    <div className="bg-white text-grey-900 p-6 rounded-md flex">
       <Table>
         <TableHeader>
           <TableRow>
@@ -30,7 +31,7 @@ export default function RecurringBillsTable({
         <TableBody>
           {paid?.map((item) => {
             return (
-              <TableRow key={item.id}>
+              <TableRow key={item.name}>
                 <TableCell>
                   <div className="flex gap-2 items-center">
                     <Image
@@ -46,19 +47,20 @@ export default function RecurringBillsTable({
                   </div>
                 </TableCell>
                 <TableCell>
-                  <div className="text-green-600">
-                    Monthly - {format(item.date, "do")}
+                  <div className="text-green flex items-center ">
+                    <span className="mr-2">
+                      Monthly - {format(item.date, "do")}
+                    </span>
+                    <Image
+                      src="/./assets/images/icon-bill-paid.svg"
+                      alt="Icon Bill Paid"
+                      width={18}
+                      height={18}
+                    />
                   </div>
                 </TableCell>
                 <TableCell className="text-right">
-                  <div
-                    className={clsx({
-                      "text-gray-900": item.amount < 0,
-                      "text-green-900": item.amount > 0,
-                      "font-semibold": true,
-                    })}
-                  >
-                    {item.amount > 0 ? "+" : ""}
+                  <div className="font-bold">
                     {USDollar.format(Math.abs(item.amount))}
                   </div>
                 </TableCell>
@@ -68,7 +70,7 @@ export default function RecurringBillsTable({
 
           {upcoming?.map((item) => {
             return (
-              <TableRow key={item.id}>
+              <TableRow key={item.name}>
                 <TableCell>
                   <div className="flex gap-2 items-center">
                     <Image
@@ -86,8 +88,16 @@ export default function RecurringBillsTable({
                 <TableCell>
                   {getDate(item.date) > dueSoon &&
                   getDate(item.date) < dueSoon + 5 ? (
-                    <div className="text-red-600">
-                      Monthly - {format(item.date, "do")}
+                    <div className="flex items-center">
+                      <span className="mr-2">
+                        Monthly - {format(item.date, "do")}{" "}
+                      </span>
+                      <Image
+                        src="/./assets/images/icon-bill-due.svg"
+                        alt="Icon Bill Due"
+                        width={18}
+                        height={18}
+                      />
                     </div>
                   ) : (
                     <div className="text-grey-600">
@@ -97,13 +107,14 @@ export default function RecurringBillsTable({
                 </TableCell>
                 <TableCell className="text-right">
                   <div
-                    className={clsx({
-                      "text-gray-900": item.amount < 0,
-                      "text-green-900": item.amount > 0,
-                      "font-semibold": true,
-                    })}
+                    className={
+                      clsx({
+                        "text-red-700 ":
+                          getDate(item.date) > dueSoon &&
+                          getDate(item.date) < dueSoon + 5,
+                      }) + `font-bold`
+                    }
                   >
-                    {item.amount > 0 ? "+" : ""}
                     {USDollar.format(Math.abs(item.amount))}
                   </div>
                 </TableCell>
