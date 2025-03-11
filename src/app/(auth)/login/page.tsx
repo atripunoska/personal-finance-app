@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
-import LoginForm from "../ui/login-form";
+
 import Image from "next/image";
+import LoginForm from "@/app/ui/login-form";
 
 export default function Login() {
   return (
