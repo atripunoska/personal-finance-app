@@ -1,5 +1,4 @@
 import { createClient } from "@/utils/supabase/client";
-import { time } from "console";
 
 const supabase = createClient();
 export async function fetchPages() {
@@ -14,6 +13,8 @@ export async function fetchPages() {
     throw new Error("Failed to fetch revenue data.");
   }
 }
+
+//BUDGETS
 
 export async function fetchBudgets() {
   try {
@@ -68,9 +69,6 @@ export async function fetchFilteredTransactions(
       .ilike("name", `%${query}%`)
       .range(offset, offset + ITEMS_PER_PAGE - 1);
 
-    //,category.in.(${category.join(",")})`);
-    //  .range(offset, offset + ITEMS_PER_PAGE - 1);
-
     return transactions;
   } catch (error) {
     console.error("Database Error:", error);
@@ -80,12 +78,28 @@ export async function fetchFilteredTransactions(
 
 export async function fetchCategories() {
   try {
-    const data = await supabase.from("categories").select("*");
+    const data = await supabase.from("transactions").select("category, amount");
 
     return data;
   } catch (error) {
     console.error("Database Error:", error);
     throw new Error("Failed to fetch revenue data.");
+  }
+}
+
+export async function fetchTransactionsByCategory(query: string) {
+  try {
+    const data = await supabase
+      .from("transactions")
+      .select("*")
+      .ilike("category", `%${query}%`)
+      .order("date", { ascending: false })
+      .limit(3);
+    console.log(data, "data");
+    return data;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch categories data.");
   }
 }
 
@@ -157,7 +171,8 @@ export async function fetchTotalAmountByCategory() {
     const { data, error } = await supabase
       .from("transactions")
       .select("category, amount")
-      .eq("recurring", true);
+      .gte("date", "2024-08-01")
+      .lte("date", "2024-08-31");
 
     if (error) throw error;
 
