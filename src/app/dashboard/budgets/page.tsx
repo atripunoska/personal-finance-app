@@ -67,8 +67,8 @@ export default function Budget() {
         )}
       </div>
 
-      <div className="grid grid-cols-3 gap-3">
-        <div className="col-start-1 col-end-1">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
+        <div className="lg:col-start-1 lg:col-end-1">
           <Card>
             <CardContent>
               <Chart
@@ -78,7 +78,7 @@ export default function Budget() {
             </CardContent>
           </Card>
         </div>
-        <div className="col-span-2 gap-3 flex flex-col">
+        <div className="lg:col-span-2 gap-3 flex flex-col">
           {budgets.map((item) => {
             progress =
               (totalAmountByCategory[item.category] / item.maximum) * 100;

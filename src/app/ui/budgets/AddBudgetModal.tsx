@@ -78,7 +78,7 @@ export default function AddBudgetModal({
           id="category"
           value={category}
           onChange={handleSetCategory}
-          className="border border-gray-300 rounded-md p-2"
+          className="border border-gray-300 rounded-md p-2 w-full"
         >
           {allCategories.map((cat) => {
             return (
