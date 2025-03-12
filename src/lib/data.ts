@@ -1,6 +1,7 @@
 import { createClient } from "@/utils/supabase/client";
 
 const supabase = createClient();
+
 export async function fetchPages() {
   try {
     const { data, error } = await supabase.from("pages").select("*");
@@ -14,7 +15,22 @@ export async function fetchPages() {
   }
 }
 
-//BUDGETS
+// OVERVIEW PAGE
+
+export async function fetchBalance() {
+  try {
+    const { data, error } = await supabase.from("balance").select("*");
+
+    if (error) throw error;
+
+    return data;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch revenue data.");
+  }
+}
+
+// BUDGETS
 
 export async function fetchBudgets() {
   try {
@@ -79,19 +95,6 @@ export async function addNewBudget(
   } catch (error) {
     console.error("Database Error:", error);
     throw new Error("Failed to add new budget.");
-  }
-}
-
-export async function fetchBalance() {
-  try {
-    const { data, error } = await supabase.from("balance").select("*");
-
-    if (error) throw error;
-
-    return data;
-  } catch (error) {
-    console.error("Database Error:", error);
-    throw new Error("Failed to fetch revenue data.");
   }
 }
 
@@ -251,6 +254,7 @@ export async function getLatestTransaction() {
     throw error;
   }
 }
+
 export async function getOldestTransaction() {
   try {
     const { data: latestTransaction, error: latestError } = await supabase

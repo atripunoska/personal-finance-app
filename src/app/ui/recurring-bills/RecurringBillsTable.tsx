@@ -61,7 +61,7 @@ export default function RecurringBillsTable({
 
   return (
     <div className="bg-white text-grey-900 p-6 rounded-md">
-      <div className="flex justify-between mb-4">
+      <div className="flex flex-col lg:flex-row lg:justify-between mb-4 gap-2">
         <SearchBills
           placeholder={"Search bills"}
           onChange={handleSearchChange}

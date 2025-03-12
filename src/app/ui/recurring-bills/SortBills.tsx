@@ -11,12 +11,12 @@ import React from "react";
 export default function SortBills({ onSortChange }: SortBillsProps) {
   return (
     <div className="flex gap-2 items-center">
-      <label>Sort</label>
+      <label htmlFor="sort">Sort</label>
       <Select onValueChange={onSortChange}>
-        <SelectTrigger className="w-[180px]">
+        <SelectTrigger className="w-full lg:w-[180px]">
           <SelectValue placeholder="Latest" />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent id="sort">
           <SelectItem value="latest">Latest</SelectItem>
           <SelectItem value="oldest">Oldest</SelectItem>
           <SelectItem value="aToZ">A to Z</SelectItem>
