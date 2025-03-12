@@ -23,6 +23,21 @@ export interface BalanceCardProps {
   amount: number;
 }
 
+interface Transaction {
+  avatar: string;
+  name: string;
+  amount: number;
+  date: string;
+}
+
+export interface TransactionsTableWidgetProps {
+  transactions: Transaction[];
+}
+
+export interface PotsWidgetProps {
+  pots: Pot[];
+}
+
 export type Pages = {
   name: string;
   path: string;
