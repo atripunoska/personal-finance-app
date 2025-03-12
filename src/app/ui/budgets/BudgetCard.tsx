@@ -5,6 +5,8 @@ import { USDollar } from "@/lib/utils";
 import React, { useEffect, useState } from "react";
 import BudgetCardTable from "./BudgetCardTable";
 import { fetchTransactionsByCategory } from "@/lib/data";
+import BudgetCardButton from "./BudgetCardButton";
+import { THEMES } from "@/lib/definitions";
 
 export default function BudgetCard({
   category,
@@ -12,6 +14,7 @@ export default function BudgetCard({
   maximum,
   value,
   amountSpend,
+  categories,
 }) {
   const [transactions, setTransactions] = useState<any[]>([]);
 
@@ -26,12 +29,20 @@ export default function BudgetCard({
   return (
     <Card className="bg-white p-3">
       <CardContent>
-        <div className="flex items-center">
-          <span
-            className="rounded-full h-4 w-4 mr-3 flex"
-            style={{ backgroundColor: theme }}
-          ></span>{" "}
-          <h3 className="font-bold text-lg">{category}</h3>
+        <div className="flex justify-between">
+          <div className="flex items-center">
+            <span
+              className="rounded-full h-4 w-4 mr-3 flex"
+              style={{ backgroundColor: theme }}
+            ></span>{" "}
+            <h3 className="font-bold text-lg">{category}</h3>
+          </div>
+          <BudgetCardButton
+            category={category}
+            initialTheme={theme}
+            maximumAmount={maximum}
+            categories={categories}
+          />
         </div>
         <p className="text-muted-foreground text-sm mt-4 mb-3">
           Maximum of {USDollar.format(maximum)}

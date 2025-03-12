@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,23 +6,19 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
-import { ModalType } from "@/lib/definitions";
-import DeletePotModal from "./DeletePotModal";
-import { deletePot, fetchPots } from "@/lib/data";
-import EditPotModal from "./EditPotModal";
+import { ModalType, THEMES } from "@/lib/definitions";
+import React, { useState } from "react";
+import DeleteBudgetModal from "./DeleteBudgetModal";
+import { deleteBudget } from "@/lib/data";
+import EditBudgetModal from "./EditBudgetModal";
 
-export default function Dropdown({
-  potId,
-  target,
+export default function BudgetCardButton({
+  category,
   initialTheme,
-}: {
-  potId: string;
-  target: number;
-  initialTheme: string;
+  maximumAmount,
+  categories,
 }) {
   const [modalType, setModalType] = useState<ModalType>(ModalType.NONE);
-  const [themes, setThemes] = useState<string[]>([]);
 
   const handleOpenModal = (type: ModalType) => {
     setModalType(type);
@@ -32,28 +28,14 @@ export default function Dropdown({
     setModalType(ModalType.NONE);
   };
 
-  const handleDeleteModal = async (potId: string) => {
+  const handleDeleteModal = async (category: string) => {
     try {
-      await deletePot(potId);
+      await deleteBudget(category);
       handleCloseModal();
     } catch (error) {
       console.error("Failed to add money to pot:", error);
     }
   };
-
-  const getThemes = async () => {
-    try {
-      const pots = await fetchPots();
-      const potThemes = pots.map((p) => p.theme);
-      setThemes(potThemes);
-    } catch (error) {
-      console.log("Failed to fetch pots.", error);
-    }
-  };
-
-  useEffect(() => {
-    getThemes();
-  }, []);
 
   return (
     <>
@@ -65,33 +47,34 @@ export default function Dropdown({
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-20">
           <DropdownMenuItem onClick={() => handleOpenModal(ModalType.EDIT)}>
-            Edit Pot
+            Edit Budget
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => handleOpenModal(ModalType.DELETE)}>
-            Delete Pot
+            Delete Budget
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
 
       {modalType === ModalType.DELETE && (
-        <DeletePotModal
+        <DeleteBudgetModal
           onClose={handleCloseModal}
           hasCloseBtn={true}
-          onDeletePot={() => handleDeleteModal(potId)}
-          potId={potId}
+          onDeleteBudget={() => handleDeleteModal(category)}
+          budgetId={category}
         />
       )}
 
       {modalType === ModalType.EDIT && (
-        <EditPotModal
+        <EditBudgetModal
           onClose={handleCloseModal}
           hasCloseBtn={true}
-          potId={potId}
-          target={target}
+          categoryId={category}
           initialTheme={initialTheme}
-          initialName={potId}
-          themes={themes}
+          allThemes={THEMES}
+          maximumAmount={maximumAmount}
+          categories={categories}
+          potId={""}
         />
       )}
     </>

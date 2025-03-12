@@ -34,7 +34,7 @@ export default function LoginForm() {
       <Button formAction={login}>Log in</Button>
       <p className="text-center text-gray-500">
         Need to create an account?{" "}
-        <Link href="/signup" className="text-black underline font-bold">
+        <Link href="/register" className="text-black underline font-bold">
           Sign up
         </Link>
       </p>

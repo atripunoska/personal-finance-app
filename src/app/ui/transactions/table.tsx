@@ -12,6 +12,7 @@ import clsx from "clsx";
 import React from "react";
 import { fetchFilteredTransactions } from "@/lib/data";
 import { USDollar } from "@/lib/utils";
+import SortBills from "../recurring-bills/SortBills";
 
 export default async function TransactionsTable({
   query,

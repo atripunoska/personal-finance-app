@@ -29,6 +29,59 @@ export async function fetchBudgets() {
   }
 }
 
+export async function deleteBudget(category: string) {
+  try {
+    const { data, error } = await supabase
+      .from("budgets")
+      .delete()
+      .eq("category", category);
+
+    if (error) throw error;
+
+    return data;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to delete budget.");
+  }
+}
+
+export async function updateBudget(
+  category: string,
+  updates: { category: string; maximum: number; theme: string }
+) {
+  try {
+    const { data, error } = await supabase
+      .from("budgets")
+      .update(updates)
+      .ilike("category", `%${category}%`);
+
+    if (error) throw error;
+
+    return data;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to update budget.");
+  }
+}
+export async function addNewBudget(
+  category: string,
+  maximum: number,
+  theme: string
+) {
+  try {
+    const { data, error } = await supabase
+      .from("budgets")
+      .insert([{ category, maximum, theme }]);
+
+    if (error) throw error;
+
+    return data;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to add new budget.");
+  }
+}
+
 export async function fetchBalance() {
   try {
     const { data, error } = await supabase.from("balance").select("*");
@@ -95,7 +148,7 @@ export async function fetchTransactionsByCategory(query: string) {
       .ilike("category", `%${query}%`)
       .order("date", { ascending: false })
       .limit(3);
-    console.log(data, "data");
+
     return data;
   } catch (error) {
     console.error("Database Error:", error);
@@ -239,8 +292,6 @@ export async function getPaymentsDueSoon() {
 
     if (recurringError) throw recurringError;
 
-    console.log(recurringTransactions, "recc");
-
     // Step 3: Filter transactions due within five days of the latest transaction date
     const dueSoonTransactions = recurringTransactions.filter((transaction) => {
       const transactionDate = new Date(transaction.date);
@@ -355,5 +406,18 @@ export async function updatePot(
   } catch (error) {
     console.error("Database Error:", error);
     throw new Error("Failed to update pot.");
+  }
+}
+
+export async function fetchThemes() {
+  try {
+    const { data, error } = await supabase.from("budgets").select("theme");
+
+    if (error) throw error;
+
+    return data;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch themes.");
   }
 }

@@ -7,32 +7,30 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import React, { useState } from "react";
-
+import React from "react";
+interface SelectByCategoryProps {
+  categories: string[];
+  filterCategory: string;
+  setFilterCategory: (category: string) => void;
+}
 export default function SelectByCategory({
   categories,
   filterCategory,
   setFilterCategory,
-}: {
-  categories: string[];
-  filterCategory: string;
-  setFilterCategory: (value: string) => void;
-}) {
+}: SelectByCategoryProps) {
   return (
-    <>
-      <Label htmlFor="category">Category</Label>
-      <Select onValueChange={(value) => setFilterCategory(value)}>
-        <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="All Transactions" />
-        </SelectTrigger>
-        <SelectContent id="category">
-          {categories.map((category: string) => (
-            <SelectItem key={category} value={category}>
-              {category}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-    </>
+    <Select onValueChange={setFilterCategory}>
+      <SelectTrigger className="w-[180px]">
+        <SelectValue placeholder="Select Category" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="">All Categories</SelectItem>
+        {categories.map((category) => (
+          <SelectItem key={category} value={category}>
+            {category}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
   );
 }
