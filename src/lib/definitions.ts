@@ -17,6 +17,12 @@ export enum ModalType {
   NONE = null,
 }
 
+export interface BalanceCardProps {
+  type: string;
+  id: number;
+  amount: number;
+}
+
 export type Pages = {
   name: string;
   path: string;

@@ -24,6 +24,8 @@ import clsx from "clsx";
 import Chart from "../ui/budgets/Chart";
 import { USDollar } from "@/lib/utils";
 import { calculateRecurringBillsData } from "@/lib/calculateRecurringBillsData";
+import BalanceCard from "../ui/BalanceCard";
+import { BalanceCardProps } from "@/lib/definitions";
 
 export default async function Dashboard() {
   const balance = await fetchBalance();
@@ -57,16 +59,15 @@ export default async function Dashboard() {
   return (
     <main>
       <h1 className="text-xl font-bold font-public-sans">Overview</h1>
-      <div className="flex gap-2 w-full">
-        {balance.map((item) => {
+      <div className="flex gap-2 w-full mb-3">
+        {balance.map((item: BalanceCardProps) => {
           return (
-            <div
-              className="rounded p-4 justify-content flex flex-col bg-gray-900 text-white flex-1"
-              key={Math.random()}
-            >
-              <p> {USDollar.format(item.expenses)}</p>
-              <div className="text-2xl">dsadsa</div>
-            </div>
+            <BalanceCard
+              amount={item.amount}
+              type={item.type}
+              id={item.id}
+              key={item.id}
+            />
           );
         })}
       </div>
