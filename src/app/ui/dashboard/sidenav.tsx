@@ -1,16 +1,16 @@
-import NavLinks from "@/app/ui/dashboard/nav-links";
+import NavLinks from "@/app/ui/dashboard/NavLinks";
 import { signOut } from "../../../../auth";
 import Image from "next/image";
 
 export default function SideNav() {
   return (
-    <div className="flex h-full flex-col px-3 py-4 md:px-2 bg-gray-900 rounded-br-md rounded-tr-md">
+    <div className="flex h-full md:flex-col pt-3 md:pt-0 md:py-4  bg-gray-900 rounded-br-md rounded-tr-md">
       <Image
         src="/./assets/images/logo-large.svg"
         height={22}
         width={121}
         alt="Finance Logo"
-        className="pb-8 pt-4 pl-4"
+        className="pb-8 pt-4 pl-4 px-3 hidden md:block"
       />
       <NavLinks />
       <div className="hidden h-auto w-full grow rounded-md bg-gray-900 md:block"></div>
@@ -21,8 +21,8 @@ export default function SideNav() {
           await signOut({ redirectTo: "/login" });
         }}
       >
-        <button className="flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3">
-          <div className="hidden md:block">Sign Out</div>
+        <button className="mx-3 flex  h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-bold hover:bg-white hover:text-gray-900 md:flex-none md:justify-start md:p-2 md:px-3">
+          <div className="text-xs md:text-sm">Sign Out</div>
         </button>
       </form>
     </div>

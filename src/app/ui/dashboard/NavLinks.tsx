@@ -30,11 +30,11 @@ export default function NavLinks() {
             key={link?.name}
             href={link?.path}
             className={clsx(
-              "flex h-[48px] grow items-center justify-center gap-2 e rounded-md p-3 text-sm font-medium hover:bg-white hover:text-gray-900 hover:ml-0 hover:border-4 hover:border-l-green md:flex-none md:justify-start md:p-2 md:px-3 ",
+              "flex flex-col md:flex-row h-[48px] grow items-center justify-center gap-2 rounded-t-md md:rounded-none p-2 md:p-3 text-sm font-medium hover:bg-white hover:text-gray-900 hover:ml-0 hover:border-b-4 hover:border-b-green md:flex-none md:justify-start md:p-4 hover:border-t-0 md:mr-4 md:mb-3",
               {
-                "bg-white text-gray-900 border-4 border-l-green border-t-0 border-r-0 border-b-0":
+                "bg-white text-gray-900 border-b-4 border-b-green md:border-l-4 md:border-l-green md:border-t-0 md:border-r-0 md:border-b-0 md:rounded-l-none":
                   pathname === link.path,
-                "text-white bg-gray-900": pathname !== link.path,
+                "text-gray-300 bg-gray-900": pathname !== link.path,
               }
             )}
           >
@@ -42,7 +42,7 @@ export default function NavLinks() {
               src={`/${link.icon}`}
               width={24}
               height={24}
-              alt={link.name}
+              alt={link.name + " icon"}
               style={
                 pathname === link.path
                   ? {
@@ -51,8 +51,9 @@ export default function NavLinks() {
                     }
                   : {}
               }
+              className="w-4 h-4 md:w-6 md:h-6"
             />
-            <p className="hidden md:block text-[16px] font-public-sans font-bold ">
+            <p className="hidden sm:block text-xs md:text-[16px] font-public-sans font-bold ">
               {link.name}
             </p>
           </Link>
