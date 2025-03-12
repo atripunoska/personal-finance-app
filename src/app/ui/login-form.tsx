@@ -7,7 +7,7 @@ import Link from "next/link";
 export default function LoginForm() {
   return (
     <form
-      className="bg-white p-7 flex flex-col gap-3 w-[600px] mx-auto
+      className="bg-white p-7 flex flex-col gap-3 w-full md:w-[600px] mx-auto
     "
     >
       <h1 className="font-bold text-4xl mb-4">Login</h1>
