@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Public_Sans } from "next/font/google";
+
+const publicSans = Public_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Personal Finance App",
@@ -13,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`font-public-sans antialiased bg-beige-100`}>
+      <body className={`${publicSans.className} antialiased bg-beige-100`}>
         {children}
       </body>
     </html>

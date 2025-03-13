@@ -24,7 +24,7 @@ export default function TransactionsTableWidget({
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[100px] font-public-sans text-black text-xl font-semibold">
+              <TableHead className="w-[100px] text-black text-xl font-semibold">
                 Transactions
               </TableHead>
 

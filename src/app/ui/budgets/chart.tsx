@@ -42,9 +42,7 @@ export default function Chart({
   return (
     <>
       <Doughnut data={chartData} />
-      <h3 className="font-bold font-public-sans text-xl mt-7 mb-3">
-        Spending Summary
-      </h3>
+      <h3 className="font-bold text-xl mt-7 mb-3">Spending Summary</h3>
       <Table>
         <TableBody>
           {dataProps.map((item) => {

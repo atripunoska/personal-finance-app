@@ -38,7 +38,7 @@ export default async function Transactions(props: {
   // const [filterCategory, setFilterCategory] = useState("");
   return (
     <main>
-      <h2 className="font-public-sans font-bold text-2xl mb-3">Transactions</h2>
+      <h2 className="font-bold text-2xl mb-3">Transactions</h2>
 
       <Card>
         <CardContent>

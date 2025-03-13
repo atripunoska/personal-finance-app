@@ -90,9 +90,7 @@ export default function RecurringBillsTable({
                       width={40}
                       height={40}
                     />
-                    <div className="pl-2 font-semibold font-public-sans">
-                      {item.name}
-                    </div>
+                    <div className="pl-2 font-semibold ">{item.name}</div>
                   </div>
                 </TableCell>
                 <TableCell>

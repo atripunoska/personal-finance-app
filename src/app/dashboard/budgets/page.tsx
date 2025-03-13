@@ -53,9 +53,9 @@ export default function Budget() {
   return (
     <>
       <div className="flex justify-between">
-        <h3 className="font-bold font-public-sans text-3xl mb-3">Budgets</h3>
+        <h3 className="font-bold text-3xl mb-3">Budgets</h3>
         <Button
-          className="font-bold font-public-sans"
+          className="font-bold"
           onClick={handleOpenModal}
           aria-label="Add New Budgets"
         >

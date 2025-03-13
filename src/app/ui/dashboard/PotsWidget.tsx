@@ -11,12 +11,10 @@ export default function PotsWidget({ pots }: PotsWidgetProps) {
     <Card className="mb-3">
       <CardContent>
         <div className="flex justify-between mb-3">
-          <h2 className="text-xl text-grey-900 font-semibold font-public-sans">
-            Pots
-          </h2>
+          <h2 className="text-xl text-grey-900 font-semibold ">Pots</h2>
           <Link
             href="/dashboard/pots"
-            className="text-muted-foreground text-sm font-public-sans font-medium"
+            className="text-muted-foreground text-sm  font-medium"
           >
             View all
           </Link>
@@ -38,7 +36,7 @@ export default function PotsWidget({ pots }: PotsWidgetProps) {
                     <span className="text-xs text-muted-foreground">
                       {item.name}{" "}
                     </span>
-                    <div className="text-grey-900 font-bold font-public-sans ">
+                    <div className="text-grey-900 font-bold  ">
                       {USDollar.format(item.total)}
                     </div>
                   </div>
@@ -57,7 +55,7 @@ export default function PotsWidget({ pots }: PotsWidgetProps) {
               />
               <div className="flex flex-col pl-3">
                 <span className="text-gray-400 mb-3">Total savings</span>
-                <span className="text-gray-900 font-extrabold font-public-sans text-4xl">
+                <span className="text-gray-900 font-extrabold  text-4xl">
                   {USDollar.format(potsTotal)}
                 </span>
               </div>

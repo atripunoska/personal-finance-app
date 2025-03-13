@@ -50,7 +50,7 @@ export default async function Dashboard() {
 
   return (
     <main>
-      <h1 className="text-xl font-bold font-public-sans">Overview</h1>
+      <h1 className="text-xl font-bold">Overview</h1>
       <div className="flex flex-col md:flex-row gap-2 w-full mb-3">
         {balance.map((item: BalanceCardProps) => {
           return (

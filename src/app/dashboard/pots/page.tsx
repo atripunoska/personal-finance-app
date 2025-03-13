@@ -37,7 +37,7 @@ export default function PotsPage() {
   return (
     <main>
       <header className="flex justify-between">
-        <h3 className="font-bold font-public-sans text-3xl mb-3">Pots</h3>
+        <h3 className="font-bold text-3xl mb-3">Pots</h3>
         <Button onClick={handleOpenModal} aria-label="Add New Pot">
           + Add New Pot
         </Button>

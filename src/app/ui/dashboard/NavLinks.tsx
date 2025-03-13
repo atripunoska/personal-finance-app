@@ -53,7 +53,7 @@ export default function NavLinks() {
               }
               className="w-4 h-4 md:w-6 md:h-6"
             />
-            <p className="hidden sm:block text-xs md:text-[16px] font-public-sans font-bold ">
+            <p className="hidden sm:block text-xs md:text-[16px] font-bold ">
               {link.name}
             </p>
           </Link>

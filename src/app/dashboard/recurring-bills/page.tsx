@@ -30,9 +30,7 @@ export default async function RecurringBills() {
 
   return (
     <main>
-      <h2 className="font-public-sans font-bold text-2xl mb-3">
-        Recurring Bills
-      </h2>
+      <h2 className="font-bold text-2xl mb-3">Recurring Bills</h2>
       <div className="grid grid-cols-3 gap-3">
         <div className="col-span-3 lg:col-span-1">
           <Suspense fallback={<TotalBillsCardSkeleton />}>
