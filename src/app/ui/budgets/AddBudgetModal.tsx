@@ -1,18 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { fetchThemes, fetchBudgets, addNewBudget } from "@/lib/data";
+import { fetchThemes, addNewBudget } from "@/lib/data";
 import { createPortal } from "react-dom";
 import { Modal } from "../modal";
 import { closest } from "color-2-name";
+
+interface AddBudgetModalProps {
+  onClose: () => void;
+  categories: { category: string }[];
+  allThemes: string[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onAddBudget: (newBudget: any) => void;
+}
 
 export default function AddBudgetModal({
   onClose,
   categories,
   allThemes,
   onAddBudget,
-}) {
+}: AddBudgetModalProps) {
   const [category, setCategory] = useState("");
   const [maximum, setMaximum] = useState("");
   const [selectedTheme, setSelectedTheme] = useState("");
@@ -20,13 +28,15 @@ export default function AddBudgetModal({
 
   const [themes, setThemes] = useState<string[]>([]);
 
-  const allCategories = [...new Set(categories.map((item) => item.category))];
+  const allCategories = [
+    ...new Set(categories.map((item: { category: string }) => item.category)),
+  ];
 
   useEffect(() => {
     async function fetchUsedThemes() {
       let usedThemes = await fetchThemes();
       usedThemes = usedThemes.map((item) => item.theme);
-      setThemes(usedThemes);
+      setThemes(usedThemes as unknown as string[]);
     }
 
     fetchUsedThemes();
@@ -49,7 +59,11 @@ export default function AddBudgetModal({
 
   const handleAddBudget = async () => {
     try {
-      const newBudget = await addNewBudget(category, maximum, selectedTheme);
+      const newBudget = await addNewBudget(
+        category,
+        parseFloat(maximum),
+        selectedTheme
+      );
       if (newBudget) {
         onAddBudget(newBudget[0]); // Pass the new pot to the parent component
       }
@@ -115,7 +129,7 @@ export default function AddBudgetModal({
           onChange={handleSetTheme}
           className="border border-gray-300 rounded-md p-2"
         >
-          {allThemes.map((item) => {
+          {allThemes.map((item: string) => {
             if (themes.includes(item)) {
               return (
                 <option

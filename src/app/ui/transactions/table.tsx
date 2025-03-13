@@ -13,16 +13,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { fetchCategories, fetchFilteredTransactions } from "@/lib/data";
 import { USDollar } from "@/lib/utils";
-import SortBills from "../recurring-bills/SortBills";
 import Search from "@/components/ui/search";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import SelectByCategory from "./selectByCategory";
 import Sort from "./Sort";
 
@@ -33,8 +24,9 @@ export default function TransactionsTable({
   query: string;
   currentPage: number;
 }) {
-  const [transactions, setTransactions] = useState([]);
-  const [categories, setCategories] = useState([]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [transactions, setTransactions] = useState<any[]>([]);
+  const [categories, setCategories] = useState<string[]>([]);
   const [filterCategory, setFilterCategory] = useState("all");
   const [sortOption, setSortOption] = useState("latest");
   const router = useRouter();
@@ -89,11 +81,10 @@ export default function TransactionsTable({
       <div className="flex justify-between mb-3 gap-3">
         <Search placeholder="Search transactions" />
         <div className="flex gap-2">
-          <Sort sortOption={sortOption} onSortChange={handleSortChange} />
+          <Sort onSortChange={handleSortChange} />
 
           <SelectByCategory
             categories={categories}
-            filterCategory={filterCategory}
             onCategoryChange={handleCategoryChange}
           />
         </div>

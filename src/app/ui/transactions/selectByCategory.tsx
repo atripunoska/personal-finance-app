@@ -1,5 +1,4 @@
 "use client";
-import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -10,12 +9,10 @@ import {
 import React from "react";
 interface SelectByCategoryProps {
   categories: string[];
-  filterCategory: string;
   onCategoryChange: (category: string) => void;
 }
 export default function SelectByCategory({
   categories,
-  filterCategory,
   onCategoryChange,
 }: SelectByCategoryProps) {
   return (

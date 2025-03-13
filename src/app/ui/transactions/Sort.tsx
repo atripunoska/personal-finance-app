@@ -10,11 +10,10 @@ import {
 import React from "react";
 
 interface SortProps {
-  sortOption: string;
   onSortChange: (sort: string) => void;
 }
 
-export default function Sort({ sortOption, onSortChange }: SortProps) {
+export default function Sort({ onSortChange }: SortProps) {
   return (
     <>
       <Label htmlFor="sort">Sort by</Label>

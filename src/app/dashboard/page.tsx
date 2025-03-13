@@ -2,7 +2,6 @@ import {
   fetchBalance,
   fetchTransactions,
   fetchPots,
-  fetchUniqueTransactions,
   fetchRecurringBills,
   fetchBudgets,
   fetchTotalAmountByCategory,
@@ -20,7 +19,7 @@ import { BalanceCardProps } from "@/lib/definitions";
 import RecurringBillsWidget from "../ui/dashboard/RecurringBillsWidget";
 import TransactionsTableWidget from "../ui/dashboard/TransactionsTableWidget";
 import PotsWidget from "../ui/dashboard/PotsWidget";
-import { Skeleton } from "@/components/ui/skeleton";
+
 import ChartSkeleton from "../ui/dashboard/ChartSkeleton";
 import PotsWidgetSkeleton from "../ui/dashboard/PotsWidgetSkeleton";
 import TransactionsTableSkeleton from "../ui/transactions/TransactionsTableSkeleton";
@@ -33,14 +32,17 @@ export default async function Dashboard() {
   const budgets = await fetchBudgets();
   const categories = await fetchTotalAmountByCategory();
 
-  const totalAmountByCategory = categories?.reduce((acc, transaction) => {
-    const { category, amount } = transaction;
-    if (!acc[category]) {
-      acc[category] = 0;
-    }
-    acc[category] += amount;
-    return acc;
-  }, {});
+  const totalAmountByCategory = categories?.reduce(
+    (acc: { [key: string]: number }, transaction) => {
+      const { category, amount } = transaction;
+      if (!acc[category]) {
+        acc[category] = 0;
+      }
+      acc[category] += amount;
+      return acc;
+    },
+    {}
+  );
 
   const recurringBills = await fetchRecurringBills();
   const latestTransaction = await getLatestTransaction();
