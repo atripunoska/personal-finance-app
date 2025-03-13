@@ -33,7 +33,7 @@ export default function Search({ placeholder }: { placeholder: string }) {
           handleSearch(e.target.value);
         }}
         id="search"
-        defaultValue={searchParams.get("query")?.toString()}
+        defaultValue={searchParams?.get("query")?.toString()}
         type="search"
       />
     </div>

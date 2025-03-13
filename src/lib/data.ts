@@ -114,18 +114,41 @@ export async function fetchTransactions() {
 const ITEMS_PER_PAGE = 10;
 export async function fetchFilteredTransactions(
   query: string,
-  currentPage: number
+  currentPage: number,
+  category: string,
+  sort: string
 ) {
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
   try {
-    const transactions = await supabase
+    let queryBuilder = supabase
       .from("transactions")
       .select("*")
       .ilike("name", `%${query}%`)
       .range(offset, offset + ITEMS_PER_PAGE - 1);
 
-    return transactions;
+    if (category) {
+      queryBuilder = queryBuilder.ilike("category", `%${category}%`);
+    }
+
+    if (sort === "latest") {
+      queryBuilder = queryBuilder.order("date", { ascending: false });
+    } else if (sort === "oldest") {
+      queryBuilder = queryBuilder.order("date", { ascending: true });
+    } else if (sort === "a-to-z") {
+      queryBuilder = queryBuilder.order("name", { ascending: true });
+    } else if (sort === "z-to-a") {
+      queryBuilder = queryBuilder.order("name", { ascending: false });
+    } else if (sort === "highest") {
+      queryBuilder = queryBuilder.order("amount", { ascending: false });
+    } else if (sort === "lowest") {
+      queryBuilder = queryBuilder.order("amount", { ascending: true });
+    }
+    const { data, error } = await queryBuilder;
+
+    if (error) throw error;
+
+    return { data };
   } catch (error) {
     console.error("Database Error:", error);
     throw new Error("Failed to fetch transactions data.");

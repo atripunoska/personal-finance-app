@@ -11,21 +11,21 @@ import React from "react";
 interface SelectByCategoryProps {
   categories: string[];
   filterCategory: string;
-  setFilterCategory: (category: string) => void;
+  onCategoryChange: (category: string) => void;
 }
 export default function SelectByCategory({
   categories,
   filterCategory,
-  setFilterCategory,
+  onCategoryChange,
 }: SelectByCategoryProps) {
   return (
-    <Select onValueChange={setFilterCategory}>
+    <Select onValueChange={onCategoryChange}>
       <SelectTrigger className="w-[180px]">
-        <SelectValue placeholder="Select Category" />
+        <SelectValue placeholder="Select category"></SelectValue>
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="">All Categories</SelectItem>
-        {categories.map((category) => (
+        <SelectItem value="all">All categories</SelectItem>
+        {categories?.map((category) => (
           <SelectItem key={category} value={category}>
             {category}
           </SelectItem>

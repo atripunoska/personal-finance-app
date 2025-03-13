@@ -42,35 +42,6 @@ export default async function Transactions(props: {
 
       <Card>
         <CardContent>
-          <div className="flex justify-between mb-3 gap-3">
-            <Search placeholder="Search transactions" />
-            <div className="flex gap-2">
-              <div className="flex gap-2">
-                <Label htmlFor="sort">Sort by</Label>
-                <Select>
-                  <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder="Latest" />
-                  </SelectTrigger>
-                  <SelectContent id="sort">
-                    <SelectItem value="oldest">Oldest</SelectItem>
-                    <SelectItem value="a-to-z">A to Z</SelectItem>
-                    <SelectItem value="z-to-a">Z to A</SelectItem>
-                    <SelectItem value="highest">Highest</SelectItem>
-                    <SelectItem value="lowest">Lowest</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="flex gap-2">
-                {/* <SelectByCategory
-                  //  query={query}
-                  //      currentPage={currentPage}
-                  categories={categories}
-                  // filterCategory={filterCategory}
-                  // setFilterCategory={setFilterCategory}
-                /> */}
-              </div>
-            </div>
-          </div>
           <Suspense fallback={<TransactionsTableSkeleton />}>
             <TransactionsTable
               query={query}
