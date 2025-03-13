@@ -80,7 +80,12 @@ export default function PotCard({
           {USDollar.format(total)}
         </div>
       </div>
-      <Progress value={progress} indicatorColor={theme} />
+      <Progress
+        value={progress}
+        indicatorColor={theme}
+        role="progressbar"
+        aria-label={name + "progress bar"}
+      />
       <div className="flex justify-between">
         <div className="text-grey-300 font-bold text-sm font-public-sans">
           {Math.round(progress * 100) / 100}%
@@ -93,6 +98,7 @@ export default function PotCard({
         <Button
           className="font-bold font-public-sans text-grey-900 bg-grey-100 flex flex-grow border-2 border-grey-100 hover:bg-white hover:text-black hover:border-2"
           onClick={() => handleOpenModal(ModalType.ADD)}
+          aria-label="Open Add Modal"
         >
           + Add Money
         </Button>
@@ -100,6 +106,7 @@ export default function PotCard({
         <Button
           className="font-bold font-public-sans text-grey-900 bg-grey-100 border-2 border-grey-100 flex flex-grow hover:bg-white hover:text-black hover:border-2"
           onClick={() => handleOpenModal(ModalType.WITHDRAW)}
+          aria-label="Open Withdraw Modal"
         >
           Withdraw
         </Button>

@@ -137,7 +137,11 @@ export default function AddBudgetModal({
           })}
         </select>
       </div>
-      <Button className="mr-2" onClick={handleAddBudget}>
+      <Button
+        className="mr-2"
+        onClick={handleAddBudget}
+        aria-label="Add Budget"
+      >
         Add Budget
       </Button>
     </Modal>,

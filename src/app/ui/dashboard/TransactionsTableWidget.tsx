@@ -41,7 +41,7 @@ export default function TransactionsTableWidget({
                   <TableCell className="w-auto flex items-center">
                     <Image
                       src={"/" + item.avatar}
-                      alt={item.name}
+                      alt={item.name + " avatar"}
                       className="rounded size-[40px] rounded-full"
                       width={40}
                       height={40}

@@ -16,7 +16,7 @@ export default function BudgetCardTable({ transactions }) {
                     src={"/" + item.avatar}
                     width={30}
                     height={30}
-                    alt={item.name}
+                    alt={item.name + " avatar"}
                     className="rounded-full"
                   />
                   <span className="ml-4 font-bold">{item.name}</span>

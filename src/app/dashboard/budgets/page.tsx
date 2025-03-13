@@ -57,6 +57,7 @@ export default function Budget() {
         <Button
           className="font-bold font-public-sans"
           onClick={handleOpenModal}
+          aria-label="Add New Budgets"
         >
           + Add New Budgets
         </Button>

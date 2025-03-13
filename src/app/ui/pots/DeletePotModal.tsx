@@ -42,10 +42,15 @@ export default function DeletePotModal({
           <Button
             className="text-white font-bold bg-red"
             onClick={handleDeletePot}
+            aria-label="Confirm Deletion"
           >
             Yes, Confirm Deletion
           </Button>
-          <Button className="text-white font-bold" onClick={onClose}>
+          <Button
+            className="text-white font-bold"
+            onClick={onClose}
+            aria-label="Go Back"
+          >
             No, go back
           </Button>
         </form>

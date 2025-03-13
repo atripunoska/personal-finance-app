@@ -41,7 +41,11 @@ export default function BudgetCardButton({
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button className="font-bold text-grey-500" variant="secondary">
+          <Button
+            className="font-bold text-grey-500"
+            variant="secondary"
+            aria-label="Open Dropdown"
+          >
             ...
           </Button>
         </DropdownMenuTrigger>

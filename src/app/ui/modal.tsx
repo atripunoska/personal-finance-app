@@ -51,7 +51,7 @@ export const Modal: React.FC<ModalProps> = (props) => {
         <div className="flex justify-between mb-4">
           {title && <div className="font-bold text-3xl">{title}</div>}
           {hasCloseBtn && (
-            <button onClick={handleCloseModal}>
+            <button onClick={handleCloseModal} aria-label="Close Modal">
               <Image
                 src="/./assets/images/icon-close-modal.svg"
                 height={30}

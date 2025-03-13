@@ -42,10 +42,15 @@ export default function DeleteBudgetModal({
           <Button
             className="text-white font-bold bg-red"
             onClick={handleDeleteBudget}
+            aria-label="Confirm Deletion"
           >
             Yes, Confirm Deletion
           </Button>
-          <Button className="text-white font-bold" onClick={onClose}>
+          <Button
+            className="text-white font-bold"
+            onClick={onClose}
+            aria-label="Go back"
+          >
             No, go back
           </Button>
         </form>

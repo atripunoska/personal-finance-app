@@ -44,7 +44,9 @@ export default function SignUp() {
           required
           className="border border-gray-300 rounded-md p-2"
         />
-        <Button formAction={signup}>Create an account</Button>
+        <Button formAction={signup} aria-label="Create an account">
+          Create an account
+        </Button>
       </form>
     </div>
   );

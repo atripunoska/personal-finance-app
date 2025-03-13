@@ -35,19 +35,21 @@ export default function PotsPage() {
   const themes: string[] = [];
 
   return (
-    <div>
-      <div className="flex justify-between">
+    <main>
+      <header className="flex justify-between">
         <h3 className="font-bold font-public-sans text-3xl mb-3">Pots</h3>
-        <Button onClick={handleOpenModal}>+ Add New Pot</Button>
-      </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+        <Button onClick={handleOpenModal} aria-label="Add New Pot">
+          + Add New Pot
+        </Button>
+      </header>
+      <section className="grid grid-cols-1 lg:grid-cols-2 gap-3">
         <Suspense fallback={<PotCardSkeleton />}>
           {pots.map((pot) => {
             themes.push(pot.theme);
             return <PotCard key={pot.name} {...pot} potId={pot.name} />;
           })}
         </Suspense>
-      </div>
+      </section>
 
       {isModalOpen && (
         <AddPotModal
@@ -57,6 +59,6 @@ export default function PotsPage() {
           themes={themes}
         />
       )}
-    </div>
+    </main>
   );
 }

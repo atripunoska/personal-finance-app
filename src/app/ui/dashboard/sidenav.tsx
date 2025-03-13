@@ -21,7 +21,10 @@ export default function SideNav() {
           await signOut({ redirectTo: "/login" });
         }}
       >
-        <button className="mx-3 flex  h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-bold hover:bg-white hover:text-gray-900 md:flex-none md:justify-start md:p-2 md:px-3">
+        <button
+          className="mx-3 flex  h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-bold hover:bg-white hover:text-gray-900 md:flex-none md:justify-start md:p-2 md:px-3"
+          aria-label="Sign out"
+        >
           <div className="text-xs md:text-sm">Sign Out</div>
         </button>
       </form>

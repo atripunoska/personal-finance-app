@@ -19,7 +19,7 @@ export default function SummaryCard({
 }) {
   return (
     <div className="bg-white text-grey-900 p-6 rounded-md flex flex-col mt-3">
-      <h4 className="font-bold mb-3">Summary</h4>
+      <h3 className="font-bold mb-3">Summary</h3>
       <Table>
         <TableBody>
           <TableRow>

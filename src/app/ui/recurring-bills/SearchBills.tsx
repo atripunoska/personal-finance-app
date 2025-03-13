@@ -7,10 +7,11 @@ export default function SearchBills({
 }: SearchBillsProps) {
   return (
     <input
-      type="text"
+      type="search"
       placeholder={placeholder}
       onChange={onChange}
       className="border border-gray-300 rounded-md p-2 w-auto"
+      id="search"
     />
   );
 }

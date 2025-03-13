@@ -46,6 +46,7 @@ const WithdrawMoneyModal: React.FC<{
           <Button
             className="text-white  font-bold"
             onClick={handleWithdrawMoney}
+            aria-label="Confirm Withdrawal"
           >
             Confirm Withdrawal
           </Button>

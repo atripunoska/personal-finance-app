@@ -17,12 +17,24 @@ export default function SortBills({ onSortChange }: SortBillsProps) {
           <SelectValue placeholder="Latest" />
         </SelectTrigger>
         <SelectContent id="sort">
-          <SelectItem value="latest">Latest</SelectItem>
-          <SelectItem value="oldest">Oldest</SelectItem>
-          <SelectItem value="aToZ">A to Z</SelectItem>
-          <SelectItem value="zToA">Z to A</SelectItem>
-          <SelectItem value="highest">Highest</SelectItem>
-          <SelectItem value="lowest">Lowest</SelectItem>
+          <SelectItem value="latest" aria-label="Latest">
+            Latest
+          </SelectItem>
+          <SelectItem value="oldest" aria-label="oldest">
+            Oldest
+          </SelectItem>
+          <SelectItem value="aToZ" aria-label="A to Z">
+            A to Z
+          </SelectItem>
+          <SelectItem value="zToA" aria-label="Z to A">
+            Z to A
+          </SelectItem>
+          <SelectItem value="highest" aria-label="Highest">
+            Highest
+          </SelectItem>
+          <SelectItem value="lowest" aria-label="Lowest">
+            Lowest
+          </SelectItem>
         </SelectContent>
       </Select>
     </div>

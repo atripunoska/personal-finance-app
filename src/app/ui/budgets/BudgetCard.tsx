@@ -51,6 +51,8 @@ export default function BudgetCard({
           value={Math.abs(value)}
           indicatorColor={theme}
           max={maximum}
+          role="progressbar"
+          aria-label={"Maximum of " + USDollar.format(maximum)}
         />
         <div className="grid grid-cols-2 gap-2 mt-4">
           <div className="flex">

@@ -31,7 +31,9 @@ export default function LoginForm() {
         required
         className="border border-gray-300 rounded-md p-2"
       />
-      <Button formAction={login}>Log in</Button>
+      <Button formAction={login} aria-label="Log in">
+        Log in
+      </Button>
       <p className="text-center text-gray-500">
         Need to create an account?{" "}
         <Link href="/register" className="text-black underline font-bold">

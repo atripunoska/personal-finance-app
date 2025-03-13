@@ -92,7 +92,11 @@ export default function AddPotModal({
               </option>
             ))}
           </select>
-          <Button className="text-white font-bold" onClick={handleAddPot}>
+          <Button
+            className="text-white font-bold"
+            onClick={handleAddPot}
+            aria-label="Confirm addition"
+          >
             Confirm Addition
           </Button>
         </form>

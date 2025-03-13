@@ -15,7 +15,7 @@ export default function RecurringBillsWidget({
   return (
     <Card className="p-4 w-full">
       <div className="flex justify-between">
-        <h4 className="font-bold text-lg">Recurring Bills</h4>
+        <h3 className="font-bold text-lg">Recurring Bills</h3>
         <Link
           href="/recurring-bills"
           className="font-medium text-sm text-muted-foreground"

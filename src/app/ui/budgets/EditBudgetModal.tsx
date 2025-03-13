@@ -140,7 +140,9 @@ const EditBudgetModal: React.FC<{
               }
             })}
           </select>
-          <Button onClick={handleUpdateBudget}>Save changes</Button>
+          <Button onClick={handleUpdateBudget} aria-label="Save changes">
+            Save changes
+          </Button>
         </form>
       </div>
     </Modal>
