@@ -3,7 +3,7 @@ import {
   fetchTransactionsPages,
   fetchUniqueTransactions,
 } from "@/lib/data";
-import React from "react";
+import React, { Suspense } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import Search from "@/components/ui/search";
 import Pagination from "@/app/ui/transactions/pagination";
@@ -17,6 +17,8 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import SelectByCategory from "@/app/ui/transactions/selectByCategory";
+import { Skeleton } from "@/components/ui/skeleton";
+import TransactionsTableSkeleton from "@/app/ui/transactions/TransactionsTableSkeleton";
 
 export default async function Transactions(props: {
   searchParams?: Promise<{
@@ -69,11 +71,13 @@ export default async function Transactions(props: {
               </div>
             </div>
           </div>
-          <TransactionsTable
-            query={query}
-            currentPage={currentPage}
-            //category={categories}
-          />
+          <Suspense fallback={<TransactionsTableSkeleton />}>
+            <TransactionsTable
+              query={query}
+              currentPage={currentPage}
+              //category={categories}
+            />
+          </Suspense>
         </CardContent>
       </Card>
 

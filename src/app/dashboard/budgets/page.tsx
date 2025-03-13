@@ -1,12 +1,15 @@
 "use client";
 import AddBudgetModal from "@/app/ui/budgets/AddBudgetModal";
 import BudgetCard from "@/app/ui/budgets/BudgetCard";
+import BudgetCardSkeleton from "@/app/ui/budgets/BudgetCardSkeleton";
 import Chart from "@/app/ui/budgets/Chart";
+import ChartSkeleton from "@/app/ui/dashboard/ChartSkeleton";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { fetchBudgets, fetchTotalAmountByCategory } from "@/lib/data";
 import { THEMES } from "@/lib/definitions";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 
 export default function Budget() {
   const [budgets, setBudgets] = useState([]);
@@ -71,29 +74,33 @@ export default function Budget() {
         <div className="lg:col-start-1 lg:col-end-1">
           <Card>
             <CardContent>
-              <Chart
-                dataProps={budgets}
-                totalAmountByCategory={totalAmountByCategory}
-              />
+              <Suspense fallback={<ChartSkeleton />}>
+                <Chart
+                  dataProps={budgets}
+                  totalAmountByCategory={totalAmountByCategory}
+                />
+              </Suspense>
             </CardContent>
           </Card>
         </div>
         <div className="lg:col-span-2 gap-3 flex flex-col">
-          {budgets.map((item) => {
-            progress =
-              (totalAmountByCategory[item.category] / item.maximum) * 100;
-            return (
-              <BudgetCard
-                maximum={item.maximum}
-                theme={item.theme}
-                category={item.category}
-                key={item.category}
-                value={progress}
-                amountSpend={totalAmountByCategory[item.category]}
-                categories={categories}
-              />
-            );
-          })}
+          <Suspense fallback={<BudgetCardSkeleton />}>
+            {budgets.map((item) => {
+              progress =
+                (totalAmountByCategory[item.category] / item.maximum) * 100;
+              return (
+                <BudgetCard
+                  maximum={item.maximum}
+                  theme={item.theme}
+                  category={item.category}
+                  key={item.category}
+                  value={progress}
+                  amountSpend={totalAmountByCategory[item.category]}
+                  categories={categories}
+                />
+              );
+            })}
+          </Suspense>
         </div>
       </div>
     </>

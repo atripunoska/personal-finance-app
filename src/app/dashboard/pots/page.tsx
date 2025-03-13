@@ -1,11 +1,12 @@
 "use client";
 import AddPotModal from "@/app/ui/pots/AddPotModal";
+import PotCardSkeleton from "@/app/ui/pots/AddPotSkeleton";
 import PotCard from "@/app/ui/pots/Card";
 import { Button } from "@/components/ui/button";
 import { fetchPots } from "@/lib/data";
 import { Pot } from "@/lib/definitions";
 
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 
 export default function PotsPage() {
   const [pots, setPots] = useState<Pot[]>([]);
@@ -40,11 +41,14 @@ export default function PotsPage() {
         <Button onClick={handleOpenModal}>+ Add New Pot</Button>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-        {pots.map((pot) => {
-          themes.push(pot.theme);
-          return <PotCard key={pot.name} {...pot} potId={pot.name} />;
-        })}
+        <Suspense fallback={<PotCardSkeleton />}>
+          {pots.map((pot) => {
+            themes.push(pot.theme);
+            return <PotCard key={pot.name} {...pot} potId={pot.name} />;
+          })}
+        </Suspense>
       </div>
+
       {isModalOpen && (
         <AddPotModal
           onClose={handleCloseModal}

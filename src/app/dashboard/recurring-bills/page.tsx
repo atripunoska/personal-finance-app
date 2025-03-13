@@ -3,8 +3,12 @@ import SummaryCard from "@/app/ui/recurring-bills/SummaryCard";
 import TotalBillsCard from "@/app/ui/recurring-bills/TotalBillsCard";
 import { fetchRecurringBills, getLatestTransaction } from "@/lib/data";
 
-import React from "react";
+import React, { Suspense } from "react";
 import { calculateRecurringBillsData } from "@/lib/calculateRecurringBillsData";
+import { Skeleton } from "@/components/ui/skeleton";
+import RecurringBillsTableSkeleton from "@/app/ui/recurring-bills/RecurringBillsTableSkeleton";
+import SummaryCardSkeleton from "@/app/ui/recurring-bills/SummaryCardSkeleton";
+import TotalBillsCardSkeleton from "@/app/ui/recurring-bills/TotalBillsCardSkeleton";
 
 export default async function RecurringBills() {
   const recurringBills = await fetchRecurringBills();
@@ -31,22 +35,29 @@ export default async function RecurringBills() {
       </h2>
       <div className="grid grid-cols-3 gap-3">
         <div className="col-span-3 lg:col-span-1">
-          <TotalBillsCard totalAmount={totalAmount} />
-          <SummaryCard
-            totalPaid={totalPaid}
-            totalAmountPaid={totalAmountPaid}
-            totalUpcoming={totalUpcoming}
-            totalAmountUpcoming={totalAmountUpcoming}
-            totalDue={totalDue}
-            totalAmountDue={totalAmountDue}
-          />
+          <Suspense fallback={<TotalBillsCardSkeleton />}>
+            <TotalBillsCard totalAmount={totalAmount} />
+          </Suspense>
+          <Suspense fallback={<SummaryCardSkeleton />}>
+            {" "}
+            <SummaryCard
+              totalPaid={totalPaid}
+              totalAmountPaid={totalAmountPaid}
+              totalUpcoming={totalUpcoming}
+              totalAmountUpcoming={totalAmountUpcoming}
+              totalDue={totalDue}
+              totalAmountDue={totalAmountDue}
+            />
+          </Suspense>
         </div>
         <div className="col-span-3 lg:col-span-2">
-          <RecurringBillsTable
-            paid={paidTransactions ?? []}
-            upcoming={upcomingTransactions ?? []}
-            latestTransactionDate={latestTransactionDate}
-          />
+          <Suspense fallback={<RecurringBillsTableSkeleton />}>
+            <RecurringBillsTable
+              paid={paidTransactions ?? []}
+              upcoming={upcomingTransactions ?? []}
+              latestTransactionDate={latestTransactionDate}
+            />
+          </Suspense>
         </div>
       </div>
     </main>
