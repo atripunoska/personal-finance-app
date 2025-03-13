@@ -2,7 +2,7 @@ import NavLinks from "@/app/ui/dashboard/NavLinks";
 import { signOut } from "../../../../auth";
 import Image from "next/image";
 
-export default function SideNav() {
+export default function Sidenav() {
   return (
     <div className="flex h-full md:flex-col pt-3 md:pt-0 md:py-4  bg-gray-900 rounded-br-md rounded-tr-md">
       <Image

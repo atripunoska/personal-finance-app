@@ -1,7 +1,8 @@
 "use client";
+
 import AddPotModal from "@/app/ui/pots/AddPotModal";
-import PotCardSkeleton from "@/app/ui/pots/AddPotSkeleton";
-import PotCard from "@/app/ui/pots/Card";
+import PotCardSkeleton from "@/app/ui/pots/PotCardSkeleton";
+import PotCard from "@/app/ui/pots/PotCard";
 import { Button } from "@/components/ui/button";
 import { fetchPots } from "@/lib/data";
 import { Pot } from "@/lib/definitions";
