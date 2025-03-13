@@ -5,7 +5,6 @@ import { fetchRecurringBills, getLatestTransaction } from "@/lib/data";
 
 import React, { Suspense } from "react";
 import { calculateRecurringBillsData } from "@/lib/calculateRecurringBillsData";
-import { Skeleton } from "@/components/ui/skeleton";
 import RecurringBillsTableSkeleton from "@/app/ui/recurring-bills/RecurringBillsTableSkeleton";
 import SummaryCardSkeleton from "@/app/ui/recurring-bills/SummaryCardSkeleton";
 import TotalBillsCardSkeleton from "@/app/ui/recurring-bills/TotalBillsCardSkeleton";
@@ -24,7 +23,6 @@ export default async function RecurringBills() {
     totalAmount,
     paidTransactions,
     upcomingTransactions,
-    dueSoonTransaction,
     latestTransactionDate,
   } = await calculateRecurringBillsData(recurringBills, latestTransaction);
 

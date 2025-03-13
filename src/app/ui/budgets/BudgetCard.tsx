@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -6,7 +7,6 @@ import React, { useEffect, useState } from "react";
 import BudgetCardTable from "./BudgetCardTable";
 import { fetchTransactionsByCategory } from "@/lib/data";
 import BudgetCardButton from "./BudgetCardButton";
-import { THEMES } from "@/lib/definitions";
 
 export default function BudgetCard({
   category,

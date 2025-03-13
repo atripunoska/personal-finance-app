@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { Modal } from "../modal";
-import { fetchThemes, updateBudget, updatePot } from "@/lib/data";
+import { fetchThemes, updateBudget } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { closest } from "color-2-name";
 
@@ -16,7 +16,6 @@ const EditBudgetModal: React.FC<{
   allThemes: string[];
 }> = ({
   onClose,
-  potId,
   hasCloseBtn,
   maximumAmount,
   categoryId,

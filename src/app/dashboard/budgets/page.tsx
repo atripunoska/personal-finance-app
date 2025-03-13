@@ -6,7 +6,6 @@ import Chart from "@/app/ui/budgets/Chart";
 import ChartSkeleton from "@/app/ui/dashboard/ChartSkeleton";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
 import { fetchBudgets, fetchTotalAmountByCategory } from "@/lib/data";
 import { THEMES } from "@/lib/definitions";
 import React, { Suspense, useEffect, useState } from "react";
