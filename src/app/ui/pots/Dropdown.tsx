@@ -47,7 +47,7 @@ export default function Dropdown({
       const potThemes = pots.map((p) => p.theme);
       setThemes(potThemes);
     } catch (error) {
-      console.log("Failed to fetch pots.", error);
+      console.log("Failed to fetch themes.", error);
     }
   };
 
