@@ -1,8 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { login } from "@/lib/actions";
 import Link from "next/link";
+import { login } from "../(auth)/login/actions";
 
 export default function LoginForm() {
   return (
