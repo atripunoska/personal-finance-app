@@ -1,6 +1,5 @@
 "use client";
 
-import AddPotModal from "@/app/ui/pots/AddPotModal";
 import PotCardSkeleton from "@/app/ui/pots/PotCardSkeleton";
 import PotCard from "@/app/ui/pots/PotCard";
 import { Button } from "@/components/ui/button";
@@ -8,6 +7,7 @@ import { fetchPots } from "@/lib/data";
 import { Pot } from "@/lib/definitions";
 
 import React, { Suspense, useEffect, useState } from "react";
+import AddPotModal from "@/app/ui/pots/AddPotModal";
 
 export default function PotsPage() {
   const [pots, setPots] = useState<Pot[]>([]);
