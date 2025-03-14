@@ -1,6 +1,7 @@
 import NavLinks from "@/app/ui/dashboard/NavLinks";
-import { signOut } from "../../../../auth";
+
 import Image from "next/image";
+import { logout } from "@/app/(auth)/logout/actions";
 
 export default function Sidemenu() {
   return (
@@ -15,15 +16,11 @@ export default function Sidemenu() {
       <NavLinks />
       <div className="hidden h-auto w-full grow rounded-md bg-gray-900 md:block"></div>
 
-      <form
-        action={async () => {
-          "use server";
-          await signOut({ redirectTo: "/login" });
-        }}
-      >
+      <form>
         <button
           className="mx-3 flex  h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-bold hover:bg-white hover:text-gray-900 md:flex-none md:justify-start md:p-2 md:px-3"
           aria-label="Sign out"
+          formAction={logout}
         >
           <div className="text-xs md:text-sm">Sign Out</div>
         </button>
