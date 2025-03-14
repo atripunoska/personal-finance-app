@@ -23,7 +23,7 @@ export default function BudgetCardTable({
                 <TableCell>
                   <div className="flex items-center">
                     <Image
-                      src={"/" + item.avatar}
+                      src={"/./" + item.avatar}
                       width={30}
                       height={30}
                       alt={item.name + " avatar"}

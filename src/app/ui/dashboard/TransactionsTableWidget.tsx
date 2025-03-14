@@ -40,7 +40,7 @@ export default function TransactionsTableWidget({
                 <TableRow key={Math.random()}>
                   <TableCell className="w-auto flex items-center">
                     <Image
-                      src={"/" + item.avatar}
+                      src={"/./" + item.avatar}
                       alt={item.name + " avatar"}
                       className="rounded size-[40px] rounded-full"
                       width={40}
