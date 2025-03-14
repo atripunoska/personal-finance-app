@@ -14,20 +14,13 @@ export enum ModalType {
   WITHDRAW = "withdraw",
   EDIT = "edit",
   DELETE = "delete",
-  NONE = null,
+  NONE = "none",
 }
 
 export interface BalanceCardProps {
   type: string;
   id: number;
   amount: number;
-}
-
-interface Transaction {
-  avatar: string;
-  name: string;
-  amount: number;
-  date: string;
 }
 
 export interface TransactionsTableWidgetProps {
@@ -60,8 +53,8 @@ export interface Pot {
 
 export interface Bill {
   name: string;
-  avatar: string;
-  date: Date;
+  avatar?: string;
+  date: string;
   amount: number;
 }
 
@@ -78,4 +71,61 @@ export interface SearchBillsProps {
 
 export interface SortBillsProps {
   onSortChange: (sortBy: string) => void;
+}
+
+export interface BudgetProps {
+  category: string;
+  maximum: number;
+  theme: string;
+}
+
+export interface BudgetCardProps {
+  category: string;
+  theme: string;
+  maximum: number;
+  value: number;
+  amountSpend: number;
+  categories: CategoriesDataProps[];
+}
+
+export interface BudgetCardButtonProps {
+  category: string;
+  initialTheme: string;
+  maximumAmount: number;
+  categories: CategoriesDataProps[];
+}
+
+export interface CategoriesDataProps {
+  category: string;
+  amount: number;
+}
+export interface TotalAmountByCategory {
+  [key: string]: number;
+}
+
+export interface PotCardProps {
+  name: string;
+  theme: string;
+  target: number;
+  total: number;
+  potId: string;
+}
+
+export interface SelectByCategoryProps {
+  categories: string[];
+  onCategoryChange: (category: string) => void;
+}
+
+export interface Transaction {
+  name: string;
+  avatar: string;
+  amount: number;
+  date: Date;
+}
+export interface BudgetCardTableProps {
+  readonly transactions: Transaction[];
+}
+
+export interface theme {
+  theme: string;
 }

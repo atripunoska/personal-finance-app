@@ -1,8 +1,17 @@
 import { getDate } from "date-fns";
 
 export async function calculateRecurringBillsData(
-  recurringBills,
-  latestTransaction
+  recurringBills: {
+    data: {
+      name: string;
+      date: string;
+      amount: number;
+      avatar: string;
+      category: string;
+      recurring: boolean;
+    }[];
+  },
+  latestTransaction: { date: string }
 ) {
   let totalAmountPaid = 0;
   let totalAmountUpcoming = 0;

@@ -6,11 +6,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { SelectByCategoryProps } from "@/lib/definitions";
 import React from "react";
-interface SelectByCategoryProps {
-  categories: string[];
-  onCategoryChange: (category: string) => void;
-}
+
 export default function SelectByCategory({
   categories,
   onCategoryChange,

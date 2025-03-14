@@ -7,6 +7,7 @@ import React, { useEffect, useState } from "react";
 import BudgetCardTable from "./BudgetCardTable";
 import { fetchTransactionsByCategory } from "@/lib/data";
 import BudgetCardButton from "./BudgetCardButton";
+import { BudgetCardProps, Transaction } from "@/lib/definitions";
 
 export default function BudgetCard({
   category,
@@ -15,17 +16,23 @@ export default function BudgetCard({
   value,
   amountSpend,
   categories,
-}) {
-  const [transactions, setTransactions] = useState<any[]>([]);
+}: BudgetCardProps) {
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
 
   useEffect(() => {
     async function fetchData() {
-      const transactions = await fetchTransactionsByCategory(category);
-      setTransactions(transactions);
+      const response = await fetchTransactionsByCategory(category);
+      if (response.error) {
+        console.error(response.error);
+        setTransactions([]);
+      } else {
+        setTransactions(response.data);
+      }
     }
 
     fetchData();
   }, [category]);
+
   return (
     <Card className="bg-white p-3">
       <CardContent>

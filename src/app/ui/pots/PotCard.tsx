@@ -8,21 +8,9 @@ import { USDollar } from "@/lib/utils";
 import WithdrawMoneyModal from "./WithdrawMoneyModal";
 import AddMoneyModal from "./AddMoneyModal";
 import Dropdown from "./Dropdown";
-import { ModalType } from "@/lib/definitions";
+import { ModalType, PotCardProps } from "@/lib/definitions";
 
-export default function PotCard({
-  name,
-  theme,
-  target,
-  total,
-  potId,
-}: Readonly<{
-  name: string;
-  theme: string;
-  target: number;
-  total: number;
-  potId: string;
-}>) {
+export default function PotCard({ name, theme, target, total }: PotCardProps) {
   const progress = (total / target) * 100;
 
   const [modalType, setModalType] = useState<ModalType>(ModalType.NONE);
@@ -38,7 +26,7 @@ export default function PotCard({
 
   const handleAddMoney = async (amount: number) => {
     try {
-      await addAmountToPot(potId, amount);
+      await addAmountToPot(name, amount);
       setPotTotal(potTotal + amount);
       handleCloseModal();
     } catch (error) {
@@ -48,7 +36,7 @@ export default function PotCard({
 
   const handleWithdrawMoney = async (amount: number) => {
     try {
-      await withdrawAmountFromPot(potId, amount);
+      await withdrawAmountFromPot(name, amount);
       setPotTotal(potTotal - amount);
       handleCloseModal();
     } catch (error) {

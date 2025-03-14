@@ -7,18 +7,18 @@ import ChartSkeleton from "@/app/ui/dashboard/ChartSkeleton";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { fetchBudgets, fetchTotalAmountByCategory } from "@/lib/data";
-import { THEMES } from "@/lib/definitions";
+import { CategoriesDataProps, THEMES, BudgetProps } from "@/lib/definitions";
 import React, { Suspense, useEffect, useState } from "react";
 
 export default function Budget() {
-  const [budgets, setBudgets] = useState([]);
+  const [budgets, setBudgets] = useState<BudgetProps[]>([]);
 
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState<CategoriesDataProps[]>([]);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      const budgetsData = await fetchBudgets();
+      const budgetsData: BudgetProps[] = await fetchBudgets();
       const categoriesData = await fetchTotalAmountByCategory();
       setBudgets(budgetsData);
       setCategories(categoriesData);
@@ -26,14 +26,17 @@ export default function Budget() {
     fetchData();
   }, []);
 
-  const totalAmountByCategory = categories?.reduce((acc, transaction) => {
-    const { category, amount } = transaction;
-    if (!acc[category]) {
-      acc[category] = 0;
-    }
-    acc[category] += amount;
-    return acc;
-  }, {});
+  const totalAmountByCategory = categories?.reduce(
+    (acc: { [key: string]: number }, transaction) => {
+      const { category, amount } = transaction;
+      if (!acc[category]) {
+        acc[category] = 0;
+      }
+      acc[category] += amount;
+      return acc;
+    },
+    {}
+  );
 
   let progress = 0;
 
@@ -45,7 +48,7 @@ export default function Budget() {
     setModalOpen(false);
   };
 
-  const handleAddBudget = (newBudget) => {
+  const handleAddBudget = (newBudget: BudgetProps) => {
     setBudgets([...budgets, newBudget]);
   };
 

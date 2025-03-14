@@ -3,6 +3,7 @@ import { Modal } from "../modal";
 import { fetchThemes, updateBudget } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { closest } from "color-2-name";
+import { CategoriesDataProps } from "@/lib/definitions";
 
 const EditBudgetModal: React.FC<{
   onClose: () => void;
@@ -11,8 +12,7 @@ const EditBudgetModal: React.FC<{
   maximumAmount: number;
   categoryId: string;
   initialTheme: string;
-  categories: string[];
-
+  categories: CategoriesDataProps[];
   allThemes: string[];
 }> = ({
   onClose,
@@ -32,9 +32,10 @@ const EditBudgetModal: React.FC<{
 
   useEffect(() => {
     async function fetchUsedThemes() {
-      let usedThemes = await fetchThemes();
-      usedThemes = usedThemes.map((item) => item.theme);
-      setThemes(usedThemes);
+      const usedThemes: { theme: string }[] = await fetchThemes();
+
+      const themeNames = usedThemes.map((item) => item.theme);
+      setThemes(themeNames);
     }
 
     fetchUsedThemes();

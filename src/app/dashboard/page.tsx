@@ -44,7 +44,8 @@ export default async function Dashboard() {
     {}
   );
 
-  const recurringBills = await fetchRecurringBills();
+  const recurringBillsResponse = await fetchRecurringBills();
+  const recurringBills = { data: recurringBillsResponse.data || [] };
   const latestTransaction = await getLatestTransaction();
 
   const { totalAmountPaid, totalAmountUpcoming, totalAmountDue } =

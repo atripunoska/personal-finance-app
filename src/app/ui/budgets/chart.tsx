@@ -4,25 +4,15 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { USDollar } from "@/lib/utils";
+import { BudgetProps, TotalAmountByCategory } from "@/lib/definitions";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
-
-interface DataProps {
-  category: string;
-  maximum: number;
-  theme: string;
-  spent: number;
-}
-
-interface TotalAmountByCategory {
-  [key: string]: number;
-}
 
 export default function Chart({
   dataProps,
   totalAmountByCategory,
 }: {
-  dataProps: DataProps[];
+  dataProps: BudgetProps[];
   totalAmountByCategory: TotalAmountByCategory;
 }) {
   const dataAmount = dataProps.map((item) => item.maximum);

@@ -6,7 +6,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ModalType, THEMES } from "@/lib/definitions";
+import { BudgetCardButtonProps, ModalType, THEMES } from "@/lib/definitions";
 import React, { useState } from "react";
 import DeleteBudgetModal from "./DeleteBudgetModal";
 import { deleteBudget } from "@/lib/data";
@@ -17,7 +17,7 @@ export default function BudgetCardButton({
   initialTheme,
   maximumAmount,
   categories,
-}) {
+}: BudgetCardButtonProps) {
   const [modalType, setModalType] = useState<ModalType>(ModalType.NONE);
 
   const handleOpenModal = (type: ModalType) => {

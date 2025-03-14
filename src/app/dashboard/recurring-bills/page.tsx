@@ -10,8 +10,12 @@ import SummaryCardSkeleton from "@/app/ui/recurring-bills/SummaryCardSkeleton";
 import TotalBillsCardSkeleton from "@/app/ui/recurring-bills/TotalBillsCardSkeleton";
 
 export default async function RecurringBills() {
-  const recurringBills = await fetchRecurringBills();
+  const recurringBillsResponse = await fetchRecurringBills();
   const latestTransaction = await getLatestTransaction();
+
+  if (!recurringBillsResponse.data) {
+    throw new Error("Failed to fetch recurring bills data");
+  }
 
   const {
     totalAmountPaid,
@@ -24,7 +28,10 @@ export default async function RecurringBills() {
     paidTransactions,
     upcomingTransactions,
     latestTransactionDate,
-  } = await calculateRecurringBillsData(recurringBills, latestTransaction);
+  } = await calculateRecurringBillsData(
+    { data: recurringBillsResponse.data },
+    latestTransaction
+  );
 
   return (
     <main>
