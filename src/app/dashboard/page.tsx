@@ -12,7 +12,6 @@ import React, { Suspense } from "react";
 
 import { Card } from "@/components/ui/card";
 
-import Chart from "../ui/budgets/Chart";
 import { calculateRecurringBillsData } from "@/lib/calculateRecurringBillsData";
 import BalanceCard from "../ui/dashboard/BalanceCard";
 import { BalanceCardProps } from "@/lib/definitions";
@@ -24,6 +23,7 @@ import ChartSkeleton from "../ui/dashboard/ChartSkeleton";
 import PotsWidgetSkeleton from "../ui/dashboard/PotsWidgetSkeleton";
 import TransactionsTableSkeleton from "../ui/transactions/TransactionsTableSkeleton";
 import RecurringBillsWidgetSkeleton from "../ui/dashboard/RecurringBillsWidgetSkeleton";
+import ChartBudget from "../ui/budgets/ChartBudget";
 
 export default async function Dashboard() {
   const balance = await fetchBalance();
@@ -79,7 +79,7 @@ export default async function Dashboard() {
 
         <Card className="p-4 lg:row-span-2 ">
           <Suspense fallback={<ChartSkeleton />}>
-            <Chart
+            <ChartBudget
               dataProps={budgets}
               totalAmountByCategory={totalAmountByCategory}
             />

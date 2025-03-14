@@ -2,7 +2,7 @@
 import AddBudgetModal from "@/app/ui/budgets/AddBudgetModal";
 import BudgetCard from "@/app/ui/budgets/BudgetCard";
 import BudgetCardSkeleton from "@/app/ui/budgets/BudgetCardSkeleton";
-import Chart from "@/app/ui/budgets/Chart";
+import ChartBudget from "@/app/ui/budgets/ChartBudget";
 import ChartSkeleton from "@/app/ui/dashboard/ChartSkeleton";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -78,7 +78,7 @@ export default function Budget() {
           <Card>
             <CardContent>
               <Suspense fallback={<ChartSkeleton />}>
-                <Chart
+                <ChartBudget
                   dataProps={budgets}
                   totalAmountByCategory={totalAmountByCategory}
                 />

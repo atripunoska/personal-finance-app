@@ -8,7 +8,7 @@ import { BudgetProps, TotalAmountByCategory } from "@/lib/definitions";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export default function Chart({
+export default function ChartBudget({
   dataProps,
   totalAmountByCategory,
 }: {
