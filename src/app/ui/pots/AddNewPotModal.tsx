@@ -6,7 +6,7 @@ import { addNewPot } from "@/lib/data";
 import { closest } from "color-2-name";
 import { Pot } from "@/lib/definitions";
 
-export default function AddPotModal({
+export default function AddNewPotModal({
   onClose,
   hasCloseBtn,
   onAddPot,

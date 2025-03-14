@@ -7,7 +7,7 @@ import { fetchPots } from "@/lib/data";
 import { Pot } from "@/lib/definitions";
 
 import React, { Suspense, useEffect, useState } from "react";
-import AddPotModal from "@/app/ui/pots/AddPotModal";
+import AddNewPotModal from "@/app/ui/pots/AddNewPotModal";
 
 export default function PotsPage() {
   const [pots, setPots] = useState<Pot[]>([]);
@@ -53,7 +53,7 @@ export default function PotsPage() {
       </section>
 
       {isModalOpen && (
-        <AddPotModal
+        <AddNewPotModal
           onClose={handleCloseModal}
           hasCloseBtn={true}
           onAddPot={handleAddPot}
