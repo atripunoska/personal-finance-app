@@ -1,8 +1,29 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Personal Finance App
 
-## Getting Started
+This is a solution to the [Personal finance app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/personal-finance-app-JfjtZgyMt1). It's a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-First, run the development server:
+## Installation
+
+First, clone the repository:
+
+```bash
+git clone https://github.com/atripunoska/personal-finance-app.git
+cd personal-finance-app
+```
+
+Then, install the dependencies:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+# or
+bun install
+```
+
+Next, run the development server:
 
 ```bash
 npm run dev
@@ -16,21 +37,84 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create a `.env.local` file in the root of your project and add the following environment variables:
 
-## Learn More
+```env
+NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+```
 
-To learn more about Next.js, take a look at the following resources:
+Replace `your-supabase-url` and `your-supabase-anon-key` with your actual Supabase URL and anonymous key.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `src/`: Contains the source code of the application.
+  - `app/`: Contains the Next.js pages and components.
+  - `lib/`: Contains utility functions and configurations.
+  - `ui/`: Contains reusable UI components.
+  - `utils/supabase`: Contains utility functions and configuration for Server-Side Auth for Next.js with Supabse
 
-## Deploy on Vercel
+## Features
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Dashboard**: Provides an overview of your financial status, including balance, transactions, and recurring bills.
+- **Budgets**: Allows you to manage your budgets, including adding, updating, and deleting budgets.
+- **Pots**: Manage your savings pots, including adding amounts, withdrawing amounts, and setting targets.
+- **Transactions**: View and filter your transactions by category and other criteria.
+- **Recurring Bills**: View and manage your recurring bills, including the status of each for the current month.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Users should be able to:
+
+- See all of the personal finance app data at-a-glance on the overview page
+- View all transactions on the transactions page with pagination for every ten transactions
+- Search, sort, and filter transactions
+- Create, read, update, delete (CRUD) budgets and saving pots
+- View the latest three transactions for each budget category created
+- View progress towards each pot
+- Add money to and withdraw money from pots
+- View recurring bills and the status of each for the current month
+- Search and sort recurring bills
+- Navigate the whole app and perform all actions using only their keyboard
+- View the optimal layout for the interface depending on their device's screen size
+- See hover and focus states for all interactive elements on the page
+- Save details to a database
+- Create an account and log in
+
+## Built with
+
+- [Next.js](https://nextjs.org/)
+- [Supabase](https://supabase.io/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Chart.js](https://www.chartjs.org/)
+- Semantic HTML5 markup
+- Flexbox
+- CSS Grid
+- Web accessibility
+
+## Screenshots
+
+**Login Page**
+![Login Screenshot](public/assets/images/login.png)
+
+**Sign Up Page**
+![Sign Up Screenshot](public/assets/images/signup.png)
+
+**Overview Page**
+![Overview Screenshot](public/assets/images/overview.png)
+
+**Transactions Page**
+![Transactions Screenshot](public/assets/images/transactions.png)
+
+**Recurring Bills Page**
+![Recurring Bills Screenshot](public/assets/images/recurring-bills.png)
+
+**Budgets Page**
+![Budgets Screenshot](public/assets/images/budgets.png)
+
+**Pots Page**
+![Pots Screenshot](public/assets/images/pots.png)
+
+## Author
+
+- [@atripunoska](https://www.github.com/atripunoska)
