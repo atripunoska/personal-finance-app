@@ -106,7 +106,7 @@ export default function TransactionsTable({
                 <TableCell>
                   <div className="flex gap-2 md:items-center flex-col md:flex-row">
                     <Image
-                      src={"/./" + item.avatar}
+                      src={item.avatar.substring(1)}
                       alt={item.name + " avatar"}
                       className="rounded size-[40px] rounded-full"
                       width={40}
