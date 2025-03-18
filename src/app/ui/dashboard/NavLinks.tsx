@@ -30,9 +30,9 @@ export default function NavLinks() {
             key={link?.name}
             href={link?.path}
             className={clsx(
-              "flex flex-col md:flex-row h-[48px] grow items-center justify-center gap-2 rounded-t-md md:rounded-none p-2 md:p-3 text-sm font-medium hover:bg-white hover:text-gray-900 hover:ml-0 hover:border-b-4 hover:border-b-green md:flex-none md:justify-start md:p-4 hover:border-t-0 md:mr-4 md:mb-3",
+              "flex flex-col md:flex-row h-[48px] grow items-center justify-center gap-2 rounded-t-md md:rounded-none p-2 md:p-3 text-sm font-medium hover:bg-white hover:text-gray-900 hover:ml-0 md:rounded-tr-md md:rounded-br-md md:flex-none md:justify-start md:p-4 hover:border-t-0 md:mr-4 md:mb-3 md:hover:border-l-4 md:hover:border-l-green hover:border-b-4 hover:border-b-green md:hover:border-b-0",
               {
-                "bg-white text-gray-900 border-b-4 border-b-green md:border-l-4 md:border-l-green md:border-t-0 md:border-r-0 md:border-b-0 md:rounded-l-none":
+                "bg-white text-gray-900 border-b-4 border-b-green  md:border-t-0 md:border-r-0 md:border-b-0 md:rounded-l-none md:border-l-4 md:border-l-green":
                   pathname === link.path,
                 "text-gray-300 bg-gray-900": pathname !== link.path,
               }

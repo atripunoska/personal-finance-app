@@ -16,9 +16,11 @@ interface SortProps {
 export default function Sort({ onSortChange }: SortProps) {
   return (
     <>
-      <Label htmlFor="sort">Sort by</Label>
+      <Label htmlFor="sort" className="mb-0.5 md:mb-0">
+        Sort by
+      </Label>
       <Select onValueChange={onSortChange}>
-        <SelectTrigger className="w-[180px]">
+        <SelectTrigger className="w-full md:w-[180px]">
           <SelectValue placeholder="Latest" />
         </SelectTrigger>
         <SelectContent id="sort">

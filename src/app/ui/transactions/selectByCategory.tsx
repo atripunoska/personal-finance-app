@@ -15,7 +15,7 @@ export default function SelectByCategory({
 }: SelectByCategoryProps) {
   return (
     <Select onValueChange={onCategoryChange}>
-      <SelectTrigger className="w-[180px]">
+      <SelectTrigger className="w-full md:w-[180px]">
         <SelectValue placeholder="Select category"></SelectValue>
       </SelectTrigger>
       <SelectContent>

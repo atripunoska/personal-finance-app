@@ -78,9 +78,9 @@ export default function TransactionsTable({
 
   return (
     <div>
-      <div className="flex justify-between mb-3 gap-3">
+      <div className="flex justify-between mb-3 gap-3 flex-col md:flex-row">
         <Search placeholder="Search transactions" />
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-col md:flex-row">
           <Sort onSortChange={handleSortChange} />
 
           <SelectByCategory
@@ -104,7 +104,7 @@ export default function TransactionsTable({
             return (
               <TableRow key={Math.random()}>
                 <TableCell>
-                  <div className="flex gap-2 items-center">
+                  <div className="flex gap-2 md:items-center flex-col md:flex-row">
                     <Image
                       src={"/./" + item.avatar}
                       alt={item.name + " avatar"}

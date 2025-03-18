@@ -83,7 +83,7 @@ export default function RecurringBillsTable({
             return (
               <TableRow key={item.name}>
                 <TableCell>
-                  <div className="flex gap-2 items-center">
+                  <div className="flex gap-2 md:items-center flex-col md:flex-row">
                     <Image
                       src={"/./" + item.avatar}
                       alt={item.name + " avatar"}
