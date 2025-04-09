@@ -1,3 +1,5 @@
+// Strategy Pattern
+
 import { getDate } from "date-fns";
 
 export async function calculateRecurringBillsData(

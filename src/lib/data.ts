@@ -1,3 +1,5 @@
+// mostly Repository Pattern for fetching data from supabase
+
 import { createClient } from "@/utils/supabase/client";
 
 const supabase = createClient();
