@@ -7,6 +7,7 @@ import {
   TableHeader,
   TableHead,
 } from "@/components/ui/table";
+
 import Image from "next/image";
 import clsx from "clsx";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -78,9 +79,9 @@ export default function TransactionsTable({
 
   return (
     <div>
-      <div className="flex justify-between mb-3 gap-3 flex-col md:flex-row">
+      <div className="flex justify-between mb-3 gap-3 flex-col lg:flex-row">
         <Search placeholder="Search transactions" />
-        <div className="flex gap-2 flex-col md:flex-row">
+        <div className="flex gap-2 flex-col lg:flex-row">
           <Sort onSortChange={handleSortChange} />
 
           <SelectByCategory
@@ -111,6 +112,7 @@ export default function TransactionsTable({
                       className="rounded size-[40px] rounded-full"
                       width={40}
                       height={40}
+                      loading="lazy"
                     />
                     <div className="pl-2 font-semibold ">{item.name}</div>
                   </div>

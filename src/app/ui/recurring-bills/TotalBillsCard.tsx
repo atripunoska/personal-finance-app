@@ -15,6 +15,7 @@ export default function TotalBillsCard({
         height={30}
         alt="Recurring Bills icon"
         className="mb-6"
+        loading="lazy"
       />
       <div className="font-light mb-2">Total Bills</div>
       <span className="font-bold text-3xl">

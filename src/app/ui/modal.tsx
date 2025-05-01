@@ -57,6 +57,7 @@ export const Modal: React.FC<ModalProps> = (props) => {
                 height={30}
                 width={30}
                 alt="Modal close icon"
+                loading="lazy"
               />
             </button>
           )}

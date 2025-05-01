@@ -28,6 +28,7 @@ export default function BudgetCardTable({
                       height={30}
                       alt={item.name + " avatar"}
                       className="rounded-full"
+                      loading="lazy"
                     />
                     <span className="ml-4 font-bold">{item.name}</span>
                   </div>

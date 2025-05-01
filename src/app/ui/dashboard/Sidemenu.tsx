@@ -12,6 +12,7 @@ export default function Sidemenu() {
         width={121}
         alt="Finance Logo"
         className="pb-8 pt-4 pl-4 px-3 hidden md:block"
+        loading="lazy"
       />
       <NavLinks />
       <div className="hidden h-auto w-full grow rounded-md bg-gray-900 md:block"></div>

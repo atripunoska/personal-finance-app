@@ -15,12 +15,12 @@ interface SortProps {
 
 export default function Sort({ onSortChange }: SortProps) {
   return (
-    <>
-      <Label htmlFor="sort" className="mb-0.5 md:mb-0">
+    <div className="flex flex-row">
+      <Label htmlFor="sort" className="mb-0.5 md:mb-0 w-14">
         Sort by
       </Label>
       <Select onValueChange={onSortChange}>
-        <SelectTrigger className="w-full md:w-[180px]">
+        <SelectTrigger className="w-full lg:w-[180px]">
           <SelectValue placeholder="Latest" />
         </SelectTrigger>
         <SelectContent id="sort">
@@ -32,6 +32,6 @@ export default function Sort({ onSortChange }: SortProps) {
           <SelectItem value="lowest">Lowest</SelectItem>
         </SelectContent>
       </Select>
-    </>
+    </div>
   );
 }

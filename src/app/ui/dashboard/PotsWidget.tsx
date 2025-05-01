@@ -52,6 +52,7 @@ export default function PotsWidget({ pots }: PotsWidgetProps) {
                 alt={"Total saved icon"}
                 width={40}
                 height={40}
+                loading="lazy"
               />
               <div className="flex flex-col pl-3">
                 <span className="text-gray-400 mb-3">Total savings</span>

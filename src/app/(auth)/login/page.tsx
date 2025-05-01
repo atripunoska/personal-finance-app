@@ -13,6 +13,7 @@ export default function Login() {
           width={1400}
           height={200}
           className="hidden lg:flex"
+          loading="lazy"
         />
       </div>
       <div className="lg:w-2/3">

@@ -90,6 +90,7 @@ export default function RecurringBillsTable({
                       className="rounded size-[40px] rounded-full"
                       width={40}
                       height={40}
+                      loading="lazy"
                     />
                     <div className="pl-2 font-semibold ">{item.name}</div>
                   </div>
@@ -114,6 +115,7 @@ export default function RecurringBillsTable({
                           alt="Icon Bill Due"
                           width={18}
                           height={18}
+                          loading="lazy"
                         />
                       )}
 
@@ -123,6 +125,7 @@ export default function RecurringBillsTable({
                         alt="Icon Bill Paid"
                         width={18}
                         height={18}
+                        loading="lazy"
                       />
                     )}
                   </div>
@@ -132,7 +135,7 @@ export default function RecurringBillsTable({
                     <div
                       className={
                         clsx({
-                          " flex items-center ": true,
+                          " flex justify-end ": true,
                           "text-red-700 ":
                             getDate(item.date) > dueSoon &&
                             getDate(item.date) < dueSoon + 5,

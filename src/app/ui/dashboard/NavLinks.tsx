@@ -43,6 +43,7 @@ export default function NavLinks() {
               width={24}
               height={24}
               alt={link.name + " icon"}
+              loading="lazy"
               style={
                 pathname === link.path
                   ? {

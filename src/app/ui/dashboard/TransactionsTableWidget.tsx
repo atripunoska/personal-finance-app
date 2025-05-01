@@ -45,6 +45,7 @@ export default function TransactionsTableWidget({
                       className="rounded size-[40px] rounded-full"
                       width={40}
                       height={40}
+                      loading="lazy"
                     />
                     <span className="pl-2">{item.name}</span>
                   </TableCell>
