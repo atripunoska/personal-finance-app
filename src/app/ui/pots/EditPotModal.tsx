@@ -100,7 +100,11 @@ const EditPotModal: React.FC<{
               </option>
             ))}
           </select>
-          <Button onClick={handleUpdatePot} aria-label="Save Changes">
+          <Button
+            onClick={handleUpdatePot}
+            aria-label="Save Changes"
+            className="cursor-pointer"
+          >
             Save changes
           </Button>
         </form>

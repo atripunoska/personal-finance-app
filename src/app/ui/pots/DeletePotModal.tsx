@@ -40,14 +40,14 @@ export default function DeletePotModal({
       <div>
         <form className="flex flex-col gap-3 mt-4">
           <Button
-            className="text-white font-bold bg-red"
+            className="text-white font-bold bg-red cursor-pointer"
             onClick={handleDeletePot}
             aria-label="Confirm Deletion"
           >
             Yes, Confirm Deletion
           </Button>
           <Button
-            className="text-white font-bold"
+            className="text-white font-bold cursor-pointer"
             onClick={onClose}
             aria-label="Go Back"
           >

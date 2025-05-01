@@ -80,7 +80,7 @@ export default function PotCard({ name, theme, target, total }: PotCardProps) {
       </div>
       <div className="flex gap-2 justify-between">
         <Button
-          className="font-bold  text-grey-900 bg-grey-100 flex flex-grow border-2 border-grey-100 hover:bg-white hover:text-black hover:border-2"
+          className="font-bold  text-grey-900 bg-grey-100 flex flex-grow border-2 border-grey-100 hover:bg-white hover:text-black hover:border-2 cursor-pointer"
           onClick={() => handleOpenModal(ModalType.ADD)}
           aria-label="Open Add Modal"
         >
@@ -88,7 +88,7 @@ export default function PotCard({ name, theme, target, total }: PotCardProps) {
         </Button>
 
         <Button
-          className="font-bold  text-grey-900 bg-grey-100 border-2 border-grey-100 flex flex-grow hover:bg-white hover:text-black hover:border-2"
+          className="font-bold  text-grey-900 bg-grey-100 border-2 border-grey-100 flex flex-grow hover:bg-white hover:text-black hover:border-2 cursor-pointer"
           onClick={() => handleOpenModal(ModalType.WITHDRAW)}
           aria-label="Open Withdraw Modal"
         >

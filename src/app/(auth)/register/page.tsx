@@ -45,7 +45,11 @@ export default function SignUp() {
           required
           className="border border-gray-300 rounded-md p-2"
         />
-        <Button formAction={signup} aria-label="Create an account">
+        <Button
+          formAction={signup}
+          aria-label="Create an account"
+          className="cursor-pointer"
+        >
           Create an account
         </Button>
       </form>

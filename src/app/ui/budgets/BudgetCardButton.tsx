@@ -42,7 +42,7 @@ export default function BudgetCardButton({
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
-            className="font-bold text-grey-500"
+            className="font-bold text-grey-500 cursor-pointer hover:bg-grey-100 hover:text-grey-900"
             variant="secondary"
             aria-label="Open Dropdown"
           >
@@ -50,11 +50,17 @@ export default function BudgetCardButton({
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-20">
-          <DropdownMenuItem onClick={() => handleOpenModal(ModalType.EDIT)}>
+          <DropdownMenuItem
+            onClick={() => handleOpenModal(ModalType.EDIT)}
+            className="cursor-pointer"
+          >
             Edit Budget
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => handleOpenModal(ModalType.DELETE)}>
+          <DropdownMenuItem
+            onClick={() => handleOpenModal(ModalType.DELETE)}
+            className="cursor-pointer"
+          >
             Delete Budget
           </DropdownMenuItem>
         </DropdownMenuContent>

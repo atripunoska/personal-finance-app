@@ -93,7 +93,7 @@ export default function AddNewPotModal({
             ))}
           </select>
           <Button
-            className="text-white font-bold"
+            className="text-white font-bold cursor-pointer"
             onClick={handleAddPot}
             aria-label="Confirm addition"
           >

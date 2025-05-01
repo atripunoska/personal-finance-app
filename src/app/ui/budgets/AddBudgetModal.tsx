@@ -152,7 +152,7 @@ export default function AddBudgetModal({
         </select>
       </div>
       <Button
-        className="mr-2"
+        className="mr-2 cursor-pointer"
         onClick={handleAddBudget}
         aria-label="Add Budget"
       >

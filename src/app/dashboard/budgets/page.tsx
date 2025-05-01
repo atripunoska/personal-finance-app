@@ -54,8 +54,8 @@ export default function Budget() {
 
   return (
     <>
-      <div className="flex justify-between">
-        <h3 className="font-bold text-3xl mb-3">Budgets</h3>
+      <header className="flex justify-between mt-3">
+        <h2 className="font-bold text-2xl mb-3">Budgets</h2>
         <Button
           className="font-bold"
           onClick={handleOpenModal}
@@ -71,7 +71,7 @@ export default function Budget() {
             onAddBudget={handleAddBudget}
           />
         )}
-      </div>
+      </header>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
         <div className="lg:col-start-1 lg:col-end-1">

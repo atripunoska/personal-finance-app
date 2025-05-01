@@ -140,7 +140,11 @@ const EditBudgetModal: React.FC<{
               }
             })}
           </select>
-          <Button onClick={handleUpdateBudget} aria-label="Save changes">
+          <Button
+            onClick={handleUpdateBudget}
+            aria-label="Save changes"
+            className="cursor-pointer"
+          >
             Save changes
           </Button>
         </form>

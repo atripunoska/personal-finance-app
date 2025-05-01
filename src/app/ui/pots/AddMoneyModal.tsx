@@ -43,7 +43,7 @@ const AddMoneyModal: React.FC<{
             placeholder="Enter amount"
           />
           <Button
-            className="text-white  font-bold"
+            className="text-white  font-bold cursor-pointer"
             onClick={handleAddMoney}
             aria-label="Confirm addition"
           >
