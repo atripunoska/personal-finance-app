@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Public_Sans } from "next/font/google";
+import { WebVitals } from "@/app/ui/WebVitals";
 
 const publicSans = Public_Sans({ subsets: ["latin"] });
 
@@ -17,6 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${publicSans.className} antialiased bg-beige-100`}>
+        <WebVitals />
         {children}
       </body>
     </html>
