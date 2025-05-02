@@ -1,4 +1,3 @@
-// app/_components/WebVitals.tsx
 "use client";
 
 import { useReportWebVitals } from "next/web-vitals";
