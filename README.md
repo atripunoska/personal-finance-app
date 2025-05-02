@@ -92,6 +92,19 @@ Replace `your-supabase-url` and `your-supabase-anon-key` with your actual Supaba
 - CSS Grid
 - Web accessibility
 
+## Accessibility
+
+This application adheres to the [WCAG 2.1](https://www.w3.org/WAI/standards-guidelines/wcag/) AA standards:
+
+- Fully navigable via keyboard
+- Proper semantic HTML structure
+- Screen-reader-friendly labels and roles
+- Sufficient color contrast ratios (checked with Lighthouse)
+
+Accessibility has been verified using:
+- Google Lighthouse
+- Manual screen reader and keyboard navigation tests
+
 ## Screenshots
 
 **Login Page**
