@@ -2,6 +2,18 @@
 
 This is a solution to the [Personal finance app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/personal-finance-app-JfjtZgyMt1). It's a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Table of Contents
+- [Installation](#installation)
+- [Environment Variables](#environment-variables)
+- [Project Structure](#project-structure)
+- [Features](#features)
+  - [User Capabilities](#users-should-be-able-to)
+- [Built with](#built-with)
+- [Accessibility](#accessibility)
+- [Screenshots](#screenshots)
+
+
+
 ## Installation
 
 First, clone the repository:
