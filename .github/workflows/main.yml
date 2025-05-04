@@ -10,6 +10,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    env:
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+      AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
+      SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -28,5 +34,6 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Test
-        run: npm test # optional if you have tests
+      # Optional: Run tests (only if you have them)
+      - name: Run tests
+        run: npm test
