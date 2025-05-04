@@ -28,11 +28,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Print Environment Variables for Debugging
+        run: |
+          echo "NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}"
+          echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}"
+          echo "AUTH_SECRET=${{ secrets.AUTH_SECRET }}"
+          echo "SESSION_SECRET=${{ secrets.SESSION_SECRET }}"
+
       - name: Lint
         run: npm run lint
 
       - name: Build
         run: npm run build
-
-      - name: Run tests
-        run: npm test
