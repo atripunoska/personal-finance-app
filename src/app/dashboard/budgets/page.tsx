@@ -1,14 +1,14 @@
-"use client";
-import AddBudgetModal from "@/app/ui/budgets/AddBudgetModal";
-import BudgetCard from "@/app/ui/budgets/BudgetCard";
-import BudgetCardSkeleton from "@/app/ui/budgets/BudgetCardSkeleton";
-import ChartBudget from "@/app/ui/budgets/ChartBudget";
-import ChartSkeleton from "@/app/ui/dashboard/ChartSkeleton";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { fetchBudgets, fetchTotalAmountByCategory } from "@/lib/data";
-import { CategoriesDataProps, THEMES, BudgetProps } from "@/lib/definitions";
-import React, { Suspense, useEffect, useState } from "react";
+'use client';
+import AddBudgetModal from '@/app/ui/budgets/AddBudgetModal';
+import BudgetCard from '@/app/ui/budgets/BudgetCard';
+import BudgetCardSkeleton from '@/app/ui/budgets/BudgetCardSkeleton';
+import ChartBudget from '@/app/ui/budgets/ChartBudget';
+import ChartSkeleton from '@/app/ui/dashboard/ChartSkeleton';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { fetchBudgets, fetchTotalAmountByCategory } from '@/lib/data';
+import { CategoriesDataProps, THEMES, BudgetProps } from '@/lib/definitions';
+import React, { Suspense, useEffect, useState } from 'react';
 
 export default function Budget() {
   const [budgets, setBudgets] = useState<BudgetProps[]>([]);
@@ -35,7 +35,7 @@ export default function Budget() {
       acc[category] += amount;
       return acc;
     },
-    {},
+    {}
   );
 
   let progress = 0;
@@ -54,12 +54,12 @@ export default function Budget() {
 
   return (
     <>
-      <header className="flex justify-between mt-3">
-        <h2 className="font-bold text-2xl mb-3">Budgets</h2>
+      <header className='flex justify-between mt-3'>
+        <h2 className='font-bold text-2xl mb-3'>Budgets</h2>
         <Button
-          className="font-bold"
+          className='font-bold'
           onClick={handleOpenModal}
-          aria-label="Add New Budgets"
+          aria-label='Add New Budgets'
         >
           + Add New Budgets
         </Button>
@@ -73,8 +73,8 @@ export default function Budget() {
         )}
       </header>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
-        <div className="lg:col-start-1 lg:col-end-1">
+      <div className='grid grid-cols-1 lg:grid-cols-3 gap-3'>
+        <div className='lg:col-start-1 lg:col-end-1'>
           <Card>
             <CardContent>
               <Suspense fallback={<ChartSkeleton />}>
@@ -86,7 +86,7 @@ export default function Budget() {
             </CardContent>
           </Card>
         </div>
-        <div className="lg:col-span-2 gap-3 flex flex-col">
+        <div className='lg:col-span-2 gap-3 flex flex-col'>
           <Suspense fallback={<BudgetCardSkeleton />}>
             {budgets.map((item) => {
               progress =

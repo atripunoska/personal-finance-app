@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import {
   Table,
   TableBody,
@@ -6,17 +6,17 @@ import {
   TableCell,
   TableHeader,
   TableHead,
-} from "@/components/ui/table";
+} from '@/components/ui/table';
 
-import Image from "next/image";
-import clsx from "clsx";
-import { useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
-import { fetchCategories, fetchFilteredTransactions } from "@/lib/data";
-import { USDollar } from "@/lib/utils";
-import Search from "@/components/ui/search";
-import SelectByCategory from "./selectByCategory";
-import Sort from "./Sort";
+import Image from 'next/image';
+import clsx from 'clsx';
+import { useRouter, useSearchParams } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
+import { fetchCategories, fetchFilteredTransactions } from '@/lib/data';
+import { USDollar } from '@/lib/utils';
+import Search from '@/components/ui/search';
+import SelectByCategory from './selectByCategory';
+import Sort from './Sort';
 
 export default function TransactionsTable({
   query,
@@ -28,8 +28,8 @@ export default function TransactionsTable({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [transactions, setTransactions] = useState<any[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
-  const [filterCategory, setFilterCategory] = useState("all");
-  const [sortOption, setSortOption] = useState("latest");
+  const [filterCategory, setFilterCategory] = useState('all');
+  const [sortOption, setSortOption] = useState('latest');
   const router = useRouter();
   const searchParams = useSearchParams();
   useEffect(() => {
@@ -37,8 +37,8 @@ export default function TransactionsTable({
       const transactionsData = await fetchFilteredTransactions(
         query,
         currentPage,
-        filterCategory === "all" ? "" : filterCategory,
-        sortOption,
+        filterCategory === 'all' ? '' : filterCategory,
+        sortOption
       );
       setTransactions(transactionsData.data);
 
@@ -65,13 +65,13 @@ export default function TransactionsTable({
     const newParams = new URLSearchParams(searchParams?.toString());
 
     if (params.category !== undefined) {
-      if (params.category !== "all") {
-        newParams.set("category", params.category);
-      } else newParams.delete("category");
+      if (params.category !== 'all') {
+        newParams.set('category', params.category);
+      } else newParams.delete('category');
     }
 
     if (params.sort !== undefined) {
-      newParams.set("sort", params.sort);
+      newParams.set('sort', params.sort);
     }
 
     router.replace(`?${newParams.toString()}`);
@@ -79,9 +79,9 @@ export default function TransactionsTable({
 
   return (
     <div>
-      <div className="flex justify-between mb-3 gap-3 flex-col lg:flex-row">
-        <Search placeholder="Search transactions" />
-        <div className="flex gap-2 flex-col lg:flex-row">
+      <div className='flex justify-between mb-3 gap-3 flex-col lg:flex-row'>
+        <Search placeholder='Search transactions' />
+        <div className='flex gap-2 flex-col lg:flex-row'>
           <Sort onSortChange={handleSortChange} />
 
           <SelectByCategory
@@ -95,9 +95,9 @@ export default function TransactionsTable({
         <TableHeader>
           <TableRow>
             <TableHead>Recipient/Sender</TableHead>
-            <TableHead className="text-center">Category</TableHead>
-            <TableHead className="text-center">Transaction Date</TableHead>
-            <TableHead className="text-right">Amount</TableHead>
+            <TableHead className='text-center'>Category</TableHead>
+            <TableHead className='text-center'>Transaction Date</TableHead>
+            <TableHead className='text-right'>Amount</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -105,38 +105,38 @@ export default function TransactionsTable({
             return (
               <TableRow key={Math.random()}>
                 <TableCell>
-                  <div className="flex gap-2 md:items-center flex-col md:flex-row">
+                  <div className='flex gap-2 md:items-center flex-col md:flex-row'>
                     <Image
                       src={item.avatar.substring(1)}
-                      alt={item.name + " avatar"}
-                      className="rounded size-[40px] rounded-full"
+                      alt={item.name + ' avatar'}
+                      className='rounded size-[40px] rounded-full'
                       width={40}
                       height={40}
-                      loading="lazy"
+                      loading='lazy'
                     />
-                    <div className="pl-2 font-semibold ">{item.name}</div>
+                    <div className='pl-2 font-semibold '>{item.name}</div>
                   </div>
                 </TableCell>
 
-                <TableCell className="text-center">
-                  <div className="font-light text-muted-foreground">
+                <TableCell className='text-center'>
+                  <div className='font-light text-muted-foreground'>
                     {item.category}
                   </div>
                 </TableCell>
-                <TableCell className="text-center">
-                  <div className="font-light text-muted-foreground">
+                <TableCell className='text-center'>
+                  <div className='font-light text-muted-foreground'>
                     {item.date}
                   </div>
                 </TableCell>
-                <TableCell className="text-right">
+                <TableCell className='text-right'>
                   <div
                     className={clsx({
-                      "text-gray-900": item.amount < 0,
-                      "text-green-900": item.amount > 0,
-                      "font-semibold": true,
+                      'text-gray-900': item.amount < 0,
+                      'text-green-900': item.amount > 0,
+                      'font-semibold': true,
                     })}
                   >
-                    {item.amount > 0 ? "+" : ""}
+                    {item.amount > 0 ? '+' : ''}
                     {USDollar.format(item.amount)}
                   </div>
                 </TableCell>

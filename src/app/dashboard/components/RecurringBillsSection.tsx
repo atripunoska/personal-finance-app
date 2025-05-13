@@ -1,8 +1,8 @@
-import React, { Suspense } from "react";
-import { fetchRecurringBills, getLatestTransaction } from "@/lib/data";
-import { calculateRecurringBillsData } from "@/lib/calculateRecurringBillsData";
-import RecurringBillsWidgetSkeleton from "@/app/ui/dashboard/RecurringBillsWidgetSkeleton";
-import RecurringBillsWidget from "@/app/ui/dashboard/RecurringBillsWidget";
+import React, { Suspense } from 'react';
+import { fetchRecurringBills, getLatestTransaction } from '@/lib/data';
+import { calculateRecurringBillsData } from '@/lib/calculateRecurringBillsData';
+import RecurringBillsWidgetSkeleton from '@/app/ui/dashboard/RecurringBillsWidgetSkeleton';
+import RecurringBillsWidget from '@/app/ui/dashboard/RecurringBillsWidget';
 
 export default async function RecurringBillsSection() {
   const [recurringBillsResponse, latestTransaction] = await Promise.all([

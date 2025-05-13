@@ -1,8 +1,8 @@
-import React from "react";
-import { Modal } from "../modal";
-import { createPortal } from "react-dom";
-import { Button } from "@/components/ui/button";
-import { deleteBudget } from "@/lib/data";
+import React from 'react';
+import { Modal } from '../modal';
+import { createPortal } from 'react-dom';
+import { Button } from '@/components/ui/button';
+import { deleteBudget } from '@/lib/data';
 
 export default function DeleteBudgetModal({
   onClose,
@@ -23,14 +23,14 @@ export default function DeleteBudgetModal({
       }
       onClose();
     } catch (error) {
-      console.error("Failed to delete budget:", error);
+      console.error('Failed to delete budget:', error);
     }
   };
   return createPortal(
     <Modal
       isOpen={true}
       onClose={onClose}
-      title="Delete"
+      title='Delete'
       hasCloseBtn={hasCloseBtn}
     >
       <p>
@@ -38,24 +38,24 @@ export default function DeleteBudgetModal({
         reversed, and all the data inside it will be removed forever.
       </p>
       <div>
-        <form className="flex flex-col gap-3 mt-4">
+        <form className='flex flex-col gap-3 mt-4'>
           <Button
-            className="text-white font-bold bg-red cursor-pointer"
+            className='text-white font-bold bg-red cursor-pointer'
             onClick={handleDeleteBudget}
-            aria-label="Confirm Deletion"
+            aria-label='Confirm Deletion'
           >
             Yes, Confirm Deletion
           </Button>
           <Button
-            className="text-white font-bold cursor-pointer"
+            className='text-white font-bold cursor-pointer'
             onClick={onClose}
-            aria-label="Go back"
+            aria-label='Go back'
           >
             No, go back
           </Button>
         </form>
       </div>
     </Modal>,
-    document.body,
+    document.body
   );
 }

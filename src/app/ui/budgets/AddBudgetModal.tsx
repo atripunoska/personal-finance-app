@@ -1,11 +1,11 @@
-import React, { useState, useEffect, ChangeEvent } from "react";
+import React, { useState, useEffect, ChangeEvent } from 'react';
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { fetchThemes, addNewBudget } from "@/lib/data";
-import { createPortal } from "react-dom";
-import { Modal } from "../modal";
-import { closest } from "color-2-name";
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { fetchThemes, addNewBudget } from '@/lib/data';
+import { createPortal } from 'react-dom';
+import { Modal } from '../modal';
+import { closest } from 'color-2-name';
 
 interface AddBudgetModalProps {
   onClose: () => void;
@@ -21,9 +21,9 @@ export default function AddBudgetModal({
   allThemes,
   onAddBudget,
 }: AddBudgetModalProps) {
-  const [category, setCategory] = useState("");
-  const [maximum, setMaximum] = useState("");
-  const [selectedTheme, setSelectedTheme] = useState("");
+  const [category, setCategory] = useState('');
+  const [maximum, setMaximum] = useState('');
+  const [selectedTheme, setSelectedTheme] = useState('');
   const [isMounted, setIsMounted] = useState(false);
 
   const [themes, setThemes] = useState<string[]>([]);
@@ -62,14 +62,14 @@ export default function AddBudgetModal({
       const newBudget = await addNewBudget(
         category,
         parseFloat(maximum),
-        selectedTheme,
+        selectedTheme
       );
       if (newBudget) {
         onAddBudget(newBudget[0]); // Pass the new pot to the parent component
       }
       onClose();
     } catch (error) {
-      console.error("Failed to add new pot:", error);
+      console.error('Failed to add new pot:', error);
     }
   };
 
@@ -77,22 +77,22 @@ export default function AddBudgetModal({
     <Modal
       isOpen={true}
       onClose={onClose}
-      title="Add New Budget"
+      title='Add New Budget'
       hasCloseBtn={true}
     >
-      <div className="mb-4">
+      <div className='mb-4'>
         <label
-          htmlFor="category"
-          className="block text-sm font-medium text-gray-700"
+          htmlFor='category'
+          className='block text-sm font-medium text-gray-700'
         >
           Budget Category
         </label>
         <select
-          name="category"
-          id="category"
+          name='category'
+          id='category'
           value={category}
           onChange={handleSetCategory}
-          className="border border-gray-300 rounded-md p-2 w-full"
+          className='border border-gray-300 rounded-md p-2 w-full'
         >
           {allCategories.map((cat) => {
             return (
@@ -103,31 +103,31 @@ export default function AddBudgetModal({
           })}
         </select>
       </div>
-      <div className="mb-4">
+      <div className='mb-4'>
         <label
-          htmlFor="maximum"
-          className="block text-sm font-medium text-gray-700"
+          htmlFor='maximum'
+          className='block text-sm font-medium text-gray-700'
         >
           Maximum Amount
         </label>
         <Input
-          id="maximum"
-          type="number"
+          id='maximum'
+          type='number'
           value={maximum}
           onChange={(e) => setMaximum(e.target.value)}
           required
         />
       </div>
-      <div className="mb-4 flex flex-col">
-        <label htmlFor="theme" className="text-sm font-semibold text-grey-500">
+      <div className='mb-4 flex flex-col'>
+        <label htmlFor='theme' className='text-sm font-semibold text-grey-500'>
           Theme
         </label>
         <select
-          name="themes"
-          id="theme"
+          name='themes'
+          id='theme'
           value={selectedTheme}
           onChange={handleSetTheme}
-          className="border border-gray-300 rounded-md p-2"
+          className='border border-gray-300 rounded-md p-2'
         >
           {allThemes.map((item: string) => {
             if (themes.includes(item)) {
@@ -136,7 +136,7 @@ export default function AddBudgetModal({
                   value={item}
                   key={item}
                   disabled={true}
-                  className="disabled:text-gray-500 disabled:bg-gray-100 disabled:pointer-events-none italic"
+                  className='disabled:text-gray-500 disabled:bg-gray-100 disabled:pointer-events-none italic'
                 >
                   {closest(item.toString()).name} - already has been used
                 </option>
@@ -152,13 +152,13 @@ export default function AddBudgetModal({
         </select>
       </div>
       <Button
-        className="mr-2 cursor-pointer"
+        className='mr-2 cursor-pointer'
         onClick={handleAddBudget}
-        aria-label="Add Budget"
+        aria-label='Add Budget'
       >
         Add Budget
       </Button>
     </Modal>,
-    document.body,
+    document.body
   );
 }

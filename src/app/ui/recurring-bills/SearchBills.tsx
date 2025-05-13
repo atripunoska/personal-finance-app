@@ -1,5 +1,5 @@
-import { SearchBillsProps } from "@/lib/definitions";
-import React from "react";
+import { SearchBillsProps } from '@/lib/definitions';
+import React from 'react';
 
 export default function SearchBills({
   placeholder,
@@ -7,11 +7,11 @@ export default function SearchBills({
 }: SearchBillsProps) {
   return (
     <input
-      type="search"
+      type='search'
       placeholder={placeholder}
       onChange={onChange}
-      className="border border-gray-300 rounded-md p-2 w-auto"
-      id="search"
+      className='border border-gray-300 rounded-md p-2 w-auto'
+      id='search'
     />
   );
 }
