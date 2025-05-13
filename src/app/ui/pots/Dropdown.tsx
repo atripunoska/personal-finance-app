@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Button } from '@/components/ui/button';
-import { ModalType } from '@/lib/definitions';
-import DeletePotModal from './DeletePotModal';
-import { deletePot, fetchPots } from '@/lib/data';
-import EditPotModal from './EditPotModal';
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
+import { ModalType } from "@/lib/definitions";
+import DeletePotModal from "./DeletePotModal";
+import { deletePot, fetchPots } from "@/lib/data";
+import EditPotModal from "./EditPotModal";
 
 export default function Dropdown({
   potId,
@@ -37,7 +37,7 @@ export default function Dropdown({
       await deletePot(potId);
       handleCloseModal();
     } catch (error) {
-      console.error('Failed to add money to pot:', error);
+      console.error("Failed to add money to pot:", error);
     }
   };
 
@@ -47,7 +47,7 @@ export default function Dropdown({
       const potThemes = pots.map((p) => p.theme);
       setThemes(potThemes);
     } catch (error) {
-      console.log('Failed to fetch themes.', error);
+      console.log("Failed to fetch themes.", error);
     }
   };
 
@@ -60,24 +60,24 @@ export default function Dropdown({
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
-            className='font-bold text-grey-500 cursor-pointer hover:bg-grey-100 hover:text-grey-900'
-            variant='secondary'
-            aria-label='Open Dropdown'
+            className="font-bold text-grey-500 cursor-pointer hover:bg-grey-100 hover:text-grey-900"
+            variant="secondary"
+            aria-label="Open Dropdown"
           >
             ...
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className='w-20'>
+        <DropdownMenuContent className="w-20">
           <DropdownMenuItem
             onClick={() => handleOpenModal(ModalType.EDIT)}
-            className='cursor-pointer'
+            className="cursor-pointer"
           >
             Edit Pot
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={() => handleOpenModal(ModalType.DELETE)}
-            className='cursor-pointer'
+            className="cursor-pointer"
           >
             Delete Pot
           </DropdownMenuItem>

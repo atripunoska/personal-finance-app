@@ -1,16 +1,16 @@
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { BudgetCardButtonProps, ModalType, THEMES } from '@/lib/definitions';
-import React, { useState } from 'react';
-import DeleteBudgetModal from './DeleteBudgetModal';
-import { deleteBudget } from '@/lib/data';
-import EditBudgetModal from './EditBudgetModal';
+} from "@/components/ui/dropdown-menu";
+import { BudgetCardButtonProps, ModalType, THEMES } from "@/lib/definitions";
+import React, { useState } from "react";
+import DeleteBudgetModal from "./DeleteBudgetModal";
+import { deleteBudget } from "@/lib/data";
+import EditBudgetModal from "./EditBudgetModal";
 
 export default function BudgetCardButton({
   category,
@@ -33,7 +33,7 @@ export default function BudgetCardButton({
       await deleteBudget(category);
       handleCloseModal();
     } catch (error) {
-      console.error('Failed to add money to pot:', error);
+      console.error("Failed to add money to pot:", error);
     }
   };
 
@@ -42,24 +42,24 @@ export default function BudgetCardButton({
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
-            className='font-bold text-grey-500 cursor-pointer hover:bg-grey-100 hover:text-grey-900'
-            variant='secondary'
-            aria-label='Open Dropdown'
+            className="font-bold text-grey-500 cursor-pointer hover:bg-grey-100 hover:text-grey-900"
+            variant="secondary"
+            aria-label="Open Dropdown"
           >
             ...
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className='w-20'>
+        <DropdownMenuContent className="w-20">
           <DropdownMenuItem
             onClick={() => handleOpenModal(ModalType.EDIT)}
-            className='cursor-pointer'
+            className="cursor-pointer"
           >
             Edit Budget
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={() => handleOpenModal(ModalType.DELETE)}
-            className='cursor-pointer'
+            className="cursor-pointer"
           >
             Delete Budget
           </DropdownMenuItem>
@@ -84,7 +84,7 @@ export default function BudgetCardButton({
           allThemes={THEMES}
           maximumAmount={maximumAmount}
           categories={categories}
-          potId={''}
+          potId={""}
         />
       )}
     </>

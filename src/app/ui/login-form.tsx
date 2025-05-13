@@ -1,44 +1,44 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
-import { login } from '../(auth)/login/actions';
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { login } from "../(auth)/login/actions";
 
 export default function LoginForm() {
   return (
     <form
-      className='bg-white p-7 flex flex-col gap-3 w-full md:w-[600px] mx-auto
-    '
+      className="bg-white p-7 flex flex-col gap-3 w-full md:w-[600px] mx-auto
+    "
     >
-      <h1 className='font-bold text-4xl mb-4'>Login</h1>
-      <label htmlFor='email' className='text-sm font-semibold text-grey-500'>
+      <h1 className="font-bold text-4xl mb-4">Login</h1>
+      <label htmlFor="email" className="text-sm font-semibold text-grey-500">
         Email:
       </label>
       <input
-        id='email'
-        name='email'
-        type='email'
+        id="email"
+        name="email"
+        type="email"
         required
-        className='border border-gray-300 rounded-md p-2'
+        className="border border-gray-300 rounded-md p-2"
       />
-      <label htmlFor='password' className='text-sm font-semibold text-grey-500'>
+      <label htmlFor="password" className="text-sm font-semibold text-grey-500">
         Password:
       </label>
       <input
-        id='password'
-        name='password'
-        type='password'
+        id="password"
+        name="password"
+        type="password"
         required
-        className='border border-gray-300 rounded-md p-2'
+        className="border border-gray-300 rounded-md p-2"
       />
-      <Button formAction={login} aria-label='Log in' className='cursor-pointer'>
+      <Button formAction={login} aria-label="Log in" className="cursor-pointer">
         Log in
       </Button>
-      <p className='text-center text-gray-500'>
-        Need to create an account?{' '}
+      <p className="text-center text-gray-500">
+        Need to create an account?{" "}
         <Link
-          href='/register'
-          className='text-black underline font-bold cursor-pointer'
+          href="/register"
+          className="text-black underline font-bold cursor-pointer"
         >
           Sign up
         </Link>

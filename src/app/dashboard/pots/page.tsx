@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import PotCardSkeleton from '@/app/ui/pots/PotCardSkeleton';
-import PotCard from '@/app/ui/pots/PotCard';
-import { Button } from '@/components/ui/button';
-import { fetchPots } from '@/lib/data';
-import { Pot } from '@/lib/definitions';
+import PotCardSkeleton from "@/app/ui/pots/PotCardSkeleton";
+import PotCard from "@/app/ui/pots/PotCard";
+import { Button } from "@/components/ui/button";
+import { fetchPots } from "@/lib/data";
+import { Pot } from "@/lib/definitions";
 
-import React, { Suspense, useEffect, useState } from 'react';
-import AddNewPotModal from '@/app/ui/pots/AddNewPotModal';
+import React, { Suspense, useEffect, useState } from "react";
+import AddNewPotModal from "@/app/ui/pots/AddNewPotModal";
 
 export default function PotsPage() {
   const [pots, setPots] = useState<Pot[]>([]);
@@ -19,7 +19,7 @@ export default function PotsPage() {
         const potsData = await fetchPots(); // Assuming fetchPots is correctly defined elsewhere
         setPots(potsData); // Update the state with fetched data
       } catch (error) {
-        console.error('Failed to load pots:', error);
+        console.error("Failed to load pots:", error);
       }
     };
     loadPots();
@@ -41,13 +41,13 @@ export default function PotsPage() {
 
   return (
     <main>
-      <header className='flex justify-between mt-3'>
-        <h2 className='font-bold text-2xl mb-3'>Pots</h2>
-        <Button onClick={handleOpenModal} aria-label='Add New Pot'>
+      <header className="flex justify-between mt-3">
+        <h2 className="font-bold text-2xl mb-3">Pots</h2>
+        <Button onClick={handleOpenModal} aria-label="Add New Pot">
           + Add New Pot
         </Button>
       </header>
-      <section className='grid grid-cols-1 lg:grid-cols-2 gap-3'>
+      <section className="grid grid-cols-1 lg:grid-cols-2 gap-3">
         <Suspense fallback={<PotCardSkeleton />}>
           {pots.map((pot) => {
             themes.push(pot.theme);
