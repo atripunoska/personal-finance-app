@@ -1,20 +1,20 @@
 export const THEMES = [
-  '#82C9D7',
-  '#F2CDAC',
-  '#277C78',
-  '#626070',
-  '#A020F0',
-  '#FFA500',
-  '#BCB88A',
-  '#ff78df',
+  "#82C9D7",
+  "#F2CDAC",
+  "#277C78",
+  "#626070",
+  "#A020F0",
+  "#FFA500",
+  "#BCB88A",
+  "#ff78df",
 ];
 
 export enum ModalType {
-  ADD = 'add',
-  WITHDRAW = 'withdraw',
-  EDIT = 'edit',
-  DELETE = 'delete',
-  NONE = 'none',
+  ADD = "add",
+  WITHDRAW = "withdraw",
+  EDIT = "edit",
+  DELETE = "delete",
+  NONE = "none",
 }
 
 export interface BalanceCardProps {

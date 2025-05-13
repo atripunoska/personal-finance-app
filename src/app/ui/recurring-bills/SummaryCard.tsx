@@ -1,6 +1,6 @@
-import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
-import { USDollar } from '@/lib/utils';
-import React from 'react';
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
+import { USDollar } from "@/lib/utils";
+import React from "react";
 
 export default function SummaryCard({
   totalPaid,

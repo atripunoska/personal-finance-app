@@ -4,9 +4,9 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { SortBillsProps } from '@/lib/definitions';
-import React from 'react';
+} from "@/components/ui/select";
+import { SortBillsProps } from "@/lib/definitions";
+import React from "react";
 
 export default function SortBills({ onSortChange }: SortBillsProps) {
   return (

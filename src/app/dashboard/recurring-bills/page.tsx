@@ -1,20 +1,20 @@
-import RecurringBillsTable from '@/app/ui/recurring-bills/RecurringBillsTable';
-import SummaryCard from '@/app/ui/recurring-bills/SummaryCard';
-import TotalBillsCard from '@/app/ui/recurring-bills/TotalBillsCard';
-import { fetchRecurringBills, getLatestTransaction } from '@/lib/data';
+import RecurringBillsTable from "@/app/ui/recurring-bills/RecurringBillsTable";
+import SummaryCard from "@/app/ui/recurring-bills/SummaryCard";
+import TotalBillsCard from "@/app/ui/recurring-bills/TotalBillsCard";
+import { fetchRecurringBills, getLatestTransaction } from "@/lib/data";
 
-import React, { Suspense } from 'react';
-import { calculateRecurringBillsData } from '@/lib/calculateRecurringBillsData';
-import RecurringBillsTableSkeleton from '@/app/ui/recurring-bills/RecurringBillsTableSkeleton';
-import SummaryCardSkeleton from '@/app/ui/recurring-bills/SummaryCardSkeleton';
-import TotalBillsCardSkeleton from '@/app/ui/recurring-bills/TotalBillsCardSkeleton';
+import React, { Suspense } from "react";
+import { calculateRecurringBillsData } from "@/lib/calculateRecurringBillsData";
+import RecurringBillsTableSkeleton from "@/app/ui/recurring-bills/RecurringBillsTableSkeleton";
+import SummaryCardSkeleton from "@/app/ui/recurring-bills/SummaryCardSkeleton";
+import TotalBillsCardSkeleton from "@/app/ui/recurring-bills/TotalBillsCardSkeleton";
 
 export default async function RecurringBills() {
   const recurringBillsResponse = await fetchRecurringBills();
   const latestTransaction = await getLatestTransaction();
 
   if (!recurringBillsResponse.data) {
-    throw new Error('Failed to fetch recurring bills data');
+    throw new Error("Failed to fetch recurring bills data");
   }
 
   const {
@@ -30,7 +30,7 @@ export default async function RecurringBills() {
     latestTransactionDate,
   } = await calculateRecurringBillsData(
     { data: recurringBillsResponse.data },
-    latestTransaction
+    latestTransaction,
   );
 
   return (
@@ -42,7 +42,7 @@ export default async function RecurringBills() {
             <TotalBillsCard totalAmount={totalAmount} />
           </Suspense>
           <Suspense fallback={<SummaryCardSkeleton />}>
-            {' '}
+            {" "}
             <SummaryCard
               totalPaid={totalPaid}
               totalAmountPaid={totalAmountPaid}

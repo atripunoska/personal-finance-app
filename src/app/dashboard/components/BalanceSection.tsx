@@ -1,6 +1,6 @@
-import React from 'react';
-import { fetchBalance } from '@/lib/data';
-import BalanceCard from '@/app/ui/dashboard/BalanceCard';
+import React from "react";
+import { fetchBalance } from "@/lib/data";
+import BalanceCard from "@/app/ui/dashboard/BalanceCard";
 
 export default async function BalanceSection() {
   const balance = await fetchBalance();

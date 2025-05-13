@@ -1,7 +1,7 @@
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 
-import React from 'react';
-import { signup } from '../login/actions';
+import React from "react";
+import { signup } from "../login/actions";
 
 export default function SignUp() {
   return (

@@ -1,7 +1,7 @@
-'use client';
-import { useDebouncedCallback } from 'use-debounce';
+"use client";
+import { useDebouncedCallback } from "use-debounce";
 
-import { useSearchParams, usePathname, useRouter } from 'next/navigation';
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
 export default function Search({ placeholder }: { placeholder: string }) {
   const searchParams = useSearchParams();
@@ -11,12 +11,12 @@ export default function Search({ placeholder }: { placeholder: string }) {
   const handleSearch = useDebouncedCallback((term) => {
     console.log(`Searching... ${term}`);
 
-    const params = new URLSearchParams(searchParams || '');
-    params.set('page', '1');
+    const params = new URLSearchParams(searchParams || "");
+    params.set("page", "1");
     if (term) {
-      params.set('query', term);
+      params.set("query", term);
     } else {
-      params.delete('query');
+      params.delete("query");
     }
     replace(`${pathname}?${params.toString()}`);
   }, 300);
@@ -33,7 +33,7 @@ export default function Search({ placeholder }: { placeholder: string }) {
           handleSearch(e.target.value);
         }}
         id="search"
-        defaultValue={searchParams?.get('query')?.toString()}
+        defaultValue={searchParams?.get("query")?.toString()}
         type="search"
       />
     </div>

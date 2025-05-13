@@ -1,12 +1,12 @@
-'use client';
-import { Card, CardContent } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
-import { USDollar } from '@/lib/utils';
-import React, { useEffect, useState } from 'react';
-import BudgetCardTable from './BudgetCardTable';
-import { fetchTransactionsByCategory } from '@/lib/data';
-import BudgetCardButton from './BudgetCardButton';
-import { BudgetCardProps, Transaction } from '@/lib/definitions';
+"use client";
+import { Card, CardContent } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import { USDollar } from "@/lib/utils";
+import React, { useEffect, useState } from "react";
+import BudgetCardTable from "./BudgetCardTable";
+import { fetchTransactionsByCategory } from "@/lib/data";
+import BudgetCardButton from "./BudgetCardButton";
+import { BudgetCardProps, Transaction } from "@/lib/definitions";
 
 export default function BudgetCard({
   category,
@@ -40,7 +40,7 @@ export default function BudgetCard({
             <span
               className="rounded-full h-4 w-4 mr-3 flex"
               style={{ backgroundColor: theme }}
-            ></span>{' '}
+            ></span>{" "}
             <h3 className="font-bold text-lg">{category}</h3>
           </div>
           <BudgetCardButton
@@ -58,7 +58,7 @@ export default function BudgetCard({
           indicatorColor={theme}
           max={maximum}
           role="progressbar"
-          aria-label={'Maximum of ' + USDollar.format(maximum)}
+          aria-label={"Maximum of " + USDollar.format(maximum)}
         />
         <div className="grid grid-cols-2 gap-2 mt-4">
           <div className="flex">

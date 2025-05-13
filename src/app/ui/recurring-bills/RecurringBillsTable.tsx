@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-'use client';
+"use client";
 
 import {
   Table,
@@ -8,15 +8,15 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { RecurringBillsTableProps } from '@/lib/definitions';
-import { USDollar } from '@/lib/utils';
-import clsx from 'clsx';
-import { format, getDate } from 'date-fns';
-import Image from 'next/image';
-import { useState } from 'react';
-import SearchBills from './SearchBills';
-import SortBills from './SortBills';
+} from "@/components/ui/table";
+import { RecurringBillsTableProps } from "@/lib/definitions";
+import { USDollar } from "@/lib/utils";
+import clsx from "clsx";
+import { format, getDate } from "date-fns";
+import Image from "next/image";
+import { useState } from "react";
+import SearchBills from "./SearchBills";
+import SortBills from "./SortBills";
 
 export default function RecurringBillsTable({
   paid,
@@ -25,8 +25,8 @@ export default function RecurringBillsTable({
 }: RecurringBillsTableProps) {
   const dueSoon = getDate(latestTransactionDate);
 
-  const [query, setQuery] = useState('');
-  const [sortBy, setSortBy] = useState('latest');
+  const [query, setQuery] = useState("");
+  const [sortBy, setSortBy] = useState("latest");
 
   const filteredAllBills = paid.concat(upcoming);
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,17 +39,17 @@ export default function RecurringBillsTable({
 
   const sortBills = (bills: any[]) => {
     return bills.sort((a, b) => {
-      if (sortBy === 'aToZ') {
+      if (sortBy === "aToZ") {
         return a.name.localeCompare(b.name);
-      } else if (sortBy === 'zToA') {
+      } else if (sortBy === "zToA") {
         return b.name.localeCompare(a.name);
-      } else if (sortBy === 'latest') {
+      } else if (sortBy === "latest") {
         return new Date(a.date).getTime() - new Date(b.date).getTime();
-      } else if (sortBy === 'oldest') {
+      } else if (sortBy === "oldest") {
         return new Date(b.date).getTime() - new Date(a.date).getTime();
-      } else if (sortBy === 'highest') {
+      } else if (sortBy === "highest") {
         return a.amount - b.amount;
-      } else if (sortBy === 'lowest') {
+      } else if (sortBy === "lowest") {
         return b.amount - a.amount;
       }
       return 0;
@@ -57,14 +57,14 @@ export default function RecurringBillsTable({
   };
 
   const filteredBills = sortBills(
-    filteredAllBills.filter((el) => el.name.toLowerCase().includes(query))
+    filteredAllBills.filter((el) => el.name.toLowerCase().includes(query)),
   );
 
   return (
     <div className="bg-white text-grey-900 p-6 rounded-md">
       <div className="flex flex-col lg:flex-row lg:justify-between mb-4 gap-2">
         <SearchBills
-          placeholder={'Search bills'}
+          placeholder={"Search bills"}
           onChange={handleSearchChange}
         />
         <SortBills onSortChange={handleSortChange} />
@@ -86,7 +86,7 @@ export default function RecurringBillsTable({
                   <div className="flex gap-2 md:items-center flex-col md:flex-row">
                     <Image
                       src={item.avatar.substring(1)}
-                      alt={item.name + ' avatar'}
+                      alt={item.name + " avatar"}
                       className="rounded size-[40px] rounded-full"
                       width={40}
                       height={40}
@@ -98,15 +98,15 @@ export default function RecurringBillsTable({
                 <TableCell>
                   <div
                     className={clsx({
-                      ' flex items-center ': true,
-                      'text-green': getDate(item.date) < dueSoon,
-                      'text-red-700 ':
+                      " flex items-center ": true,
+                      "text-green": getDate(item.date) < dueSoon,
+                      "text-red-700 ":
                         getDate(item.date) > dueSoon &&
                         getDate(item.date) < dueSoon + 5,
                     })}
                   >
                     <span className="mr-2">
-                      Monthly - {format(item.date, 'do')}
+                      Monthly - {format(item.date, "do")}
                     </span>
                     {getDate(item.date) > dueSoon &&
                       getDate(item.date) < dueSoon + 5 && (
@@ -135,8 +135,8 @@ export default function RecurringBillsTable({
                     <div
                       className={
                         clsx({
-                          ' flex justify-end ': true,
-                          'text-red-700 ':
+                          " flex justify-end ": true,
+                          "text-red-700 ":
                             getDate(item.date) > dueSoon &&
                             getDate(item.date) < dueSoon + 5,
                         }) + `font-bold`

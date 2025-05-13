@@ -1,14 +1,14 @@
-'use client';
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
-import { addAmountToPot, withdrawAmountFromPot } from '@/lib/data';
-import { USDollar } from '@/lib/utils';
-import WithdrawMoneyModal from './WithdrawMoneyModal';
-import AddMoneyModal from './AddMoneyModal';
-import Dropdown from './Dropdown';
-import { ModalType, PotCardProps } from '@/lib/definitions';
+"use client";
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import { addAmountToPot, withdrawAmountFromPot } from "@/lib/data";
+import { USDollar } from "@/lib/utils";
+import WithdrawMoneyModal from "./WithdrawMoneyModal";
+import AddMoneyModal from "./AddMoneyModal";
+import Dropdown from "./Dropdown";
+import { ModalType, PotCardProps } from "@/lib/definitions";
 
 export default function PotCard({ name, theme, target, total }: PotCardProps) {
   const progress = (total / target) * 100;
@@ -30,7 +30,7 @@ export default function PotCard({ name, theme, target, total }: PotCardProps) {
       setPotTotal(potTotal + amount);
       handleCloseModal();
     } catch (error) {
-      console.error('Failed to add money to pot:', error);
+      console.error("Failed to add money to pot:", error);
     }
   };
 
@@ -40,7 +40,7 @@ export default function PotCard({ name, theme, target, total }: PotCardProps) {
       setPotTotal(potTotal - amount);
       handleCloseModal();
     } catch (error) {
-      console.error('Failed to withdraw money from pot:', error);
+      console.error("Failed to withdraw money from pot:", error);
     }
   };
 
@@ -68,7 +68,7 @@ export default function PotCard({ name, theme, target, total }: PotCardProps) {
         value={progress}
         indicatorColor={theme}
         role="progressbar"
-        aria-label={name + 'progress bar'}
+        aria-label={name + "progress bar"}
       />
       <div className="flex justify-between">
         <div className="text-grey-300 font-bold text-sm ">

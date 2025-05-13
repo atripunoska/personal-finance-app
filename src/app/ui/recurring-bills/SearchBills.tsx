@@ -1,5 +1,5 @@
-import { SearchBillsProps } from '@/lib/definitions';
-import React from 'react';
+import { SearchBillsProps } from "@/lib/definitions";
+import React from "react";
 
 export default function SearchBills({
   placeholder,

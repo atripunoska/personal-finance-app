@@ -1,6 +1,6 @@
 // Strategy Pattern
 
-import { getDate } from 'date-fns';
+import { getDate } from "date-fns";
 
 export async function calculateRecurringBillsData(
   recurringBills: {
@@ -13,7 +13,7 @@ export async function calculateRecurringBillsData(
       recurring: boolean;
     }[];
   },
-  latestTransaction: { date: string }
+  latestTransaction: { date: string },
 ) {
   let totalAmountPaid = 0;
   let totalAmountUpcoming = 0;
@@ -21,7 +21,8 @@ export async function calculateRecurringBillsData(
 
   // Filter out duplicate items with the same name
   const uniqueRecurringBills = recurringBills.data?.filter(
-    (item, index, self) => index === self.findIndex((t) => t.name === item.name)
+    (item, index, self) =>
+      index === self.findIndex((t) => t.name === item.name),
   );
   const latestTransactionDate = new Date(latestTransaction.date);
   const dueSoon = getDate(latestTransactionDate);
@@ -30,14 +31,14 @@ export async function calculateRecurringBillsData(
   const paidTransactions = uniqueRecurringBills?.filter(
     (item) =>
       new Date(item.date) <= latestTransactionDate &&
-      new Date(item.date) > new Date('2024-08-01')
+      new Date(item.date) > new Date("2024-08-01"),
   );
 
   uniqueRecurringBills?.forEach((item) => {
     const itemDate = new Date(item.date);
     if (
       itemDate <= latestTransactionDate &&
-      itemDate > new Date('2024-08-01')
+      itemDate > new Date("2024-08-01")
     ) {
       totalAmountPaid += item.amount;
     }

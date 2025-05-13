@@ -65,7 +65,7 @@ export async function deleteBudget(category: string) {
 
 export async function updateBudget(
   category: string,
-  updates: { category: string; maximum: number; theme: string }
+  updates: { category: string; maximum: number; theme: string },
 ) {
   try {
     const { data, error } = await supabase
@@ -84,7 +84,7 @@ export async function updateBudget(
 export async function addNewBudget(
   category: string,
   maximum: number,
-  theme: string
+  theme: string,
 ) {
   try {
     const { data, error } = await supabase
@@ -118,7 +118,7 @@ export async function fetchFilteredTransactions(
   query: string,
   currentPage: number,
   category: string,
-  sort: string
+  sort: string,
 ) {
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
@@ -422,7 +422,7 @@ export async function deletePot(name: string) {
 
 export async function updatePot(
   potId: string,
-  updates: { name: string; target: number; theme: string }
+  updates: { name: string; target: number; theme: string },
 ) {
   try {
     const { data, error } = await supabase

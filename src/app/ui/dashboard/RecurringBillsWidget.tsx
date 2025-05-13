@@ -1,7 +1,7 @@
-import { Card } from '@/components/ui/card';
-import { USDollar } from '@/lib/utils';
-import Link from 'next/link';
-import React from 'react';
+import { Card } from "@/components/ui/card";
+import { USDollar } from "@/lib/utils";
+import Link from "next/link";
+import React from "react";
 
 export default function RecurringBillsWidget({
   totalAmountPaid,

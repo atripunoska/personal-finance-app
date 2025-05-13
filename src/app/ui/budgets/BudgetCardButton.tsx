@@ -1,16 +1,16 @@
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { BudgetCardButtonProps, ModalType, THEMES } from '@/lib/definitions';
-import React, { useState } from 'react';
-import DeleteBudgetModal from './DeleteBudgetModal';
-import { deleteBudget } from '@/lib/data';
-import EditBudgetModal from './EditBudgetModal';
+} from "@/components/ui/dropdown-menu";
+import { BudgetCardButtonProps, ModalType, THEMES } from "@/lib/definitions";
+import React, { useState } from "react";
+import DeleteBudgetModal from "./DeleteBudgetModal";
+import { deleteBudget } from "@/lib/data";
+import EditBudgetModal from "./EditBudgetModal";
 
 export default function BudgetCardButton({
   category,
@@ -33,7 +33,7 @@ export default function BudgetCardButton({
       await deleteBudget(category);
       handleCloseModal();
     } catch (error) {
-      console.error('Failed to add money to pot:', error);
+      console.error("Failed to add money to pot:", error);
     }
   };
 
@@ -84,7 +84,7 @@ export default function BudgetCardButton({
           allThemes={THEMES}
           maximumAmount={maximumAmount}
           categories={categories}
-          potId={''}
+          potId={""}
         />
       )}
     </>

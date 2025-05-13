@@ -1,8 +1,8 @@
-import React from 'react';
-import { Modal } from '../modal';
-import { createPortal } from 'react-dom';
-import { Button } from '@/components/ui/button';
-import { deleteBudget } from '@/lib/data';
+import React from "react";
+import { Modal } from "../modal";
+import { createPortal } from "react-dom";
+import { Button } from "@/components/ui/button";
+import { deleteBudget } from "@/lib/data";
 
 export default function DeleteBudgetModal({
   onClose,
@@ -23,7 +23,7 @@ export default function DeleteBudgetModal({
       }
       onClose();
     } catch (error) {
-      console.error('Failed to delete budget:', error);
+      console.error("Failed to delete budget:", error);
     }
   };
   return createPortal(
@@ -56,6 +56,6 @@ export default function DeleteBudgetModal({
         </form>
       </div>
     </Modal>,
-    document.body
+    document.body,
   );
 }

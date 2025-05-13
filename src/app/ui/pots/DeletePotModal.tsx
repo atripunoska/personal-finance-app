@@ -1,8 +1,8 @@
-import React from 'react';
-import { Modal } from '../modal';
-import { createPortal } from 'react-dom';
-import { Button } from '@/components/ui/button';
-import { deletePot } from '@/lib/data';
+import React from "react";
+import { Modal } from "../modal";
+import { createPortal } from "react-dom";
+import { Button } from "@/components/ui/button";
+import { deletePot } from "@/lib/data";
 
 export default function DeletePotModal({
   onClose,
@@ -23,7 +23,7 @@ export default function DeletePotModal({
       }
       onClose();
     } catch (error) {
-      console.error('Failed to add new pot:', error);
+      console.error("Failed to add new pot:", error);
     }
   };
   return createPortal(
@@ -56,6 +56,6 @@ export default function DeletePotModal({
         </form>
       </div>
     </Modal>,
-    document.body
+    document.body,
   );
 }

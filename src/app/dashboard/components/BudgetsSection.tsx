@@ -1,8 +1,8 @@
-import React, { Suspense } from 'react';
-import { fetchBudgets, fetchTotalAmountByCategory } from '@/lib/data';
-import ChartSkeleton from '@/app/ui/dashboard/ChartSkeleton';
-import { Card } from '@/components/ui/card';
-import ChartBudget from '@/app/ui/budgets/ChartBudget';
+import React, { Suspense } from "react";
+import { fetchBudgets, fetchTotalAmountByCategory } from "@/lib/data";
+import ChartSkeleton from "@/app/ui/dashboard/ChartSkeleton";
+import { Card } from "@/components/ui/card";
+import ChartBudget from "@/app/ui/budgets/ChartBudget";
 
 export default async function BudgetsSection() {
   const [budgets, categories] = await Promise.all([
@@ -19,7 +19,7 @@ export default async function BudgetsSection() {
       acc[category] += amount;
       return acc;
     },
-    {}
+    {},
   );
 
   return (
