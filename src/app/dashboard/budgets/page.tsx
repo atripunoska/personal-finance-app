@@ -1,14 +1,14 @@
-"use client";
-import AddBudgetModal from "@/app/ui/budgets/AddBudgetModal";
-import BudgetCard from "@/app/ui/budgets/BudgetCard";
-import BudgetCardSkeleton from "@/app/ui/budgets/BudgetCardSkeleton";
-import ChartBudget from "@/app/ui/budgets/ChartBudget";
-import ChartSkeleton from "@/app/ui/dashboard/ChartSkeleton";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { fetchBudgets, fetchTotalAmountByCategory } from "@/lib/data";
-import { CategoriesDataProps, THEMES, BudgetProps } from "@/lib/definitions";
-import React, { Suspense, useEffect, useState } from "react";
+'use client';
+import AddBudgetModal from '@/app/ui/budgets/AddBudgetModal';
+import BudgetCard from '@/app/ui/budgets/BudgetCard';
+import BudgetCardSkeleton from '@/app/ui/budgets/BudgetCardSkeleton';
+import ChartBudget from '@/app/ui/budgets/ChartBudget';
+import ChartSkeleton from '@/app/ui/dashboard/ChartSkeleton';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { fetchBudgets, fetchTotalAmountByCategory } from '@/lib/data';
+import { CategoriesDataProps, THEMES, BudgetProps } from '@/lib/definitions';
+import React, { Suspense, useEffect, useState } from 'react';
 
 export default function Budget() {
   const [budgets, setBudgets] = useState<BudgetProps[]>([]);
@@ -35,7 +35,7 @@ export default function Budget() {
       acc[category] += amount;
       return acc;
     },
-    {},
+    {}
   );
 
   let progress = 0;

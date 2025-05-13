@@ -1,10 +1,10 @@
-"use client";
-import React from "react";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Doughnut } from "react-chartjs-2";
-import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { USDollar } from "@/lib/utils";
-import { BudgetProps, TotalAmountByCategory } from "@/lib/definitions";
+'use client';
+import React from 'react';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Doughnut } from 'react-chartjs-2';
+import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
+import { USDollar } from '@/lib/utils';
+import { BudgetProps, TotalAmountByCategory } from '@/lib/definitions';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -51,8 +51,8 @@ export default function ChartBudget({
                 <TableCell className="text-right">
                   <span className="font-bold text-lg">
                     {USDollar.format(Math.abs(totalAmount))}
-                  </span>{" "}
-                  of{" "}
+                  </span>{' '}
+                  of{' '}
                   <span className="text-muted-foreground text-sm font-semibold ">
                     {USDollar.format(item.maximum)}
                   </span>

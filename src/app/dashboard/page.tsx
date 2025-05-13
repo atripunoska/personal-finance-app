@@ -1,9 +1,9 @@
-import React from "react";
-import BalanceSection from "./components/BalanceSection";
-import BudgetsSection from "./components/BudgetsSection";
-import PotsSection from "./components/PotsSection";
-import RecurringBillsSection from "./components/RecurringBillsSection";
-import TransactionsSection from "./components/TransactionsSection";
+import React from 'react';
+import BalanceSection from './components/BalanceSection';
+import BudgetsSection from './components/BudgetsSection';
+import PotsSection from './components/PotsSection';
+import RecurringBillsSection from './components/RecurringBillsSection';
+import TransactionsSection from './components/TransactionsSection';
 
 export default function Dashboard() {
   return (

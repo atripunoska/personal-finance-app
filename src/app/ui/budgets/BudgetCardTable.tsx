@@ -1,9 +1,9 @@
-import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import React from "react";
-import Image from "next/image";
-import { USDollar } from "@/lib/utils";
-import { format } from "date-fns";
-import { BudgetCardTableProps } from "@/lib/definitions";
+import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
+import React from 'react';
+import Image from 'next/image';
+import { USDollar } from '@/lib/utils';
+import { format } from 'date-fns';
+import { BudgetCardTableProps } from '@/lib/definitions';
 
 export default function BudgetCardTable({
   transactions,
@@ -26,7 +26,7 @@ export default function BudgetCardTable({
                       src={item.avatar.substring(1)}
                       width={30}
                       height={30}
-                      alt={item.name + " avatar"}
+                      alt={item.name + ' avatar'}
                       className="rounded-full"
                       loading="lazy"
                     />
@@ -39,13 +39,13 @@ export default function BudgetCardTable({
                       {USDollar.format(item.amount)}
                     </span>
                     <span className="font-light text-muted-foreground">
-                      {format(item.date, "i MMM yyyy")}
+                      {format(item.date, 'i MMM yyyy')}
                     </span>
                   </div>
                 </TableCell>
               </TableRow>
             );
-          },
+          }
         )}
       </TableBody>
     </Table>

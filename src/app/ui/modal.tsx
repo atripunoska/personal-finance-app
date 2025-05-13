@@ -1,6 +1,6 @@
-"use client";
-import Image from "next/image";
-import React, { useEffect, useRef } from "react";
+'use client';
+import Image from 'next/image';
+import React, { useEffect, useRef } from 'react';
 
 interface ModalProps {
   isOpen: boolean;
@@ -35,7 +35,7 @@ export const Modal: React.FC<ModalProps> = (props) => {
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDialogElement>) => {
-    if (event.key === "Escape") {
+    if (event.key === 'Escape') {
       handleCloseModal();
     }
   };

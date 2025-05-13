@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
-import { ModalType } from "@/lib/definitions";
-import DeletePotModal from "./DeletePotModal";
-import { deletePot, fetchPots } from "@/lib/data";
-import EditPotModal from "./EditPotModal";
+} from '@/components/ui/dropdown-menu';
+import { Button } from '@/components/ui/button';
+import { ModalType } from '@/lib/definitions';
+import DeletePotModal from './DeletePotModal';
+import { deletePot, fetchPots } from '@/lib/data';
+import EditPotModal from './EditPotModal';
 
 export default function Dropdown({
   potId,
@@ -37,7 +37,7 @@ export default function Dropdown({
       await deletePot(potId);
       handleCloseModal();
     } catch (error) {
-      console.error("Failed to add money to pot:", error);
+      console.error('Failed to add money to pot:', error);
     }
   };
 
@@ -47,7 +47,7 @@ export default function Dropdown({
       const potThemes = pots.map((p) => p.theme);
       setThemes(potThemes);
     } catch (error) {
-      console.log("Failed to fetch themes.", error);
+      console.log('Failed to fetch themes.', error);
     }
   };
 

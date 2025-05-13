@@ -1,7 +1,7 @@
-import NavLinks from "@/app/ui/dashboard/NavLinks";
+import NavLinks from '@/app/ui/dashboard/NavLinks';
 
-import Image from "next/image";
-import { logout } from "@/app/(auth)/logout/actions";
+import Image from 'next/image';
+import { logout } from '@/app/(auth)/logout/actions';
 
 export default function Sidemenu() {
   return (

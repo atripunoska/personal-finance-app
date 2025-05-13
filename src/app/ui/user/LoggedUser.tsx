@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { User } from "@supabase/supabase-js";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { createClient } from "@/utils/supabase/client";
+import { User } from '@supabase/supabase-js';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { createClient } from '@/utils/supabase/client';
 
 export default function LoggedUser() {
   const [user, setUser] = useState<User | null>(null);
@@ -14,8 +14,8 @@ export default function LoggedUser() {
       const supabase = createClient();
       const { data, error } = await supabase.auth.getUser();
       if (error || !data?.user) {
-        console.log("No user, redirecting to login...");
-        router.push("/login"); // Redirect to login if not authenticated
+        console.log('No user, redirecting to login...');
+        router.push('/login'); // Redirect to login if not authenticated
       } else {
         setUser(data.user);
       }

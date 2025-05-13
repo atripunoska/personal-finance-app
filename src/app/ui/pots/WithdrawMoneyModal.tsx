@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { Modal } from "../modal";
-import { createPortal } from "react-dom";
-import { Button } from "@/components/ui/button";
+import React, { useState } from 'react';
+import { Modal } from '../modal';
+import { createPortal } from 'react-dom';
+import { Button } from '@/components/ui/button';
 
 const WithdrawMoneyModal: React.FC<{
   onClose: () => void;
@@ -53,7 +53,7 @@ const WithdrawMoneyModal: React.FC<{
         </form>
       </div>
     </Modal>,
-    document.body,
+    document.body
   );
 };
 

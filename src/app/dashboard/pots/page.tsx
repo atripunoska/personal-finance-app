@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import PotCardSkeleton from "@/app/ui/pots/PotCardSkeleton";
-import PotCard from "@/app/ui/pots/PotCard";
-import { Button } from "@/components/ui/button";
-import { fetchPots } from "@/lib/data";
-import { Pot } from "@/lib/definitions";
+import PotCardSkeleton from '@/app/ui/pots/PotCardSkeleton';
+import PotCard from '@/app/ui/pots/PotCard';
+import { Button } from '@/components/ui/button';
+import { fetchPots } from '@/lib/data';
+import { Pot } from '@/lib/definitions';
 
-import React, { Suspense, useEffect, useState } from "react";
-import AddNewPotModal from "@/app/ui/pots/AddNewPotModal";
+import React, { Suspense, useEffect, useState } from 'react';
+import AddNewPotModal from '@/app/ui/pots/AddNewPotModal';
 
 export default function PotsPage() {
   const [pots, setPots] = useState<Pot[]>([]);
@@ -19,7 +19,7 @@ export default function PotsPage() {
         const potsData = await fetchPots(); // Assuming fetchPots is correctly defined elsewhere
         setPots(potsData); // Update the state with fetched data
       } catch (error) {
-        console.error("Failed to load pots:", error);
+        console.error('Failed to load pots:', error);
       }
     };
     loadPots();
