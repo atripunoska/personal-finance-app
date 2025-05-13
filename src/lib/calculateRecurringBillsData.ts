@@ -1,6 +1,6 @@
 // Strategy Pattern
 
-import { getDate } from "date-fns";
+import { getDate } from 'date-fns';
 
 export async function calculateRecurringBillsData(
   recurringBills: {
@@ -30,14 +30,14 @@ export async function calculateRecurringBillsData(
   const paidTransactions = uniqueRecurringBills?.filter(
     (item) =>
       new Date(item.date) <= latestTransactionDate &&
-      new Date(item.date) > new Date("2024-08-01")
+      new Date(item.date) > new Date('2024-08-01')
   );
 
   uniqueRecurringBills?.forEach((item) => {
     const itemDate = new Date(item.date);
     if (
       itemDate <= latestTransactionDate &&
-      itemDate > new Date("2024-08-01")
+      itemDate > new Date('2024-08-01')
     ) {
       totalAmountPaid += item.amount;
     }

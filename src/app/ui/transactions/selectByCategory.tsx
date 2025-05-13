@@ -1,13 +1,13 @@
-"use client";
+'use client';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { SelectByCategoryProps } from "@/lib/definitions";
-import React from "react";
+} from '@/components/ui/select';
+import { SelectByCategoryProps } from '@/lib/definitions';
+import React from 'react';
 
 export default function SelectByCategory({
   categories,

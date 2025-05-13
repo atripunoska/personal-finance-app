@@ -1,12 +1,12 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 
 export async function middleware(request: NextRequest) {
-  const token = request.cookies.get("sb-razzuqrakukytiechpdl-auth-token"); // Replace with your actual token key
+  const token = request.cookies.get('sb-razzuqrakukytiechpdl-auth-token'); // Replace with your actual token key
 
   // Redirect to login if no token is found and the user is not on the login page
-  if (!token && !request.nextUrl.pathname.startsWith("/login")) {
-    const loginUrl = new URL("/login", request.url);
+  if (!token && !request.nextUrl.pathname.startsWith('/login')) {
+    const loginUrl = new URL('/login', request.url);
     return NextResponse.redirect(loginUrl);
   }
 
@@ -15,5 +15,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/protected/:path*"], // Protect specific routes
+  matcher: ['/dashboard/:path*', '/protected/:path*'], // Protect specific routes
 };

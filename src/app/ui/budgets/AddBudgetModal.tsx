@@ -1,11 +1,11 @@
-import React, { useState, useEffect, ChangeEvent } from "react";
+import React, { useState, useEffect, ChangeEvent } from 'react';
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { fetchThemes, addNewBudget } from "@/lib/data";
-import { createPortal } from "react-dom";
-import { Modal } from "../modal";
-import { closest } from "color-2-name";
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { fetchThemes, addNewBudget } from '@/lib/data';
+import { createPortal } from 'react-dom';
+import { Modal } from '../modal';
+import { closest } from 'color-2-name';
 
 interface AddBudgetModalProps {
   onClose: () => void;
@@ -21,9 +21,9 @@ export default function AddBudgetModal({
   allThemes,
   onAddBudget,
 }: AddBudgetModalProps) {
-  const [category, setCategory] = useState("");
-  const [maximum, setMaximum] = useState("");
-  const [selectedTheme, setSelectedTheme] = useState("");
+  const [category, setCategory] = useState('');
+  const [maximum, setMaximum] = useState('');
+  const [selectedTheme, setSelectedTheme] = useState('');
   const [isMounted, setIsMounted] = useState(false);
 
   const [themes, setThemes] = useState<string[]>([]);
@@ -69,7 +69,7 @@ export default function AddBudgetModal({
       }
       onClose();
     } catch (error) {
-      console.error("Failed to add new pot:", error);
+      console.error('Failed to add new pot:', error);
     }
   };
 

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { Modal } from "../modal";
-import { createPortal } from "react-dom";
-import { Button } from "@/components/ui/button";
+import React, { useState } from 'react';
+import { Modal } from '../modal';
+import { createPortal } from 'react-dom';
+import { Button } from '@/components/ui/button';
 
 const AddMoneyModal: React.FC<{
   onClose: () => void;

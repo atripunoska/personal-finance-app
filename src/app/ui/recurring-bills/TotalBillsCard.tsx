@@ -1,6 +1,6 @@
-import { USDollar } from "@/lib/utils";
-import React from "react";
-import Image from "next/image";
+import { USDollar } from '@/lib/utils';
+import React from 'react';
+import Image from 'next/image';
 
 export default function TotalBillsCard({
   totalAmount,

@@ -3,6 +3,7 @@
 This is a solution to the [Personal finance app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/personal-finance-app-JfjtZgyMt1). It's a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Table of Contents
+
 - [Installation](#installation)
 - [Environment Variables](#environment-variables)
 - [Project Structure](#project-structure)
@@ -11,8 +12,6 @@ This is a solution to the [Personal finance app challenge on Frontend Mentor](ht
 - [Built with](#built-with)
 - [Accessibility](#accessibility)
 - [Screenshots](#screenshots)
-
-
 
 ## Installation
 
@@ -114,6 +113,7 @@ This application adheres to the [WCAG 2.1](https://www.w3.org/WAI/standards-guid
 - Sufficient color contrast ratios (checked with Lighthouse)
 
 Accessibility has been verified using:
+
 - Google Lighthouse
 - Manual screen reader and keyboard navigation tests
 

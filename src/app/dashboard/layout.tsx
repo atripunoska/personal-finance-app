@@ -1,5 +1,5 @@
-import Sidemenu from "../ui/dashboard/Sidemenu";
-import LoggedUser from "../ui/user/LoggedUser";
+import Sidemenu from '../ui/dashboard/Sidemenu';
+import LoggedUser from '../ui/user/LoggedUser';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

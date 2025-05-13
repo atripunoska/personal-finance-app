@@ -1,13 +1,13 @@
-import { Label } from "@/components/ui/label";
+import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 
-import React from "react";
+import React from 'react';
 
 interface SortProps {
   onSortChange: (sort: string) => void;

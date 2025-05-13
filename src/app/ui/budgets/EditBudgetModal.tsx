@@ -1,9 +1,9 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
-import { Modal } from "../modal";
-import { fetchThemes, updateBudget } from "@/lib/data";
-import { Button } from "@/components/ui/button";
-import { closest } from "color-2-name";
-import { CategoriesDataProps } from "@/lib/definitions";
+import React, { ChangeEvent, useEffect, useState } from 'react';
+import { Modal } from '../modal';
+import { fetchThemes, updateBudget } from '@/lib/data';
+import { Button } from '@/components/ui/button';
+import { closest } from 'color-2-name';
+import { CategoriesDataProps } from '@/lib/definitions';
 
 const EditBudgetModal: React.FC<{
   onClose: () => void;
@@ -50,7 +50,7 @@ const EditBudgetModal: React.FC<{
       });
       onClose();
     } catch (error) {
-      console.error("Failed to update budget:", error);
+      console.error('Failed to update budget:', error);
     }
   };
 

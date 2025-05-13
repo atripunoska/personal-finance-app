@@ -1,10 +1,10 @@
-import { Button } from "@/components/ui/button";
-import React, { useState } from "react";
-import { createPortal } from "react-dom";
-import { Modal } from "../modal";
-import { addNewPot } from "@/lib/data";
-import { closest } from "color-2-name";
-import { Pot } from "@/lib/definitions";
+import { Button } from '@/components/ui/button';
+import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
+import { Modal } from '../modal';
+import { addNewPot } from '@/lib/data';
+import { closest } from 'color-2-name';
+import { Pot } from '@/lib/definitions';
 
 export default function AddNewPotModal({
   onClose,
@@ -17,8 +17,8 @@ export default function AddNewPotModal({
   onAddPot: (pot: Pot) => void;
   themes: string[];
 }) {
-  const [name, setName] = useState<string>("");
-  const [theme, setTheme] = useState<string>("");
+  const [name, setName] = useState<string>('');
+  const [theme, setTheme] = useState<string>('');
   const [target, setTarget] = useState<number>(0);
 
   const handleAddPot = async () => {
@@ -29,7 +29,7 @@ export default function AddNewPotModal({
       }
       onClose();
     } catch (error) {
-      console.error("Failed to add new pot:", error);
+      console.error('Failed to add new pot:', error);
     }
   };
 

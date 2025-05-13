@@ -1,9 +1,9 @@
-import { Card, CardContent } from "@/components/ui/card";
-import Link from "next/link";
-import Image from "next/image";
-import React from "react";
-import { Pot, PotsWidgetProps } from "@/lib/definitions";
-import { USDollar } from "@/lib/utils";
+import { Card, CardContent } from '@/components/ui/card';
+import Link from 'next/link';
+import Image from 'next/image';
+import React from 'react';
+import { Pot, PotsWidgetProps } from '@/lib/definitions';
+import { USDollar } from '@/lib/utils';
 
 export default function PotsWidget({ pots }: PotsWidgetProps) {
   let potsTotal = 0;
@@ -34,7 +34,7 @@ export default function PotsWidget({ pots }: PotsWidgetProps) {
                   ></span>
                   <div className="flex flex-col">
                     <span className="text-xs text-muted-foreground">
-                      {item.name}{" "}
+                      {item.name}{' '}
                     </span>
                     <div className="text-grey-900 font-bold  ">
                       {USDollar.format(item.total)}
@@ -49,7 +49,7 @@ export default function PotsWidget({ pots }: PotsWidgetProps) {
             <div className="flex items-center justify-center content-center gap-3">
               <Image
                 src="./assets/images/icon-pot.svg"
-                alt={"Total saved icon"}
+                alt={'Total saved icon'}
                 width={40}
                 height={40}
                 loading="lazy"

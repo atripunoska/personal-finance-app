@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { login } from "../(auth)/login/actions";
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { login } from '../(auth)/login/actions';
 
 export default function LoginForm() {
   return (
@@ -35,7 +35,7 @@ export default function LoginForm() {
         Log in
       </Button>
       <p className="text-center text-gray-500">
-        Need to create an account?{" "}
+        Need to create an account?{' '}
         <Link
           href="/register"
           className="text-black underline font-bold cursor-pointer"
