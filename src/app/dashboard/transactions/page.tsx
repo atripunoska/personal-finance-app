@@ -5,6 +5,11 @@ import Pagination from '@/app/ui/transactions/pagination';
 import TransactionsTable from '@/app/ui/transactions/table';
 import TransactionsTableSkeleton from '@/app/ui/transactions/TransactionsTableSkeleton';
 
+async function PaginationWrapper({ query }: { query: string }) {
+  const totalPages = await fetchTransactionsPages(query);
+  return <Pagination totalPages={totalPages} />;
+}
+
 export default async function Transactions(props: {
   searchParams?: Promise<{
     query?: string;
@@ -14,7 +19,6 @@ export default async function Transactions(props: {
   const searchParams = await props.searchParams;
   const query = searchParams?.query || '';
   const currentPage = Number(searchParams?.page) || 1;
-  const totalPages = await fetchTransactionsPages(query);
 
   return (
     <main>
@@ -22,13 +26,21 @@ export default async function Transactions(props: {
 
       <Card>
         <CardContent>
-          <Suspense fallback={<TransactionsTableSkeleton />}>
+          <Suspense
+            fallback={<TransactionsTableSkeleton />}
+            key={`${query}-${currentPage}`}
+          >
             <TransactionsTable query={query} currentPage={currentPage} />
           </Suspense>
         </CardContent>
       </Card>
-
-      <Pagination totalPages={totalPages} />
+      <Suspense
+        fallback={
+          <div className="mt-4 h-10 animate-pulse bg-gray-200 rounded" />
+        }
+      >
+        <PaginationWrapper query={query} />
+      </Suspense>
     </main>
   );
 }

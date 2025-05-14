@@ -18,6 +18,14 @@ export default function TransactionsTableSkeleton() {
             <Skeleton className="h-6 w-1/4" />
             <Skeleton className="h-6 w-1/4" />
             <Skeleton className="h-6 w-1/4" />
+            <Skeleton className="h-6 w-1/4" />
+            <Skeleton className="h-6 w-1/4" />
+            <Skeleton className="h-6 w-1/4" />
+            <Skeleton className="h-6 w-1/4" />
+            <Skeleton className="h-6 w-1/4" />
+            <Skeleton className="h-6 w-1/4" />
+            <Skeleton className="h-6 w-1/4" />
+            <Skeleton className="h-6 w-1/4" />
           </div>
         ))}
       </div>

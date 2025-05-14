@@ -1,6 +1,5 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { fetchBudgets, fetchTotalAmountByCategory } from '@/lib/data';
-import ChartSkeleton from '@/app/ui/dashboard/ChartSkeleton';
 import { Card } from '@/components/ui/card';
 import ChartBudget from '@/app/ui/budgets/ChartBudget';
 
@@ -24,12 +23,10 @@ export default async function BudgetsSection() {
 
   return (
     <Card className="p-4 lg:row-span-2">
-      <Suspense fallback={<ChartSkeleton />}>
-        <ChartBudget
-          dataProps={budgets}
-          totalAmountByCategory={totalAmountByCategory}
-        />
-      </Suspense>
+      <ChartBudget
+        dataProps={budgets}
+        totalAmountByCategory={totalAmountByCategory}
+      />
     </Card>
   );
 }

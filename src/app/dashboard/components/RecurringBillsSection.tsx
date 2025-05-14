@@ -1,7 +1,6 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { fetchRecurringBills, getLatestTransaction } from '@/lib/data';
 import { calculateRecurringBillsData } from '@/lib/calculateRecurringBillsData';
-import RecurringBillsWidgetSkeleton from '@/app/ui/dashboard/RecurringBillsWidgetSkeleton';
 import RecurringBillsWidget from '@/app/ui/dashboard/RecurringBillsWidget';
 
 export default async function RecurringBillsSection() {
@@ -15,12 +14,10 @@ export default async function RecurringBillsSection() {
     await calculateRecurringBillsData(recurringBills, latestTransaction);
 
   return (
-    <Suspense fallback={<RecurringBillsWidgetSkeleton />}>
-      <RecurringBillsWidget
-        totalAmountPaid={totalAmountPaid}
-        totalAmountUpcoming={totalAmountUpcoming}
-        totalAmountDue={totalAmountDue}
-      />
-    </Suspense>
+    <RecurringBillsWidget
+      totalAmountPaid={totalAmountPaid}
+      totalAmountUpcoming={totalAmountUpcoming}
+      totalAmountDue={totalAmountDue}
+    />
   );
 }
