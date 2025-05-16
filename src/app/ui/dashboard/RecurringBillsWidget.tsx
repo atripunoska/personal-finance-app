@@ -17,7 +17,7 @@ export default function RecurringBillsWidget({
       <div className="flex justify-between">
         <h3 className="font-bold text-lg">Recurring Bills</h3>
         <Link
-          href="/recurring-bills"
+          href="/dashboard/recurring-bills"
           className="font-medium text-sm text-muted-foreground"
         >
           See details

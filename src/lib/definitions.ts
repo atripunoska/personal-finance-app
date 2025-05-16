@@ -17,6 +17,12 @@ export enum ModalType {
   NONE = 'none',
 }
 
+export interface LinkType {
+  name: string;
+  path: string;
+  icon: string;
+}
+
 export interface BalanceCardProps {
   type: string;
   id: number;
