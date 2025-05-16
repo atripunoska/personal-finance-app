@@ -4,12 +4,10 @@ import { useState } from 'react';
 import AddBudgetModal from '@/app/ui/budgets/AddBudgetModal';
 import BudgetCard from '@/app/ui/budgets/BudgetCard';
 import ChartBudget from '@/app/ui/budgets/ChartBudget';
-import ChartSkeleton from '@/app/ui/dashboard/ChartSkeleton';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { BudgetProps, CategoriesDataProps, THEMES } from '@/lib/definitions';
 import { useRouter } from 'next/navigation';
-import { Suspense } from 'react';
 
 type Props = {
   budgets: BudgetProps[];
