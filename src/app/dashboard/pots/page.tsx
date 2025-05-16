@@ -16,8 +16,8 @@ export default function PotsPage() {
   useEffect(() => {
     const loadPots = async () => {
       try {
-        const potsData = await fetchPots(); // Assuming fetchPots is correctly defined elsewhere
-        setPots(potsData); // Update the state with fetched data
+        const potsData = await fetchPots();
+        setPots(potsData);
       } catch (error) {
         console.error('Failed to load pots:', error);
       }

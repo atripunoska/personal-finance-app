@@ -67,7 +67,7 @@ export default function PotCard({ name, theme, target, total }: PotCardProps) {
       <Progress
         value={progress}
         indicatorColor={theme}
-        role="progressbar"
+        role="progress"
         aria-label={name + 'progress bar'}
       />
       <div className="flex justify-between">

@@ -93,7 +93,7 @@ export default function Dropdown({
         />
       )}
 
-      {modalType === ModalType.EDIT && (
+      {modalType === ModalType.EDIT && themes.length > 0 && (
         <EditPotModal
           onClose={handleCloseModal}
           hasCloseBtn={true}

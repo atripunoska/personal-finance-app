@@ -86,11 +86,19 @@ export default function AddNewPotModal({
             onChange={(e) => setTheme((e.target as HTMLSelectElement).value)}
             className="border border-gray-300 rounded-md p-2"
           >
-            {themes.map((item) => (
-              <option value={item} key={(Math.random() * 25) / 2}>
-                {closest(item.toString()).name}
-              </option>
-            ))}
+            {[...new Set(themes)].map((item) => {
+              let colorName = '';
+              try {
+                colorName = closest(item.toString()).name;
+              } catch {
+                colorName = item;
+              }
+              return (
+                <option value={item} key={item}>
+                  {colorName}
+                </option>
+              );
+            })}
           </select>
           <Button
             className="text-white font-bold cursor-pointer"

@@ -27,7 +27,7 @@ const EditPotModal: React.FC<{
 
   const handleUpdatePot = async () => {
     try {
-      await updatePot(potId, { name, target, theme });
+      await updatePot(potId, { name, target: targetAmount, theme });
       onClose();
     } catch (error) {
       console.error('Failed to update pot:', error);
@@ -94,11 +94,19 @@ const EditPotModal: React.FC<{
             onChange={handleSetTheme}
             className="border border-gray-300 rounded-md p-2"
           >
-            {themes.map((item) => (
-              <option value={item} key={(Math.random() * 25) / 2}>
-                {closest(item.toString()).name}
-              </option>
-            ))}
+            {[...new Set(themes)].map((item) => {
+              let colorName = '';
+              try {
+                colorName = closest(item.toString()).name;
+              } catch {
+                colorName = item;
+              }
+              return (
+                <option value={item} key={item}>
+                  {colorName}
+                </option>
+              );
+            })}
           </select>
           <Button
             onClick={handleUpdatePot}
