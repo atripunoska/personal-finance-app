@@ -11,15 +11,12 @@ interface AddBudgetModalProps {
   onClose: () => void;
   categories: { category: string }[];
   allThemes: string[];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onAddBudget: (newBudget: any) => void;
 }
 
 export default function AddBudgetModal({
   onClose,
   categories,
   allThemes,
-  onAddBudget,
 }: AddBudgetModalProps) {
   const [category, setCategory] = useState('');
   const [maximum, setMaximum] = useState('');
@@ -59,17 +56,10 @@ export default function AddBudgetModal({
 
   const handleAddBudget = async () => {
     try {
-      const newBudget = await addNewBudget(
-        category,
-        parseFloat(maximum),
-        selectedTheme
-      );
-      if (newBudget) {
-        onAddBudget(newBudget[0]); // Pass the new pot to the parent component
-      }
+      await addNewBudget(category, parseFloat(maximum), selectedTheme);
       onClose();
     } catch (error) {
-      console.error('Failed to add new pot:', error);
+      console.error('Failed to add new budget:', error);
     }
   };
 
