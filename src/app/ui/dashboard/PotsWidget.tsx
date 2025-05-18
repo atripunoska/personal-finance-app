@@ -19,8 +19,8 @@ export default function PotsWidget({ pots }: PotsWidgetProps) {
             View all
           </Link>
         </div>
-        <div className="flex justify-between flex-row gap-4 flex-row-reverse content-between">
-          <div className="grid grid-cols-2 mb-3 flex-1 content-between ">
+        <div className="flex justify-between gap-4 md:flex-row-reverse flex-col-reverse content-between">
+          <div className="grid  grid-cols-2 mb-3 flex-1 content-between ">
             {pots.map((item: Pot, index: number) => {
               potsTotal += item.total;
 
@@ -56,7 +56,7 @@ export default function PotsWidget({ pots }: PotsWidgetProps) {
               />
               <div className="flex flex-col pl-3">
                 <span className="text-gray-400 mb-3">Total savings</span>
-                <span className="text-gray-900 font-extrabold  text-4xl">
+                <span className="text-gray-900 font-extrabold  text-2xl text-md-4xl">
                   {USDollar.format(potsTotal)}
                 </span>
               </div>
