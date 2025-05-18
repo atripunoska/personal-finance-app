@@ -13,6 +13,7 @@ export default function SignUp() {
     const formData = new FormData(e.currentTarget);
     try {
       await signup(formData);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError(err.message || 'Signup failed');
     }

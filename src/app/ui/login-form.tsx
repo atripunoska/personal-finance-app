@@ -14,6 +14,7 @@ export default function LoginForm() {
     const formData = new FormData(e.currentTarget);
     try {
       await login(formData);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError(err.message || 'Login failed');
     }
