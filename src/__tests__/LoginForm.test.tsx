@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import LoginForm from '@/app/ui/LoginForm';
+import LoginForm from '../app/ui/LoginForm';
 
 describe('LoginForm', () => {
   it('renders a heading', () => {

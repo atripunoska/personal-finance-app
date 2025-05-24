@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 
 import Image from 'next/image';
-import LoginForm from '@/app/ui/login-form';
+import LoginForm from '@/app/ui/LoginForm';
 
 export default function Login() {
   return (
