@@ -1,5 +1,7 @@
 # Personal Finance App
 
+Version: 1.0.0
+
 This is a solution to the [Personal finance app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/personal-finance-app-JfjtZgyMt1). It's a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Table of Contents
@@ -8,12 +10,19 @@ This is a solution to the [Personal finance app challenge on Frontend Mentor](ht
 - [Environment Variables](#environment-variables)
 - [Project Structure](#project-structure)
 - [Features](#features)
-  - [User Capabilities](#users-should-be-able-to)
+  - [User Capabilities](#users-are-able-to)
 - [Built with](#built-with)
 - [Accessibility](#accessibility)
+- [Testing](#testing)
 - [Screenshots](#screenshots)
+- [Demo](#demo)
 
 ## Installation
+
+### Prerequisites
+
+- Node.js version 20 or higher
+- npm (comes with Node.js)
 
 First, clone the repository:
 
@@ -75,8 +84,10 @@ Replace `your-supabase-url` and `your-supabase-anon-key` with your actual Supaba
 - **Transactions**: View and filter your transactions by category and other criteria.
 - **Recurring Bills**: View and manage your recurring bills, including the status of each for the current month.
 
-### Users should be able to:
+### Users are able to:
 
+- Create an account and log in
+- Save details to a database
 - See all of the personal finance app data at-a-glance on the overview page
 - View all transactions on the transactions page with pagination for every ten transactions
 - Search, sort, and filter transactions
@@ -89,8 +100,6 @@ Replace `your-supabase-url` and `your-supabase-anon-key` with your actual Supaba
 - Navigate the whole app and perform all actions using only their keyboard
 - View the optimal layout for the interface depending on their device's screen size
 - See hover and focus states for all interactive elements on the page
-- Save details to a database
-- Create an account and log in
 
 ## Built with
 
@@ -101,7 +110,8 @@ Replace `your-supabase-url` and `your-supabase-anon-key` with your actual Supaba
 - Semantic HTML5 markup
 - Flexbox
 - CSS Grid
-- Web accessibility
+- React Testing Library
+- Jest
 
 ## Accessibility
 
@@ -116,6 +126,24 @@ Accessibility has been verified using:
 
 - Google Lighthouse
 - Manual screen reader and keyboard navigation tests
+
+## Testing
+
+Run the test suite:
+
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm test:watch
+
+```
+
+Key testing tools:
+
+- Jest for unit tests
+- React Testing Library for component testing
 
 ## Screenshots
 
@@ -140,6 +168,11 @@ Accessibility has been verified using:
 **Pots Page**
 ![Pots Screenshot](public/assets/images/pots.png)
 
+## Demo
+
+Check out the live app: [personal-finance-app-ookl.vercel.app](https://personal-finance-app-ookl.vercel.app/)
+
 ## Author
 
-- [@atripunoska](https://www.github.com/atripunoska)
+- Website - [Ana Tripunoska](https://atripunoska.github.io/)
+- Frontend Mentor - [@atripunoska](https://www.frontendmentor.io/profile/atripunoska)
