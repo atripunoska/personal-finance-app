@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react/display-name */
 import { render, screen, fireEvent } from '@testing-library/react';
 import BudgetClient from '../app/ui/budgets/BudgetClient';
 import { BudgetProps, CategoriesDataProps } from '../lib/definitions';

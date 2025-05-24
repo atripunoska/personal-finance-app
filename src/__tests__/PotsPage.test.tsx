@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react/display-name */
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import PotsPage from '../app/dashboard/pots/page';
 import { fetchPots } from '../lib/data';
