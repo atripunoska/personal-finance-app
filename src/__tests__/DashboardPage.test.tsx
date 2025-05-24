@@ -2,7 +2,6 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import Dashboard from '../app/dashboard/page';
 
-// Mock all section components and skeletons
 jest.mock('../app/dashboard/components/BalanceSection', () => () => (
   <div>BalanceSection</div>
 ));
