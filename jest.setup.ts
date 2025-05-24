@@ -14,14 +14,18 @@ if (typeof global.TextDecoder === 'undefined') {
 
 // Polyfill fetch, Request, Response, Headers for Node.js
 if (typeof global.fetch === 'undefined') {
+  // @ts-ignore
   global.fetch = fetch;
 }
 if (typeof global.Request === 'undefined') {
+  // @ts-ignore
   global.Request = Request;
 }
 if (typeof global.Response === 'undefined') {
+  // @ts-ignore
   global.Response = Response;
 }
 if (typeof global.Headers === 'undefined') {
+  // @ts-ignore
   global.Headers = Headers;
 }
