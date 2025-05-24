@@ -6,12 +6,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { SortProps } from '@/lib/definitions';
 
 import React from 'react';
-
-interface SortProps {
-  onSortChange: (sort: string) => void;
-}
 
 export default function Sort({ onSortChange }: SortProps) {
   return (

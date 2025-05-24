@@ -1,14 +1,7 @@
 'use client';
+import { ModalProps } from '@/lib/definitions';
 import Image from 'next/image';
 import React, { useEffect, useRef } from 'react';
-
-interface ModalProps {
-  isOpen: boolean;
-  hasCloseBtn?: boolean;
-  onClose?: () => void;
-  title: string;
-  children?: React.ReactNode;
-}
 
 export const Modal: React.FC<ModalProps> = (props) => {
   const { isOpen, hasCloseBtn, onClose, title, children } = props;

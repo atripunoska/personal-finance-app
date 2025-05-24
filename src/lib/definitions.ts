@@ -135,3 +135,21 @@ export interface BudgetCardTableProps {
 export interface theme {
   theme: string;
 }
+
+export interface SortProps {
+  onSortChange: (sort: string) => void;
+}
+
+export interface AddBudgetModalProps {
+  onClose: () => void;
+  categories: { category: string }[];
+  allThemes: string[];
+}
+
+export interface ModalProps {
+  isOpen: boolean;
+  hasCloseBtn?: boolean;
+  onClose?: () => void;
+  title: string;
+  children?: React.ReactNode;
+}

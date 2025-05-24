@@ -6,12 +6,7 @@ import { fetchThemes, addNewBudget } from '@/lib/data';
 import { createPortal } from 'react-dom';
 import { Modal } from '../modal';
 import { closest } from 'color-2-name';
-
-interface AddBudgetModalProps {
-  onClose: () => void;
-  categories: { category: string }[];
-  allThemes: string[];
-}
+import { AddBudgetModalProps } from '@/lib/definitions';
 
 export default function AddBudgetModal({
   onClose,
