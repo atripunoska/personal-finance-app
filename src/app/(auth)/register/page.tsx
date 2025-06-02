@@ -23,13 +23,18 @@ export default function SignUp() {
         } else if (msg.includes('password')) {
           message = 'Password must meet the required criteria.';
         } else if (msg.includes('network')) {
-          message = 'Network error. Please check your connection and try again.';
-        } else if (msg.includes('user already registered') || msg.includes('duplicate')) {
+          message =
+            'Network error. Please check your connection and try again.';
+        } else if (
+          msg.includes('user already registered') ||
+          msg.includes('duplicate')
+        ) {
           message = 'An account with this email already exists.';
         }
       }
       setError(message);
     }
+  };
 
   return (
     <div className="flex flex-row items-center justify-center h-screen bg-amber-50 md:gap-2 px-3">
