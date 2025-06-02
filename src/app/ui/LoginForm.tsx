@@ -16,7 +16,18 @@ export default function LoginForm() {
       await login(formData);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      setError(err.message || 'Login failed');
+      let message = 'Login failed. Please try again.';
+      if (err?.message) {
+        if (err.message.toLowerCase().includes('invalid login credentials')) {
+          message = 'Incorrect email or password. Please try again.';
+        } else if (err.message.toLowerCase().includes('network')) {
+          message =
+            'Network error. Please check your connection and try again.';
+        } else if (err.message.toLowerCase().includes('email')) {
+          message = 'Please enter a valid email address.';
+        }
+      }
+      setError(message);
     }
   };
 

@@ -15,9 +15,21 @@ export default function SignUp() {
       await signup(formData);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      setError(err.message || 'Signup failed');
+      let message = 'Signup failed. Please try again.';
+      if (err?.message) {
+        const msg = err.message.toLowerCase();
+        if (msg.includes('email')) {
+          message = 'Please enter a valid and unique email address.';
+        } else if (msg.includes('password')) {
+          message = 'Password must meet the required criteria.';
+        } else if (msg.includes('network')) {
+          message = 'Network error. Please check your connection and try again.';
+        } else if (msg.includes('user already registered') || msg.includes('duplicate')) {
+          message = 'An account with this email already exists.';
+        }
+      }
+      setError(message);
     }
-  };
 
   return (
     <div className="flex flex-row items-center justify-center h-screen bg-amber-50 md:gap-2 px-3">
