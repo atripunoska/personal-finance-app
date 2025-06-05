@@ -214,23 +214,6 @@ export async function fetchUniqueTransactions() {
   }
 }
 
-// export async function fetchRecurringBillCategories() {
-//   try {
-//     const { data, error } = await supabase
-//       .from("transactions")
-//       .select("category")
-//       .eq("recurring", true)
-//       .select("category");
-
-//     if (error) throw error;
-
-//     return data;
-//   } catch (error) {
-//     console.error("Database Error:", error);
-//     throw new Error("Failed to fetch recurring bill categories.");
-//   }
-// }
-
 //RECURRING BILLS
 
 export async function fetchRecurringBills() {
@@ -279,67 +262,6 @@ export async function getLatestTransaction() {
     throw error;
   }
 }
-
-// export async function getOldestTransaction() {
-//   try {
-//     const { data: latestTransaction, error: latestError } = await supabase
-//       .from("transactions")
-//       .select("date")
-//       .order("date", { ascending: true })
-//       .limit(1)
-//       .single();
-//     if (latestError) throw latestError;
-//     return latestTransaction;
-//   } catch (error) {
-//     console.error("Error fetching payments due soon:", error);
-//     throw error;
-//   }
-// }
-
-// export async function getPaymentsDueSoon() {
-//   try {
-//     // Step 1: Get the latest overall transaction date
-//     const { data: latestTransaction, error: latestError } = await supabase
-//       .from("transactions")
-//       .select("date")
-//       .order("date", { ascending: false })
-//       .limit(1)
-//       .single();
-
-//     if (latestError) throw latestError;
-
-//     const latestDate = new Date(latestTransaction.date);
-
-//     // Step 2: Get recurring transactions for August 2024 that are not paid yet
-//     const { data: recurringTransactions, error: recurringError } =
-//       await supabase
-//         .from("transactions")
-//         .select("*")
-//         .eq("recurring", true)
-//         .gte("date", "2024-08-01")
-//         .lte("date", "2024-08-31");
-
-//     if (recurringError) throw recurringError;
-
-//     // Step 3: Filter transactions due within five days of the latest transaction date
-//     const dueSoonTransactions = recurringTransactions.filter((transaction) => {
-//       const transactionDate = new Date(transaction.date);
-
-//       const timeDiff = Math.abs(
-//         transactionDate.getTime() - latestDate.getTime()
-//       );
-
-//       const dayDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
-
-//       return dayDiff <= 5;
-//     });
-
-//     return dueSoonTransactions;
-//   } catch (error) {
-//     console.error("Error fetching payments due soon:", error);
-//     throw error;
-//   }
-// }
 
 // POTS
 

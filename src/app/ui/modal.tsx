@@ -7,13 +7,10 @@ export const Modal: React.FC<ModalProps> = (props) => {
   const { isOpen, hasCloseBtn, onClose, title, children } = props;
   const modalRef = useRef<HTMLDialogElement>(null);
 
-  // simple useEffect to capture ESC key to close the modal
   useEffect(() => {
-    // Grabbing a reference to the modal in question
     const modalElement = modalRef.current;
     if (!modalElement) return;
 
-    // Open modal when `isOpen` changes to true
     if (isOpen) {
       modalElement.showModal();
     } else {
