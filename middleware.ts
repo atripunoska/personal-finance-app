@@ -8,7 +8,7 @@ export async function middleware(request: NextRequest) {
 
   try {
     // Initialize the Supabase client
-    const supabase = await createClient(request, res);
+    const supabase = await createClient();
 
     // Get the session - this validates the JWT automatically
     const {
