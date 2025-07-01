@@ -1,13 +1,9 @@
-// Factory pattern
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 
 export async function createClient() {
   const cookieStore = await cookies();
-
-  // Create a server's supabase client with newly configured cookie,
-  // which could be used to maintain user's session
-  return createServerClient(
+  const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
@@ -29,4 +25,26 @@ export async function createClient() {
       },
     }
   );
+
+  // Get the JWT from the session
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  const jwt = session?.access_token;
+
+  if (jwt) {
+    // Set the JWT in the Authorization header for subsequent requests
+    supabase.realtime.setAuth(jwt);
+  }
+
+  return supabase;
+}
+
+// Helper function to get JWT
+export async function getJWT() {
+  const supabase = await createClient();
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  return session?.access_token;
 }

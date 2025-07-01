@@ -6,30 +6,36 @@ import { useRouter } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
 
 export default function LoggedUser() {
-  const [user, setUser] = useState<User | null>(null);
+  const [loggedUser, setLoggedUser] = useState<User | null>(null);
   const router = useRouter();
 
   useEffect(() => {
     async function getUser() {
-      const supabase = createClient();
-      const { data, error } = await supabase.auth.getUser();
-      if (error || !data?.user) {
+      const supabase = await createClient();
+
+      const {
+        data: { user },
+        error,
+      } = await supabase.auth.getUser();
+
+      if (error || !user?.id) {
         console.log('No user, redirecting to login...');
         router.push('/login'); // Redirect to login if not authenticated
       } else {
-        setUser(data.user);
+        setLoggedUser(user);
       }
     }
     getUser();
   }, [router]);
 
-  if (!user) {
+  if (!loggedUser) {
     return null; // Render nothing while redirecting
   }
 
   return (
     <div className="font-light">
-      Hello, <span className="font-semibold text-green">{user?.email}</span>
+      Hello,{' '}
+      <span className="font-semibold text-green">{loggedUser.email}</span>
     </div>
   );
 }

@@ -1,19 +1,58 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { createClient } from '@/utils/supabase/server';
 
 export async function middleware(request: NextRequest) {
-  const token = request.cookies.get('sb-razzuqrakukytiechpdl-auth-token'); // Replace with your actual token key
+  // Create a response early so we can use it for cookies if needed
+  const res = NextResponse.next();
 
-  // Redirect to login if no token is found and the user is not on the login page
-  if (!token && !request.nextUrl.pathname.startsWith('/login')) {
-    const loginUrl = new URL('/login', request.url);
-    return NextResponse.redirect(loginUrl);
+  try {
+    // Initialize the Supabase client
+    const supabase = await createClient(request, res);
+
+    // Get the session - this validates the JWT automatically
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    // No valid session/JWT found
+    if (!session) {
+      // Don't redirect on login/register pages
+      if (
+        request.nextUrl.pathname.startsWith('/login') ||
+        request.nextUrl.pathname.startsWith('/register')
+      ) {
+        return res;
+      }
+
+      // Redirect to login for protected routes
+      const redirectUrl = new URL('/login', request.url);
+      return NextResponse.redirect(redirectUrl);
+    }
+
+    // Optional: Add user info to request headers
+    if (session.user) {
+      res.headers.set('x-user-id', session.user.id);
+      res.headers.set('x-user-email', session.user.email || '');
+    }
+
+    return res;
+  } catch (error) {
+    // If anything fails, redirect to login
+    console.error('Auth error:', error);
+    const redirectUrl = new URL('/login', request.url);
+    return NextResponse.redirect(redirectUrl);
   }
-
-  // Allow the request to proceed if the user is authenticated
-  return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/protected/:path*'], // Protect specific routes
+  matcher: [
+    // Protected routes
+    '/dashboard/:path*',
+    '/protected/:path*',
+
+    // Auth routes (to handle redirects if already logged in)
+    '/login',
+    '/register',
+  ],
 };
