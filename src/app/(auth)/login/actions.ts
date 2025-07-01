@@ -8,13 +8,12 @@ import { createClient } from '@/utils/supabase/server';
 export async function login(formData: FormData) {
   const supabase = await createClient();
 
-  const data = {
+  const userData = {
     email: formData.get('email') as string,
     password: formData.get('password') as string,
   };
 
-  const { data: authData, error } =
-    await supabase.auth.signInWithPassword(data);
+  const { error } = await supabase.auth.signInWithPassword(userData);
   if (error) {
     throw new Error(error.message);
   }
