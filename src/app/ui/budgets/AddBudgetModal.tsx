@@ -25,6 +25,13 @@ export default function AddBudgetModal({
   ];
 
   useEffect(() => {
+    const firstAvailable = allThemes.find((item) => !themes.includes(item));
+    if (firstAvailable) {
+      setSelectedTheme(firstAvailable);
+    }
+  }, [allThemes, themes]);
+
+  useEffect(() => {
     async function fetchUsedThemes() {
       let usedThemes = await fetchThemes();
       usedThemes = usedThemes.map((item) => item.theme);
@@ -50,6 +57,10 @@ export default function AddBudgetModal({
   }
 
   const handleAddBudget = async () => {
+    if (!category || !maximum || !selectedTheme) {
+      alert('Please fill in all fields.');
+      return;
+    }
     try {
       await addNewBudget(category, parseFloat(maximum), selectedTheme);
       onClose();
@@ -140,6 +151,7 @@ export default function AddBudgetModal({
         className="mr-2 cursor-pointer"
         onClick={handleAddBudget}
         aria-label="Add Budget"
+        type="button"
       >
         Add Budget
       </Button>
