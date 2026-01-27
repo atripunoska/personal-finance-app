@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Finance App - Design System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Reset & Base */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* Brand Colors */
+      --brand-primary: #277C78;
+      --brand-secondary: #626070;
+      --brand-accent: #82C9D7;
+
+      /* Neutral Palette */
+      --neutral-50: #FFFFFF;
+      --neutral-100: #F8F4F0;
+      --neutral-200: #F2F2F2;
+      --neutral-300: #B3B3B3;
+      --neutral-500: #98908B;
+      --neutral-600: #696868;
+      --neutral-900: #201F24;
+
+      /* Semantic Colors */
+      --success: #277C78;
+      --warning: #F2CDAC;
+      --error: #C94736;
+      --info: #3F82B2;
+
+      /* Theme Colors */
+      --cyan: #82C9D7;
+      --yellow: #F2CDAC;
+      --green: #277C78;
+      --navy: #626070;
+      --purple: #826CB0;
+      --turquoise: #597C7C;
+      --brown: #93674F;
+      --magenta: #934F6F;
+      --blue: #3F82B2;
+      --navy-grey: #97A0AC;
+      --army-green: #7F9161;
+      --gold: #CAB361;
+      --orange: #BE6C49;
+      --red: #C94736;
+
+      /* Typography */
+      --font-sans: 'Public Sans', system-ui, -apple-system, sans-serif;
+
+      /* Spacing */
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.25rem;
+      --space-6: 1.5rem;
+      --space-8: 2rem;
+      --space-10: 2.5rem;
+      --space-12: 3rem;
+
+      /* Border Radius */
+      --radius-sm: 0.25rem;
+      --radius-md: 0.375rem;
+      --radius-lg: 0.5rem;
+      --radius-xl: 0.75rem;
+      --radius-2xl: 1rem;
+      --radius-full: 9999px;
+
+      /* Shadows */
+      --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--neutral-100);
+      color: var(--neutral-900);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Layout */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: var(--space-8);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: var(--space-12);
+      padding: var(--space-10) var(--space-6);
+      background: linear-gradient(135deg, var(--neutral-900) 0%, #3a393f 100%);
+      color: var(--neutral-50);
+      border-radius: var(--radius-2xl);
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: var(--space-2);
+    }
+
+    .header p {
+      font-size: 1.125rem;
+      opacity: 0.85;
+    }
+
+    .section {
+      background: var(--neutral-50);
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      margin-bottom: var(--space-6);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: var(--space-6);
+      padding-bottom: var(--space-3);
+      border-bottom: 2px solid var(--neutral-200);
+    }
+
+    .section-subtitle {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--neutral-600);
+      margin-bottom: var(--space-4);
+      margin-top: var(--space-6);
+    }
+
+    .section-subtitle:first-of-type { margin-top: 0; }
+
+    /* Grid Layouts */
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-6); }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
+    .grid-6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--space-4); }
+
+    @media (max-width: 1024px) {
+      .grid-6 { grid-template-columns: repeat(4, 1fr); }
+      .grid-4 { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .grid-6 { grid-template-columns: repeat(3, 1fr); }
+      .grid-4 { grid-template-columns: repeat(2, 1fr); }
+      .grid-3 { grid-template-columns: repeat(2, 1fr); }
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+
+    /* Color Swatches */
+    .color-swatch {
+      display: flex;
+      flex-direction: column;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      background: var(--neutral-50);
+    }
+
+    .color-swatch-preview {
+      height: 80px;
+      width: 100%;
+    }
+
+    .color-swatch-info {
+      padding: var(--space-3);
+      text-align: center;
+    }
+
+    .color-swatch-name {
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: var(--space-1);
+    }
+
+    .color-swatch-hex {
+      font-size: 0.75rem;
+      color: var(--neutral-500);
+      font-family: monospace;
+    }
+
+    /* Large Color Blocks (Brand) */
+    .color-block {
+      padding: var(--space-6);
+      border-radius: var(--radius-lg);
+      color: white;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .color-block-name {
+      font-weight: 700;
+      font-size: 1.125rem;
+      margin-bottom: var(--space-1);
+    }
+
+    .color-block-hex {
+      font-family: monospace;
+      font-size: 0.875rem;
+      opacity: 0.9;
+    }
+
+    .color-block-use {
+      font-size: 0.75rem;
+      opacity: 0.75;
+      margin-top: var(--space-2);
+    }
+
+    /* Typography Samples */
+    .type-sample {
+      margin-bottom: var(--space-6);
+      padding-bottom: var(--space-6);
+      border-bottom: 1px solid var(--neutral-200);
+    }
+
+    .type-sample:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .type-label {
+      display: inline-block;
+      background: var(--neutral-200);
+      padding: var(--space-1) var(--space-2);
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--neutral-600);
+      margin-bottom: var(--space-2);
+    }
+
+    .type-spec {
+      font-size: 0.75rem;
+      color: var(--neutral-500);
+      margin-top: var(--space-2);
+      font-family: monospace;
+    }
+
+    /* Display */
+    .type-display { font-size: 3rem; font-weight: 700; line-height: 1.25; letter-spacing: -0.025em; }
+    .type-h1 { font-size: 2.25rem; font-weight: 700; line-height: 1.25; }
+    .type-h2 { font-size: 1.875rem; font-weight: 700; line-height: 1.25; }
+    .type-h3 { font-size: 1.5rem; font-weight: 600; line-height: 1.25; }
+    .type-h4 { font-size: 1.25rem; font-weight: 600; line-height: 1.25; }
+    .type-h5 { font-size: 1.125rem; font-weight: 500; line-height: 1.5; }
+    .type-body-lg { font-size: 1.125rem; font-weight: 400; line-height: 1.75; }
+    .type-body { font-size: 1rem; font-weight: 400; line-height: 1.5; }
+    .type-body-sm { font-size: 0.875rem; font-weight: 400; line-height: 1.5; }
+    .type-caption { font-size: 0.75rem; font-weight: 400; line-height: 1.5; color: var(--neutral-600); }
+
+    /* Spacing Demo */
+    .spacing-demo {
+      display: flex;
+      align-items: flex-end;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+    }
+
+    .spacing-item {
+      text-align: center;
+    }
+
+    .spacing-bar {
+      background: var(--brand-primary);
+      border-radius: var(--radius-sm);
+      width: 48px;
+      margin-bottom: var(--space-2);
+    }
+
+    .spacing-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .spacing-value {
+      font-size: 0.625rem;
+      color: var(--neutral-500);
+      font-family: monospace;
+    }
+
+    /* Border Radius Demo */
+    .radius-demo {
+      display: flex;
+      gap: var(--space-6);
+      flex-wrap: wrap;
+    }
+
+    .radius-item {
+      text-align: center;
+    }
+
+    .radius-box {
+      width: 80px;
+      height: 80px;
+      background: var(--brand-accent);
+      margin-bottom: var(--space-2);
+    }
+
+    .radius-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .radius-value {
+      font-size: 0.625rem;
+      color: var(--neutral-500);
+      font-family: monospace;
+    }
+
+    /* Shadow Demo */
+    .shadow-demo {
+      display: flex;
+      gap: var(--space-8);
+      flex-wrap: wrap;
+    }
+
+    .shadow-item {
+      text-align: center;
+    }
+
+    .shadow-box {
+      width: 100px;
+      height: 100px;
+      background: var(--neutral-50);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .shadow-xs { box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); }
+    .shadow-sm { box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1); }
+    .shadow-md { box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); }
+    .shadow-lg { box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+    .shadow-xl { box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); }
+
+    .shadow-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    /* Buttons */
+    .button-row {
+      display: flex;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+      margin-bottom: var(--space-4);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-sans);
+      font-weight: 600;
+      font-size: 0.875rem;
+      border-radius: var(--radius-md);
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-sm { height: 2rem; padding: 0 var(--space-3); font-size: 0.75rem; }
+    .btn-md { height: 2.5rem; padding: 0 var(--space-4); }
+    .btn-lg { height: 3rem; padding: 0 var(--space-6); font-size: 1rem; }
+
+    .btn-primary { background: var(--neutral-900); color: var(--neutral-50); }
+    .btn-primary:hover { background: var(--neutral-600); }
+
+    .btn-secondary { background: var(--neutral-200); color: var(--neutral-900); }
+    .btn-secondary:hover { background: var(--neutral-300); }
+
+    .btn-destructive { background: var(--error); color: var(--neutral-50); }
+    .btn-destructive:hover { background: #A83A2C; }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--neutral-900);
+      border: 1px solid var(--neutral-300);
+    }
+    .btn-outline:hover { background: var(--neutral-100); }
+
+    .btn-ghost { background: transparent; color: var(--neutral-900); }
+    .btn-ghost:hover { background: var(--neutral-200); }
+
+    /* Form Elements */
+    .form-demo {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-6);
+    }
+
+    @media (max-width: 768px) {
+      .form-demo { grid-template-columns: 1fr; }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .form-label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--neutral-600);
+    }
+
+    .form-input {
+      height: 2.75rem;
+      padding: 0 var(--space-3);
+      font-family: var(--font-sans);
+      font-size: 0.875rem;
+      border: 1px solid var(--neutral-300);
+      border-radius: var(--radius-md);
+      background: var(--neutral-50);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--neutral-900);
+      box-shadow: 0 0 0 2px rgba(32, 31, 36, 0.1);
+    }
+
+    .form-input::placeholder { color: var(--neutral-500); }
+
+    .form-select {
+      height: 2.75rem;
+      padding: 0 var(--space-3);
+      font-family: var(--font-sans);
+      font-size: 0.875rem;
+      border: 1px solid var(--neutral-300);
+      border-radius: var(--radius-md);
+      background: var(--neutral-50);
+      cursor: pointer;
+    }
+
+    /* Cards */
+    .card-demo {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+    }
+
+    @media (max-width: 1024px) { .card-demo { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 768px) { .card-demo { grid-template-columns: 1fr; } }
+
+    .card {
+      background: var(--neutral-50);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: var(--space-4);
+    }
+
+    .card-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+    }
+
+    .card-amount {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: var(--space-2);
+    }
+
+    .card-meta {
+      font-size: 0.875rem;
+      color: var(--neutral-500);
+    }
+
+    .card-indicator {
+      width: 4px;
+      height: 40px;
+      border-radius: var(--radius-full);
+    }
+
+    /* Progress Bars */
+    .progress-demo {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+    }
+
+    .progress-item {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.875rem;
+    }
+
+    .progress-label { font-weight: 500; }
+    .progress-value { color: var(--neutral-500); }
+
+    .progress-bar {
+      height: 8px;
+      background: var(--neutral-200);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: var(--radius-full);
+      transition: width 0.3s ease;
+    }
+
+    /* Avatars */
+    .avatar-demo {
+      display: flex;
+      align-items: flex-end;
+      gap: var(--space-4);
+    }
+
+    .avatar {
+      border-radius: var(--radius-full);
+      background: var(--brand-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      color: var(--neutral-900);
+    }
+
+    .avatar-sm { width: 2rem; height: 2rem; font-size: 0.75rem; }
+    .avatar-md { width: 2.5rem; height: 2.5rem; font-size: 0.875rem; }
+    .avatar-lg { width: 3rem; height: 3rem; font-size: 1rem; }
+    .avatar-xl { width: 4rem; height: 4rem; font-size: 1.25rem; }
+
+    /* Badges */
+    .badge-demo {
+      display: flex;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: var(--space-1) var(--space-2);
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: var(--radius-full);
+    }
+
+    .badge-success { background: rgba(39, 124, 120, 0.15); color: var(--success); }
+    .badge-warning { background: rgba(242, 205, 172, 0.4); color: #96752A; }
+    .badge-error { background: rgba(201, 71, 54, 0.15); color: var(--error); }
+    .badge-info { background: rgba(63, 130, 178, 0.15); color: var(--info); }
+    .badge-neutral { background: var(--neutral-200); color: var(--neutral-600); }
+
+    /* Tables */
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .table th,
+    .table td {
+      padding: var(--space-3) var(--space-4);
+      text-align: left;
+      border-bottom: 1px solid var(--neutral-200);
+    }
+
+    .table th {
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--neutral-500);
+    }
+
+    .table td { font-size: 0.875rem; }
+
+    .table tr:last-child td { border-bottom: none; }
+
+    .table-amount { font-weight: 600; }
+    .table-positive { color: var(--success); }
+    .table-negative { color: var(--error); }
+
+    /* Chart Colors */
+    .chart-palette {
+      display: flex;
+      gap: var(--space-2);
+      flex-wrap: wrap;
+    }
+
+    .chart-color {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-md);
+    }
+
+    /* Sample Dashboard Card */
+    .dashboard-preview {
+      background: var(--neutral-100);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      margin-top: var(--space-6);
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-4);
+    }
+
+    @media (max-width: 1024px) { .dashboard-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 768px) { .dashboard-grid { grid-template-columns: 1fr; } }
+
+    .balance-card {
+      background: var(--neutral-900);
+      color: var(--neutral-50);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+    }
+
+    .balance-label {
+      font-size: 0.875rem;
+      opacity: 0.8;
+      margin-bottom: var(--space-2);
+    }
+
+    .balance-amount {
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .stat-card {
+      background: var(--neutral-50);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+    }
+
+    .stat-label {
+      font-size: 0.875rem;
+      color: var(--neutral-500);
+      margin-bottom: var(--space-2);
+    }
+
+    .stat-amount {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: var(--space-8);
+      color: var(--neutral-500);
+      font-size: 0.875rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <h1>Personal Finance App</h1>
+      <p>Design System &amp; Component Library</p>
+    </header>
+
+    <!-- Colors -->
+    <section class="section">
+      <h2 class="section-title">Color System</h2>
+
+      <h3 class="section-subtitle">Brand Colors</h3>
+      <div class="grid-3">
+        <div class="color-block" style="background: #277C78;">
+          <span class="color-block-name">Primary</span>
+          <span class="color-block-hex">#277C78</span>
+          <span class="color-block-use">Actions, success, income</span>
+        </div>
+        <div class="color-block" style="background: #626070;">
+          <span class="color-block-name">Secondary</span>
+          <span class="color-block-hex">#626070</span>
+          <span class="color-block-use">Secondary elements</span>
+        </div>
+        <div class="color-block" style="background: #82C9D7; color: #201F24;">
+          <span class="color-block-name">Accent</span>
+          <span class="color-block-hex">#82C9D7</span>
+          <span class="color-block-use">Highlights, accents</span>
+        </div>
+      </div>
+
+      <h3 class="section-subtitle">Neutral Palette</h3>
+      <div class="grid-6">
+        <div class="color-swatch">
+          <div class="color-swatch-preview" style="background: #FFFFFF; border: 1px solid #F2F2F2;"></div>
+          <div class="color-swatch-info">
+            <div class="color-swatch-name">White</div>
+            <div class="color-swatch-hex">#FFFFFF</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-swatch-preview" style="background: #F8F4F0;"></div>
+          <div class="color-swatch-info">
+            <div class="color-swatch-name">Beige 100</div>
+            <div class="color-swatch-hex">#F8F4F0</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-swatch-preview" style="background: #F2F2F2;"></div>
+          <div class="color-swatch-info">
+            <div class="color-swatch-name">Grey 100</div>
+            <div class="color-swatch-hex">#F2F2F2</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-swatch-preview" style="background: #B3B3B3;"></div>
+          <div class="color-swatch-info">
+            <div class="color-swatch-name">Grey 300</div>
+            <div class="color-swatch-hex">#B3B3B3</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-swatch-preview" style="background: #98908B;"></div>
+          <div class="color-swatch-info">
+            <div class="color-swatch-name">Beige 500</div>
+            <div class="color-swatch-hex">#98908B</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-swatch-preview" style="background: #696868;"></div>
+          <div class="color-swatch-info">
+            <div class="color-swatch-name">Grey 500</div>
+            <div class="color-swatch-hex">#696868</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-swatch-preview" style="background: #201F24;"></div>
+          <div class="color-swatch-info">
+            <div class="color-swatch-name">Grey 900</div>
+            <div class="color-swatch-hex">#201F24</div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-subtitle">Semantic Colors</h3>
+      <div class="grid-4">
+        <div class="color-swatch">
+          <div class="color-swatch-preview" style="background: #277C78;"></div>
+          <div class="color-swatch-info">
+            <div class="color-swatch-name">Success</div>
+            <div class="color-swatch-hex">#277C78</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-swatch-preview" style="background: #F2CDAC;"></div>
+          <div class="color-swatch-info">
+            <div class="color-swatch-name">Warning</div>
+            <div class="color-swatch-hex">#F2CDAC</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-swatch-preview" style="background: #C94736;"></div>
+          <div class="color-swatch-info">
+            <div class="color-swatch-name">Error</div>
+            <div class="color-swatch-hex">#C94736</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-swatch-preview" style="background: #3F82B2;"></div>
+          <div class="color-swatch-info">
+            <div class="color-swatch-name">Info</div>
+            <div class="color-swatch-hex">#3F82B2</div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-subtitle">Theme Colors (Budgets &amp; Pots)</h3>
+      <div class="grid-6">
+        <div class="color-swatch">
+          <div class="color-swatch-preview" style="background: #82C9D7;"></div>
+          <div class="color-swatch-info">
+            <div class="color-swatch-name">Cyan</div>
+            <div class="color-swatch-hex">#82C9D7</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-swatch-preview" style="background: #F2CDAC;"></div>
+          <div class="color-swatch-info">
+            <div class="color-swatch-name">Yellow</div>
+            <div class="color-swatch-hex">#F2CDAC</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-swatch-preview" style="background: #277C78;"></div>
+          <div class="color-swatch-info">
+            <div class="color-swatch-name">Green</div>
+            <div class="color-swatch-hex">#277C78</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-swatch-preview" style="background: #626070;"></div>
+          <div class="color-swatch-info">
+            <div class="color-swatch-name">Navy</div>
+            <div class="color-swatch-hex">#626070</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-swatch-preview" style="background: #826CB0;"></div>
+          <div class="color-swatch-info">
+            <div class="color-swatch-name">Purple</div>
+            <div class="color-swatch-hex">#826CB0</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-swatch-preview" style="background: #BE6C49;"></div>
+          <div class="color-swatch-info">
+            <div class="color-swatch-name">Orange</div>
+            <div class="color-swatch-hex">#BE6C49</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-swatch-preview" style="background: #CAB361;"></div>
+          <div class="color-swatch-info">
+            <div class="color-swatch-name">Gold</div>
+            <div class="color-swatch-hex">#CAB361</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-swatch-preview" style="background: #934F6F;"></div>
+          <div class="color-swatch-info">
+            <div class="color-swatch-name">Magenta</div>
+            <div class="color-swatch-hex">#934F6F</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-swatch-preview" style="background: #3F82B2;"></div>
+          <div class="color-swatch-info">
+            <div class="color-swatch-name">Blue</div>
+            <div class="color-swatch-hex">#3F82B2</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-swatch-preview" style="background: #97A0AC;"></div>
+          <div class="color-swatch-info">
+            <div class="color-swatch-name">Navy Grey</div>
+            <div class="color-swatch-hex">#97A0AC</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-swatch-preview" style="background: #7F9161;"></div>
+          <div class="color-swatch-info">
+            <div class="color-swatch-name">Army Green</div>
+            <div class="color-swatch-hex">#7F9161</div>
+          </div>
+        </div>
+        <div class="color-swatch">
+          <div class="color-swatch-preview" style="background: #93674F;"></div>
+          <div class="color-swatch-info">
+            <div class="color-swatch-name">Brown</div>
+            <div class="color-swatch-hex">#93674F</div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-subtitle">Chart Palette</h3>
+      <div class="chart-palette">
+        <div class="chart-color" style="background: #277C78;"></div>
+        <div class="chart-color" style="background: #82C9D7;"></div>
+        <div class="chart-color" style="background: #F2CDAC;"></div>
+        <div class="chart-color" style="background: #626070;"></div>
+        <div class="chart-color" style="background: #826CB0;"></div>
+        <div class="chart-color" style="background: #3F82B2;"></div>
+        <div class="chart-color" style="background: #BE6C49;"></div>
+        <div class="chart-color" style="background: #934F6F;"></div>
+      </div>
+    </section>
+
+    <!-- Typography -->
+    <section class="section">
+      <h2 class="section-title">Typography</h2>
+      <p style="margin-bottom: var(--space-6); color: var(--neutral-600);">
+        Font Family: <strong>Public Sans</strong> &mdash; A versatile, neutral sans-serif optimized for readability
+      </p>
+
+      <div class="type-sample">
+        <span class="type-label">Display</span>
+        <div class="type-display">Personal Finance</div>
+        <div class="type-spec">48px / Bold / Line-height 1.25 / Letter-spacing -0.025em</div>
+      </div>
+
+      <div class="type-sample">
+        <span class="type-label">Heading 1</span>
+        <div class="type-h1">Account Overview</div>
+        <div class="type-spec">36px / Bold / Line-height 1.25</div>
+      </div>
+
+      <div class="type-sample">
+        <span class="type-label">Heading 2</span>
+        <div class="type-h2">Monthly Budgets</div>
+        <div class="type-spec">30px / Bold / Line-height 1.25</div>
+      </div>
+
+      <div class="type-sample">
+        <span class="type-label">Heading 3</span>
+        <div class="type-h3">Recent Transactions</div>
+        <div class="type-spec">24px / Semibold / Line-height 1.25</div>
+      </div>
+
+      <div class="type-sample">
+        <span class="type-label">Heading 4</span>
+        <div class="type-h4">Savings Goals</div>
+        <div class="type-spec">20px / Semibold / Line-height 1.25</div>
+      </div>
+
+      <div class="type-sample">
+        <span class="type-label">Heading 5</span>
+        <div class="type-h5">Category Details</div>
+        <div class="type-spec">18px / Medium / Line-height 1.5</div>
+      </div>
+
+      <div class="type-sample">
+        <span class="type-label">Body Large</span>
+        <div class="type-body-lg">Track your expenses, manage budgets, and reach your financial goals with ease.</div>
+        <div class="type-spec">18px / Regular / Line-height 1.75</div>
+      </div>
+
+      <div class="type-sample">
+        <span class="type-label">Body</span>
+        <div class="type-body">Your current balance reflects all transactions up to today. Scheduled payments will be deducted automatically.</div>
+        <div class="type-spec">16px / Regular / Line-height 1.5</div>
+      </div>
+
+      <div class="type-sample">
+        <span class="type-label">Body Small</span>
+        <div class="type-body-sm">Last updated: January 27, 2026 at 10:30 AM</div>
+        <div class="type-spec">14px / Regular / Line-height 1.5</div>
+      </div>
+
+      <div class="type-sample">
+        <span class="type-label">Caption</span>
+        <div class="type-caption">*Amounts shown in USD. Exchange rates updated daily.</div>
+        <div class="type-spec">12px / Regular / Line-height 1.5 / Color Grey 500</div>
+      </div>
+    </section>
+
+    <!-- Spacing -->
+    <section class="section">
+      <h2 class="section-title">Spacing Scale</h2>
+      <p style="margin-bottom: var(--space-6); color: var(--neutral-600);">
+        Consistent spacing using a 4px base unit for harmonious layouts
+      </p>
+
+      <div class="spacing-demo">
+        <div class="spacing-item">
+          <div class="spacing-bar" style="height: 4px;"></div>
+          <div class="spacing-label">1</div>
+          <div class="spacing-value">4px</div>
+        </div>
+        <div class="spacing-item">
+          <div class="spacing-bar" style="height: 8px;"></div>
+          <div class="spacing-label">2</div>
+          <div class="spacing-value">8px</div>
+        </div>
+        <div class="spacing-item">
+          <div class="spacing-bar" style="height: 12px;"></div>
+          <div class="spacing-label">3</div>
+          <div class="spacing-value">12px</div>
+        </div>
+        <div class="spacing-item">
+          <div class="spacing-bar" style="height: 16px;"></div>
+          <div class="spacing-label">4</div>
+          <div class="spacing-value">16px</div>
+        </div>
+        <div class="spacing-item">
+          <div class="spacing-bar" style="height: 20px;"></div>
+          <div class="spacing-label">5</div>
+          <div class="spacing-value">20px</div>
+        </div>
+        <div class="spacing-item">
+          <div class="spacing-bar" style="height: 24px;"></div>
+          <div class="spacing-label">6</div>
+          <div class="spacing-value">24px</div>
+        </div>
+        <div class="spacing-item">
+          <div class="spacing-bar" style="height: 32px;"></div>
+          <div class="spacing-label">8</div>
+          <div class="spacing-value">32px</div>
+        </div>
+        <div class="spacing-item">
+          <div class="spacing-bar" style="height: 40px;"></div>
+          <div class="spacing-label">10</div>
+          <div class="spacing-value">40px</div>
+        </div>
+        <div class="spacing-item">
+          <div class="spacing-bar" style="height: 48px;"></div>
+          <div class="spacing-label">12</div>
+          <div class="spacing-value">48px</div>
+        </div>
+        <div class="spacing-item">
+          <div class="spacing-bar" style="height: 64px;"></div>
+          <div class="spacing-label">16</div>
+          <div class="spacing-value">64px</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Border Radius & Shadows -->
+    <section class="section">
+      <h2 class="section-title">Border Radius &amp; Shadows</h2>
+
+      <h3 class="section-subtitle">Border Radius</h3>
+      <div class="radius-demo">
+        <div class="radius-item">
+          <div class="radius-box" style="border-radius: 0.25rem;"></div>
+          <div class="radius-label">sm</div>
+          <div class="radius-value">4px</div>
+        </div>
+        <div class="radius-item">
+          <div class="radius-box" style="border-radius: 0.375rem;"></div>
+          <div class="radius-label">md</div>
+          <div class="radius-value">6px</div>
+        </div>
+        <div class="radius-item">
+          <div class="radius-box" style="border-radius: 0.5rem;"></div>
+          <div class="radius-label">lg</div>
+          <div class="radius-value">8px</div>
+        </div>
+        <div class="radius-item">
+          <div class="radius-box" style="border-radius: 0.75rem;"></div>
+          <div class="radius-label">xl</div>
+          <div class="radius-value">12px</div>
+        </div>
+        <div class="radius-item">
+          <div class="radius-box" style="border-radius: 1rem;"></div>
+          <div class="radius-label">2xl</div>
+          <div class="radius-value">16px</div>
+        </div>
+        <div class="radius-item">
+          <div class="radius-box" style="border-radius: 9999px;"></div>
+          <div class="radius-label">full</div>
+          <div class="radius-value">9999px</div>
+        </div>
+      </div>
+
+      <h3 class="section-subtitle">Shadows</h3>
+      <div class="shadow-demo">
+        <div class="shadow-item">
+          <div class="shadow-box shadow-xs">xs</div>
+          <div class="shadow-label">Extra Small</div>
+        </div>
+        <div class="shadow-item">
+          <div class="shadow-box shadow-sm">sm</div>
+          <div class="shadow-label">Small</div>
+        </div>
+        <div class="shadow-item">
+          <div class="shadow-box shadow-md">md</div>
+          <div class="shadow-label">Medium</div>
+        </div>
+        <div class="shadow-item">
+          <div class="shadow-box shadow-lg">lg</div>
+          <div class="shadow-label">Large</div>
+        </div>
+        <div class="shadow-item">
+          <div class="shadow-box shadow-xl">xl</div>
+          <div class="shadow-label">Extra Large</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Components: Buttons -->
+    <section class="section">
+      <h2 class="section-title">Buttons</h2>
+
+      <h3 class="section-subtitle">Variants</h3>
+      <div class="button-row">
+        <button class="btn btn-md btn-primary">Primary</button>
+        <button class="btn btn-md btn-secondary">Secondary</button>
+        <button class="btn btn-md btn-destructive">Destructive</button>
+        <button class="btn btn-md btn-outline">Outline</button>
+        <button class="btn btn-md btn-ghost">Ghost</button>
+      </div>
+
+      <h3 class="section-subtitle">Sizes</h3>
+      <div class="button-row">
+        <button class="btn btn-sm btn-primary">Small</button>
+        <button class="btn btn-md btn-primary">Medium</button>
+        <button class="btn btn-lg btn-primary">Large</button>
+      </div>
+    </section>
+
+    <!-- Components: Forms -->
+    <section class="section">
+      <h2 class="section-title">Form Elements</h2>
+
+      <div class="form-demo">
+        <div class="form-group">
+          <label class="form-label">Budget Name</label>
+          <input type="text" class="form-input" placeholder="Enter budget name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Maximum Amount</label>
+          <input type="number" class="form-input" placeholder="$0.00">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Category</label>
+          <select class="form-select">
+            <option>Select category...</option>
+            <option>Entertainment</option>
+            <option>Bills</option>
+            <option>Groceries</option>
+            <option>Dining Out</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Target Date</label>
+          <input type="date" class="form-input">
+        </div>
+      </div>
+    </section>
+
+    <!-- Components: Cards -->
+    <section class="section">
+      <h2 class="section-title">Cards</h2>
+
+      <div class="card-demo">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Entertainment</div>
+            </div>
+            <div class="card-indicator" style="background: #82C9D7;"></div>
+          </div>
+          <div class="card-amount">$50.00</div>
+          <div class="card-meta">of $100.00 budget</div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Groceries</div>
+            </div>
+            <div class="card-indicator" style="background: #277C78;"></div>
+          </div>
+          <div class="card-amount">$250.00</div>
+          <div class="card-meta">of $400.00 budget</div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Dining Out</div>
+            </div>
+            <div class="card-indicator" style="background: #F2CDAC;"></div>
+          </div>
+          <div class="card-amount">$85.00</div>
+          <div class="card-meta">of $75.00 budget</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Components: Progress -->
+    <section class="section">
+      <h2 class="section-title">Progress Bars</h2>
+
+      <div class="progress-demo">
+        <div class="progress-item">
+          <div class="progress-header">
+            <span class="progress-label">Vacation Fund</span>
+            <span class="progress-value">$1,500 / $3,000</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 50%; background: #82C9D7;"></div>
+          </div>
+        </div>
+
+        <div class="progress-item">
+          <div class="progress-header">
+            <span class="progress-label">Emergency Fund</span>
+            <span class="progress-value">$8,000 / $10,000</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 80%; background: #277C78;"></div>
+          </div>
+        </div>
+
+        <div class="progress-item">
+          <div class="progress-header">
+            <span class="progress-label">New Car</span>
+            <span class="progress-value">$2,500 / $15,000</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 16.7%; background: #626070;"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Components: Avatars & Badges -->
+    <section class="section">
+      <h2 class="section-title">Avatars &amp; Badges</h2>
+
+      <h3 class="section-subtitle">Avatars</h3>
+      <div class="avatar-demo">
+        <div>
+          <div class="avatar avatar-sm">JD</div>
+          <div class="type-caption" style="text-align: center; margin-top: 4px;">sm</div>
+        </div>
+        <div>
+          <div class="avatar avatar-md">JD</div>
+          <div class="type-caption" style="text-align: center; margin-top: 4px;">md</div>
+        </div>
+        <div>
+          <div class="avatar avatar-lg">JD</div>
+          <div class="type-caption" style="text-align: center; margin-top: 4px;">lg</div>
+        </div>
+        <div>
+          <div class="avatar avatar-xl">JD</div>
+          <div class="type-caption" style="text-align: center; margin-top: 4px;">xl</div>
+        </div>
+      </div>
+
+      <h3 class="section-subtitle">Badges</h3>
+      <div class="badge-demo">
+        <span class="badge badge-success">Paid</span>
+        <span class="badge badge-warning">Pending</span>
+        <span class="badge badge-error">Overdue</span>
+        <span class="badge badge-info">Scheduled</span>
+        <span class="badge badge-neutral">Draft</span>
+      </div>
+    </section>
+
+    <!-- Components: Tables -->
+    <section class="section">
+      <h2 class="section-title">Tables</h2>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Transaction</th>
+            <th>Category</th>
+            <th>Date</th>
+            <th style="text-align: right;">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Grocery Store</td>
+            <td>Groceries</td>
+            <td>Jan 25, 2026</td>
+            <td class="table-amount table-negative" style="text-align: right;">-$85.50</td>
+          </tr>
+          <tr>
+            <td>Salary Deposit</td>
+            <td>Income</td>
+            <td>Jan 24, 2026</td>
+            <td class="table-amount table-positive" style="text-align: right;">+$3,500.00</td>
+          </tr>
+          <tr>
+            <td>Netflix</td>
+            <td>Entertainment</td>
+            <td>Jan 23, 2026</td>
+            <td class="table-amount table-negative" style="text-align: right;">-$15.99</td>
+          </tr>
+          <tr>
+            <td>Electric Bill</td>
+            <td>Bills</td>
+            <td>Jan 22, 2026</td>
+            <td class="table-amount table-negative" style="text-align: right;">-$124.00</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Dashboard Preview -->
+    <section class="section">
+      <h2 class="section-title">Dashboard Preview</h2>
+      <p style="margin-bottom: var(--space-6); color: var(--neutral-600);">
+        Example of components working together in a dashboard layout
+      </p>
+
+      <div class="dashboard-preview">
+        <div class="dashboard-grid">
+          <div class="balance-card">
+            <div class="balance-label">Current Balance</div>
+            <div class="balance-amount">$4,836.00</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Income</div>
+            <div class="stat-amount" style="color: var(--success);">$3,814.25</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Expenses</div>
+            <div class="stat-amount" style="color: var(--error);">$1,700.50</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>Personal Finance App Design System &bull; Version 1.0</p>
+      <p>Built with Tailwind CSS, shadcn/ui &amp; Next.js</p>
+    </footer>
+  </div>
+</body>
+</html>

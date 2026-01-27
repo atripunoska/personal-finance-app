@@ -1,12 +1,20 @@
+/**
+ * Theme colors for budgets, pots, and charts
+ * These colors are part of the design system - see src/lib/design-system/tokens.ts
+ */
 export const THEMES = [
-  '#82C9D7',
-  '#F2CDAC',
-  '#277C78',
-  '#626070',
-  '#A020F0',
-  '#FFA500',
-  '#BCB88A',
-  '#ff78df',
+  '#82C9D7',  // Cyan
+  '#F2CDAC',  // Yellow
+  '#277C78',  // Green
+  '#626070',  // Navy
+  '#826CB0',  // Purple
+  '#BE6C49',  // Orange
+  '#CAB361',  // Gold
+  '#934F6F',  // Magenta
+  '#3F82B2',  // Blue
+  '#97A0AC',  // Navy Grey
+  '#7F9161',  // Army Green
+  '#93674F',  // Brown
 ];
 
 export enum ModalType {

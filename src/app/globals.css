@@ -5,29 +5,80 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
+  /* ========================================================================
+     PERSONAL FINANCE APP - DESIGN SYSTEM TOKENS
+     ======================================================================== */
+
+  /* Typography */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  /* --font-public-sans: "Public Sans", sans-serif; */
-  --color-beige-100: #f8f4f0;
-  --color-beige-500: #98908b;
-  --color-grey-900: #201f24;
-  --color-grey-500: #696868;
-  --color-grey-300: #b3b3b3;
-  --color-grey-100: #f2f2f2;
-  --color-green: #277c78;
-  --color-yellow: #f2cdac;
+  --font-public-sans: "Public Sans", system-ui, -apple-system, sans-serif;
+
+  /* Neutral Palette (Beige/Grey Scale) */
+  --color-beige-100: #f8f4f0;  /* Page background */
+  --color-beige-500: #98908b;  /* Muted text */
+  --color-grey-900: #201f24;   /* Primary text, headings */
+  --color-grey-500: #696868;   /* Secondary text */
+  --color-grey-300: #b3b3b3;   /* Disabled, placeholders, borders */
+  --color-grey-100: #f2f2f2;   /* Card backgrounds, dividers */
+
+  /* Brand/Semantic Colors */
+  --color-green: #277c78;      /* Primary, success, income */
+  --color-red: #c94736;        /* Error, destructive, expenses */
+  --color-yellow: #f2cdac;     /* Warning, pending */
+  --color-blue: #3f82b2;       /* Info */
+
+  /* Theme Colors (Budgets, Pots, Charts) */
   --color-cyan: #82c9d7;
   --color-navy: #626070;
-  --color-red: #c94736;
   --color-purple: #826cb0;
   --color-turquoise: #597c7c;
   --color-brown: #93674f;
   --color-magenta: #934f6f;
-  --color-blue: #3f82b2;
   --color-navy-grey: #97a0ac;
   --color-army-green: #7f9161;
   --color-gold: #cab361;
   --color-orange: #be6c49;
+
+  /* Spacing Scale (4px base unit) */
+  --spacing-0: 0;
+  --spacing-px: 1px;
+  --spacing-0-5: 0.125rem;  /* 2px */
+  --spacing-1: 0.25rem;     /* 4px */
+  --spacing-1-5: 0.375rem;  /* 6px */
+  --spacing-2: 0.5rem;      /* 8px */
+  --spacing-2-5: 0.625rem;  /* 10px */
+  --spacing-3: 0.75rem;     /* 12px */
+  --spacing-3-5: 0.875rem;  /* 14px */
+  --spacing-4: 1rem;        /* 16px */
+  --spacing-5: 1.25rem;     /* 20px */
+  --spacing-6: 1.5rem;      /* 24px */
+  --spacing-8: 2rem;        /* 32px */
+  --spacing-10: 2.5rem;     /* 40px */
+  --spacing-12: 3rem;       /* 48px */
+  --spacing-16: 4rem;       /* 64px */
+
+  /* Border Radius */
+  --radius-none: 0;
+  --radius-sm: 0.25rem;     /* 4px - tags, small elements */
+  --radius-md: 0.375rem;    /* 6px - inputs, small buttons */
+  --radius-lg: 0.5rem;      /* 8px - cards, modals (default) */
+  --radius-xl: 0.75rem;     /* 12px - large cards */
+  --radius-2xl: 1rem;       /* 16px - prominent elements */
+  --radius-full: 9999px;    /* Pills, avatars */
+
+  /* Shadows */
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+  /* Transitions */
+  --transition-fast: 150ms;
+  --transition-normal: 200ms;
+  --transition-slow: 300ms;
+  --easing-default: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 :root {
