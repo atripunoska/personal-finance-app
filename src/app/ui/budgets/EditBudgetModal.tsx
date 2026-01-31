@@ -33,7 +33,9 @@ const EditBudgetModal: React.FC<{
     async function fetchUsedThemes() {
       const response = await fetch('/api/budgets/themes');
       const usedThemes = await response.json();
-      const themeNames = usedThemes.map((item: { theme: string }) => item.theme);
+      const themeNames = usedThemes.map(
+        (item: { theme: string }) => item.theme
+      );
       setThemes(themeNames);
     }
 
