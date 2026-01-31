@@ -8,7 +8,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { logout } from '@/lib/actions';
-import { ModalType } from '@/lib/definitions';
 
 export default async function Layout({
   children,

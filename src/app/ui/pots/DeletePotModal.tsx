@@ -1,8 +1,6 @@
-import React from 'react';
 import { Modal } from '../modal';
 import { createPortal } from 'react-dom';
 import { Button } from '@/components/ui/button';
-import { deletePot } from '@/lib/data';
 
 export default function DeletePotModal({
   onClose,
