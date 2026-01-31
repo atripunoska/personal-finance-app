@@ -6,31 +6,36 @@ import { calculateRecurringBillsData } from '@/lib/calculateRecurringBillsData';
 import RecurringBillsTableSkeleton from '@/app/ui/recurring-bills/RecurringBillsTableSkeleton';
 import SummaryCardSkeleton from '@/app/ui/recurring-bills/SummaryCardSkeleton';
 import TotalBillsCardSkeleton from '@/app/ui/recurring-bills/TotalBillsCardSkeleton';
-import { getBaseUrl } from '@/lib/getBaseUrl';
+import { fetchRecurringBills, getLatestTransaction } from '@/lib/data';
+
+type RecurringBill = {
+  name: string;
+  date: string;
+  amount: number;
+  avatar: string;
+  category: string;
+  recurring: boolean;
+};
 
 async function TotalBillsWrapper() {
-  const response = await fetch(
-    `${getBaseUrl()}/api/transactions?recurring=true`,
-    { cache: 'no-store' }
-  );
-  const recurringBillsResponse = await response.json();
+  const recurringBills =
+    (await fetchRecurringBills()) as unknown as RecurringBill[];
   const { totalAmount } = await calculateRecurringBillsData(
-    { data: recurringBillsResponse.data ?? [] },
+    { data: recurringBills },
     { date: new Date().toISOString() }
   );
   return <TotalBillsCard totalAmount={totalAmount} />;
 }
 
 async function SummaryWrapper() {
-  const baseUrl = getBaseUrl();
-
-  const [recurringResponse, latestResponse] = await Promise.all([
-    fetch(`${baseUrl}/api/transactions?recurring=true`, { cache: 'no-store' }),
-    fetch(`${baseUrl}/api/transactions?latest=true`, { cache: 'no-store' }),
+  const [recurringBills, latestTransactionResult] = await Promise.all([
+    fetchRecurringBills() as Promise<RecurringBill[]>,
+    getLatestTransaction() as Promise<{ date: string }[]>,
   ]);
 
-  const recurringBillsResponse = await recurringResponse.json();
-  const latestTransaction = await latestResponse.json();
+  const latestTransaction = latestTransactionResult[0] || {
+    date: new Date().toISOString(),
+  };
 
   const {
     totalAmountPaid,
@@ -40,8 +45,8 @@ async function SummaryWrapper() {
     totalUpcoming,
     totalDue,
   } = await calculateRecurringBillsData(
-    { data: recurringBillsResponse.data ?? [] },
-    latestTransaction || { date: new Date().toISOString() }
+    { data: recurringBills },
+    latestTransaction
   );
 
   return (
@@ -59,19 +64,18 @@ async function SummaryWrapper() {
 }
 
 async function TableWrapper() {
-  const baseUrl = getBaseUrl();
-
-  const [recurringResponse, latestResponse] = await Promise.all([
-    fetch(`${baseUrl}/api/transactions?recurring=true`, { cache: 'no-store' }),
-    fetch(`${baseUrl}/api/transactions?latest=true`, { cache: 'no-store' }),
+  const [recurringBills, latestTransactionResult] = await Promise.all([
+    fetchRecurringBills() as Promise<RecurringBill[]>,
+    getLatestTransaction() as Promise<{ date: string }[]>,
   ]);
 
-  const recurringBillsResponse = await recurringResponse.json();
-  const latestTransaction = await latestResponse.json();
+  const latestTransaction = latestTransactionResult[0] || {
+    date: new Date().toISOString(),
+  };
 
   const { paidTransactions, upcomingTransactions, latestTransactionDate } =
     await calculateRecurringBillsData(
-      { data: recurringBillsResponse.data ?? [] },
+      { data: recurringBills },
       latestTransaction
     );
 

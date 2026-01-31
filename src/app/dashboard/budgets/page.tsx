@@ -1,16 +1,17 @@
 import BudgetClient from '@/app/ui/budgets/BudgetClient';
-import { getBaseUrl } from '@/lib/getBaseUrl';
+import { fetchBudgets, fetchTransactions } from '@/lib/data';
+import { BudgetProps, CategoriesDataProps } from '@/lib/definitions';
 
 export default async function BudgetPage() {
-  const baseUrl = getBaseUrl();
-
-  const [budgetsResponse, categoriesResponse] = await Promise.all([
-    fetch(`${baseUrl}/api/budgets`, { cache: 'no-store' }),
-    fetch(`${baseUrl}/api/transactions`, { cache: 'no-store' }),
+  const [budgets, categoriesData] = await Promise.all([
+    fetchBudgets(),
+    fetchTransactions(),
   ]);
 
-  const budgets = await budgetsResponse.json();
-  const categoriesData = await categoriesResponse.json();
-
-  return <BudgetClient budgets={budgets} categories={categoriesData} />;
+  return (
+    <BudgetClient
+      budgets={budgets as unknown as BudgetProps[]}
+      categories={categoriesData as unknown as CategoriesDataProps[]}
+    />
+  );
 }

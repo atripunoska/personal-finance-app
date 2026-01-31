@@ -1,12 +1,10 @@
-import React from 'react';
 import PotsWidget from '@/app/ui/dashboard/PotsWidget';
-import { getBaseUrl } from '@/lib/getBaseUrl';
+import { getDB } from '@/lib/db';
+import { Pot } from '@/lib/definitions';
 
 export default async function PotsSection() {
-  const response = await fetch(`${getBaseUrl()}/api/pots`, {
-    cache: 'no-store',
-  });
-  const pots = await response.json();
+  const sql = await getDB();
+  const pots = await sql`SELECT * FROM pots`;
 
-  return <PotsWidget pots={pots} />;
+  return <PotsWidget pots={pots as unknown as Pot[]} />;
 }

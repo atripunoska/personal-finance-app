@@ -1,16 +1,14 @@
 import ActiveLinkWrapper from './ActiveLinkWrapper';
 import React from 'react';
-import { getBaseUrl } from '@/lib/getBaseUrl';
+import { fetchPages } from '@/lib/data';
+import { Pages } from '@/lib/definitions';
 
 export default async function NavLinks() {
-  const response = await fetch(`${getBaseUrl()}/api/pages`, {
-    cache: 'no-store',
-  });
-  const pages = await response.json();
+  const pages = (await fetchPages()) as unknown as Pages[];
 
   return (
     <React.Fragment>
-      {pages.map((link: { name: string; path: string; icon: string }) => (
+      {pages.map((link) => (
         <ActiveLinkWrapper key={link.name} link={link} />
       ))}
     </React.Fragment>

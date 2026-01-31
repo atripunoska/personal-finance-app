@@ -1,12 +1,9 @@
-import React from 'react';
 import TransactionsTableWidget from '@/app/ui/dashboard/TransactionsTableWidget';
-import { getBaseUrl } from '@/lib/getBaseUrl';
+import { fetchTransactions } from '@/lib/data';
+import { Transaction } from '@/lib/definitions';
 
 export default async function TransactionsSection() {
-  const response = await fetch(`${getBaseUrl()}/api/transactions`, {
-    cache: 'no-store',
-  });
-  const transactions = await response.json();
+  const transactions = (await fetchTransactions()) as unknown as Transaction[];
 
   return <TransactionsTableWidget transactions={transactions} />;
 }

@@ -4,7 +4,7 @@ export async function fetchPages() {
   try {
     const sql = await getDB();
     const data = await sql`SELECT * FROM pages`;
-    return data;
+    return data as Record<string, unknown>[];
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch pages data.');
@@ -18,7 +18,7 @@ export async function fetchBalance() {
     const sql = await getDB();
     const data = await sql`SELECT * FROM balance`;
 
-    return data;
+    return data as Record<string, unknown>[];
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch revenue data.');
@@ -32,7 +32,7 @@ export async function fetchBudgets() {
     const sql = await getDB();
     const data = await sql`SELECT * FROM budgets`;
 
-    return data;
+    return data as Record<string, unknown>[];
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch revenue data.');
@@ -44,7 +44,7 @@ export async function deleteBudget(category: string) {
     const sql = await getDB();
     const data = await sql`DELETE FROM budgets WHERE category = ${category}`;
 
-    return data;
+    return data as Record<string, unknown>[];
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to delete budget.');
@@ -60,7 +60,7 @@ export async function updateBudget(
     const data =
       await sql`UPDATE budgets SET category = ${updates.category}, maximum = ${updates.maximum}, theme = ${updates.theme} WHERE category = ${category}`;
 
-    return data;
+    return data as Record<string, unknown>[];
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to update budget.');
@@ -76,7 +76,7 @@ export async function addNewBudget(
     const data =
       await sql`INSERT INTO budgets (category, maximum, theme) VALUES (${category}, ${maximum}, ${theme})`;
 
-    return data;
+    return data as Record<string, unknown>[];
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to add new budget.');
@@ -88,7 +88,7 @@ export async function fetchTransactions() {
     const sql = await getDB();
     const data = await sql`SELECT * FROM transactions`;
 
-    return data;
+    return data as Record<string, unknown>[];
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch revenue data.');
@@ -149,7 +149,7 @@ export async function fetchCategories() {
     const sql = await getDB();
     const data = await sql`SELECT category, amount FROM transactions`;
 
-    return data;
+    return data as Record<string, unknown>[];
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch revenue data.');
@@ -162,7 +162,7 @@ export async function fetchTransactionsByCategory(query: string) {
     const data =
       await sql`SELECT * FROM transactions WHERE category ILIKE ${`%${query}%`} ORDER BY date DESC LIMIT 3`;
 
-    return data;
+    return data as Record<string, unknown>[];
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch categories data.');
@@ -188,7 +188,7 @@ export async function fetchUniqueTransactions() {
     const sql = await getDB();
     const data = await sql`SELECT DISTINCT category FROM transactions`;
 
-    return data;
+    return data as Record<string, unknown>[];
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch revenue data.');
@@ -202,7 +202,7 @@ export async function fetchRecurringBills() {
     const sql = await getDB();
     const data = await sql`SELECT * FROM transactions WHERE recurring = true`;
 
-    return data;
+    return data as Record<string, unknown>[];
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch recurring data.');
@@ -215,7 +215,7 @@ export async function fetchTotalAmountByCategory() {
     const data =
       await sql`SELECT category, SUM(amount) AS total_amount FROM transactions WHERE date >= '2024-08-01' AND date <= '2024-08-31' GROUP BY category`;
 
-    return data;
+    return data as Record<string, unknown>[];
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch total amount by category.');
@@ -228,7 +228,7 @@ export async function getLatestTransaction() {
     const latestTransaction =
       await sql`SELECT date FROM transactions ORDER BY date DESC LIMIT 1`;
 
-    return latestTransaction;
+    return [...latestTransaction];
   } catch (error) {
     console.error('Error fetching payments due soon:', error);
     throw error;
@@ -242,7 +242,7 @@ export async function addAmountToPot(pot_id: string, amount: number) {
     const sql = await getDB();
     const data = await sql`SELECT add_amount_to_pot(${pot_id}, ${amount})`;
 
-    return data;
+    return data as Record<string, unknown>[];
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to add amount to pot.');
@@ -255,7 +255,7 @@ export async function withdrawAmountFromPot(potId: string, amount: number) {
     const data =
       await sql`SELECT withdraw_amount_from_pot(${potId}, ${amount})`;
 
-    return data;
+    return data as Record<string, unknown>[];
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to withdraw amount from pot.');
@@ -268,7 +268,7 @@ export async function addNewPot(name: string, theme: string, target: number) {
     const data =
       await sql`INSERT INTO pots (name, theme, target, total) VALUES (${name}, ${theme}, ${target}, 0) RETURNING *`;
 
-    return data;
+    return data as Record<string, unknown>[];
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to add new pot.');
@@ -280,7 +280,7 @@ export async function deletePot(name: string) {
     const sql = await getDB();
     const data = await sql`DELETE FROM pots WHERE name = ${name}`;
 
-    return data;
+    return data as Record<string, unknown>[];
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to add new pot.');
@@ -296,7 +296,7 @@ export async function updatePot(
     const data =
       await sql`UPDATE pots SET name = ${updates.name}, target = ${updates.target}, theme = ${updates.theme} WHERE name = ${potId}`;
 
-    return data;
+    return data as Record<string, unknown>[];
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to update pot.');
@@ -308,7 +308,7 @@ export async function fetchThemes() {
     const sql = await getDB();
     const data = await sql`SELECT DISTINCT theme FROM pots`;
 
-    return data;
+    return data as Record<string, unknown>[];
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch themes.');
