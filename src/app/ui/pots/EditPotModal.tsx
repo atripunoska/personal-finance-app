@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
 import { Modal } from '../modal';
-import { updatePot } from '@/lib/data';
+
 import { Button } from '@/components/ui/button';
 import { closest } from 'color-2-name';
 
@@ -27,7 +27,15 @@ const EditPotModal: React.FC<{
 
   const handleUpdatePot = async () => {
     try {
-      await updatePot(potId, { name, target: targetAmount, theme });
+      await fetch(`/api/pots/${potId}`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          name: name,
+          target: targetAmount,
+          theme: theme,
+        }),
+      });
+
       onClose();
     } catch (error) {
       console.error('Failed to update pot:', error);

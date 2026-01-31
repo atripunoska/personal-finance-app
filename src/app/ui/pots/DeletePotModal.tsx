@@ -17,7 +17,9 @@ export default function DeletePotModal({
 }) {
   const handleDeletePot = async () => {
     try {
-      const newPot = await deletePot(potId);
+      const newPot = await fetch(`/api/pots/${potId}`, {
+        method: 'DELETE',
+      });
       if (newPot) {
         onDeletePot();
       }

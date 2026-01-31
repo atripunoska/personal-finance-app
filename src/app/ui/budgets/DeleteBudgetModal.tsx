@@ -2,7 +2,6 @@ import React from 'react';
 import { Modal } from '../modal';
 import { createPortal } from 'react-dom';
 import { Button } from '@/components/ui/button';
-import { deleteBudget } from '@/lib/data';
 
 export default function DeleteBudgetModal({
   onClose,
@@ -17,8 +16,13 @@ export default function DeleteBudgetModal({
 }) {
   const handleDeleteBudget = async () => {
     try {
-      const newPot = await deleteBudget(budgetId);
-      if (newPot) {
+      const response = await fetch(
+        `/api/budgets?category=${encodeURIComponent(budgetId)}`,
+        {
+          method: 'DELETE',
+        }
+      );
+      if (response.ok) {
         onDeleteBudget();
       }
       onClose();

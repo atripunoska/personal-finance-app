@@ -38,7 +38,7 @@ export default function RecurringBillsTable({
   };
 
   const sortBills = (bills: any[]) => {
-    return bills.sort((a, b) => {
+    return [...bills].sort((a, b) => {
       if (sortBy === 'aToZ') {
         return a.name.localeCompare(b.name);
       } else if (sortBy === 'zToA') {
@@ -79,9 +79,9 @@ export default function RecurringBillsTable({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {filteredBills?.map((item) => {
+          {filteredBills?.map((item, index) => {
             return (
-              <TableRow key={item.name}>
+              <TableRow key={`${item.name}-${item.date}-${index}`}>
                 <TableCell>
                   <div className="flex gap-2 md:items-center flex-col md:flex-row">
                     <Image

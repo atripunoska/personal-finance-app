@@ -2,7 +2,6 @@ import React, { useState, useEffect, ChangeEvent } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { fetchThemes, addNewBudget } from '@/lib/data';
 import { createPortal } from 'react-dom';
 import { Modal } from '../modal';
 import { closest } from 'color-2-name';
@@ -33,9 +32,10 @@ export default function AddBudgetModal({
 
   useEffect(() => {
     async function fetchUsedThemes() {
-      let usedThemes = await fetchThemes();
-      usedThemes = usedThemes.map((item) => item.theme);
-      setThemes(usedThemes as unknown as string[]);
+      const response = await fetch('/api/budgets/themes');
+      const usedThemes = await response.json();
+      const themeList = usedThemes.map((item: { theme: string }) => item.theme);
+      setThemes(themeList);
     }
 
     fetchUsedThemes();
@@ -62,7 +62,14 @@ export default function AddBudgetModal({
       return;
     }
     try {
-      await addNewBudget(category, parseFloat(maximum), selectedTheme);
+      await fetch('/api/budgets', {
+        method: 'POST',
+        body: JSON.stringify({
+          category,
+          maximum: Number.parseFloat(maximum),
+          theme: selectedTheme,
+        }),
+      });
       onClose();
     } catch (error) {
       console.error('Failed to add new budget:', error);

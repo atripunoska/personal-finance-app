@@ -1,5 +1,5 @@
 import Sidemenu from '../ui/dashboard/Sidemenu';
-import LoggedUser from '../ui/user/LoggedUser';
+// import LoggedUser from '../ui/user/LoggedUser';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -8,9 +8,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <Sidemenu />
       </div>
       <div className="flex-grow p-6 md:overflow-y-auto md:p-12">
-        <div className="text-right">
-          <LoggedUser />
-        </div>
+        <div className="text-right">{/* <LoggedUser /> */}</div>
         {children}
       </div>
     </div>

@@ -2,7 +2,6 @@ import { Button } from '@/components/ui/button';
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Modal } from '../modal';
-import { addNewPot } from '@/lib/data';
 import { closest } from 'color-2-name';
 import { Pot } from '@/lib/definitions';
 
@@ -23,9 +22,16 @@ export default function AddNewPotModal({
 
   const handleAddPot = async () => {
     try {
-      const newPot = await addNewPot(name, theme, target);
+      const response = await fetch('/api/pots', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name: name, theme: theme, target: target }),
+      });
+      const newPot = await response.json();
       if (newPot) {
-        onAddPot(newPot[0]); // Pass the new pot to the parent component
+        onAddPot(newPot); // Pass the new pot to the parent component
       }
       onClose();
     } catch (error) {

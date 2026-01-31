@@ -4,9 +4,12 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
 import Image from 'next/image';
-import { LinkType } from '@/lib/definitions';
 
-export default function ActiveLinkWrapper({ link }: { link: LinkType }) {
+export default function ActiveLinkWrapper({
+  link,
+}: {
+  link: { name: string; path: string; icon: string };
+}) {
   const pathname = usePathname();
   const isActive = pathname === link.path;
 

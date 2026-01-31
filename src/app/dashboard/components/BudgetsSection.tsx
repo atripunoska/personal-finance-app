@@ -1,21 +1,29 @@
 import React from 'react';
-import { fetchBudgets, fetchTotalAmountByCategory } from '@/lib/data';
 import { Card } from '@/components/ui/card';
 import ChartBudget from '@/app/ui/budgets/ChartBudget';
+import { getBaseUrl } from '@/lib/getBaseUrl';
 
 export default async function BudgetsSection() {
-  const [budgets, categories] = await Promise.all([
-    fetchBudgets(),
-    fetchTotalAmountByCategory(),
+  const baseUrl = getBaseUrl();
+
+  const [budgetsResponse, categoriesResponse] = await Promise.all([
+    fetch(`${baseUrl}/api/budgets`, { cache: 'no-store' }),
+    fetch(`${baseUrl}/api/categories/totals`, { cache: 'no-store' }),
   ]);
 
+  const budgets = await budgetsResponse.json();
+  const categories = await categoriesResponse.json();
+
   const totalAmountByCategory = categories?.reduce(
-    (acc: { [key: string]: number }, transaction) => {
-      const { category, amount } = transaction;
+    (
+      acc: { [key: string]: number },
+      transaction: { category: string; total_amount: number }
+    ) => {
+      const { category, total_amount } = transaction;
       if (!acc[category]) {
         acc[category] = 0;
       }
-      acc[category] += amount;
+      acc[category] += Math.abs(Number(total_amount));
       return acc;
     },
     {}
