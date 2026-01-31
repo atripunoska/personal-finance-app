@@ -38,7 +38,7 @@ export default async function Layout({
               <DropdownMenuItem className="cursor-pointer">
                 <form action={logout}>
                   <button type="submit" className="cursor-pointer">
-                    Logout
+                    Log out
                   </button>
                 </form>
               </DropdownMenuItem>

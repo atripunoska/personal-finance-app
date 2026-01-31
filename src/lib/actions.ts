@@ -80,5 +80,5 @@ export async function register(
 
 // LOGOUT ACTION
 export async function logout() {
-  await signOut();
+  await signOut({ redirectTo: '/login' });
 }
