@@ -51,7 +51,7 @@ export default function TransactionsTable({
 
       setTransactions(transactionsData.data || []);
       setCategories([
-        ...new Set(
+        ...new Set<string>(
           categoriesData.data?.map(
             (item: { category: string }) => item.category
           ) || []
