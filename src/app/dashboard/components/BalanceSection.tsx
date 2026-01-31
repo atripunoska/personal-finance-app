@@ -1,9 +1,9 @@
-import React from 'react';
-import { fetchBalance } from '@/lib/data';
 import BalanceCard from '@/app/ui/dashboard/BalanceCard';
+import { fetchBalance } from '@/lib/data';
+import { BalanceCardProps } from '@/lib/definitions';
 
 export default async function BalanceSection() {
-  const balance = await fetchBalance();
+  const balance = (await fetchBalance()) as unknown as BalanceCardProps[];
 
   return (
     <div className="flex flex-col md:flex-row gap-2 w-full mb-3">

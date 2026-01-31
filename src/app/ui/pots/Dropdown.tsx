@@ -9,20 +9,22 @@ import {
 import { Button } from '@/components/ui/button';
 import { ModalType } from '@/lib/definitions';
 import DeletePotModal from './DeletePotModal';
-import { deletePot, fetchPots } from '@/lib/data';
 import EditPotModal from './EditPotModal';
 
 export default function Dropdown({
   potId,
   target,
   initialTheme,
+  onPotDeleted,
 }: {
   potId: string;
   target: number;
   initialTheme: string;
+  onPotDeleted?: () => void;
 }) {
   const [modalType, setModalType] = useState<ModalType>(ModalType.NONE);
   const [themes, setThemes] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleOpenModal = (type: ModalType) => {
     setModalType(type);
@@ -34,17 +36,34 @@ export default function Dropdown({
 
   const handleDeleteModal = async (potId: string) => {
     try {
-      await deletePot(potId);
+      setIsLoading(true);
+      const response = await fetch(`/api/pots/${encodeURIComponent(potId)}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete pot');
+      }
+
       handleCloseModal();
+      onPotDeleted?.(); // Or use a better state management solution
     } catch (error) {
-      console.error('Failed to add money to pot:', error);
+      console.error('Failed to delete pot:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const getThemes = async () => {
     try {
-      const pots = await fetchPots();
-      const potThemes = pots.map((p) => p.theme);
+      const response = await fetch('/api/pots/themes');
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch themes');
+      }
+
+      const themesData = await response.json();
+      const potThemes = themesData.map((t: { theme: string }) => t.theme);
       setThemes(potThemes);
     } catch (error) {
       console.log('Failed to fetch themes.', error);
@@ -63,6 +82,7 @@ export default function Dropdown({
             className="font-bold text-grey-500 cursor-pointer hover:bg-grey-100 hover:text-grey-900"
             variant="secondary"
             aria-label="Open Dropdown"
+            disabled={isLoading}
           >
             ...
           </Button>

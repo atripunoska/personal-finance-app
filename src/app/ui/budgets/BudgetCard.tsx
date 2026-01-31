@@ -4,7 +4,6 @@ import { Progress } from '@/components/ui/progress';
 import { USDollar } from '@/lib/utils';
 import React, { useEffect, useState } from 'react';
 import BudgetCardTable from './BudgetCardTable';
-import { fetchTransactionsByCategory } from '@/lib/data';
 import BudgetCardButton from './BudgetCardButton';
 import { BudgetCardProps, Transaction } from '@/lib/definitions';
 
@@ -20,12 +19,15 @@ export default function BudgetCard({
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetchTransactionsByCategory(category);
-      if (response.error) {
-        console.error(response.error);
+      const response = await fetch(
+        `/api/transactions?category=${encodeURIComponent(category)}`
+      );
+      const data = await response.json();
+      if (data.error) {
+        console.error(data.error);
         setTransactions([]);
       } else {
-        setTransactions(response.data);
+        setTransactions(data.data);
       }
     }
 
@@ -56,7 +58,7 @@ export default function BudgetCard({
         <Progress
           value={Math.abs(value)}
           indicatorColor={theme}
-          max={maximum}
+          max={Math.abs(maximum)}
           role="progress"
           aria-label={'Maximum of ' + USDollar.format(maximum)}
         />

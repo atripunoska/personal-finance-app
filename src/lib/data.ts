@@ -1,19 +1,13 @@
-// mostly Repository Pattern for fetching data from supabase
-
-import { createClient } from '@/utils/supabase/client';
-
-const supabase = createClient();
+import { getDB } from '@/lib/db';
 
 export async function fetchPages() {
   try {
-    const { data, error } = await supabase.from('pages').select('*');
-
-    if (error) throw error;
-
-    return data;
+    const sql = await getDB();
+    const data = await sql`SELECT * FROM pages`;
+    return data as Record<string, unknown>[];
   } catch (error) {
     console.error('Database Error:', error);
-    throw new Error('Failed to fetch revenue data.');
+    throw new Error('Failed to fetch pages data.');
   }
 }
 
@@ -21,11 +15,10 @@ export async function fetchPages() {
 
 export async function fetchBalance() {
   try {
-    const { data, error } = await supabase.from('balance').select('*');
+    const sql = await getDB();
+    const data = await sql`SELECT * FROM balance`;
 
-    if (error) throw error;
-
-    return data;
+    return data as Record<string, unknown>[];
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch revenue data.');
@@ -36,11 +29,10 @@ export async function fetchBalance() {
 
 export async function fetchBudgets() {
   try {
-    const { data, error } = await supabase.from('budgets').select('*');
+    const sql = await getDB();
+    const data = await sql`SELECT * FROM budgets`;
 
-    if (error) throw error;
-
-    return data;
+    return data as Record<string, unknown>[];
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch revenue data.');
@@ -49,14 +41,10 @@ export async function fetchBudgets() {
 
 export async function deleteBudget(category: string) {
   try {
-    const { data, error } = await supabase
-      .from('budgets')
-      .delete()
-      .eq('category', category);
+    const sql = await getDB();
+    const data = await sql`DELETE FROM budgets WHERE category = ${category}`;
 
-    if (error) throw error;
-
-    return data;
+    return data as Record<string, unknown>[];
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to delete budget.');
@@ -68,14 +56,11 @@ export async function updateBudget(
   updates: { category: string; maximum: number; theme: string }
 ) {
   try {
-    const { data, error } = await supabase
-      .from('budgets')
-      .update(updates)
-      .ilike('category', `%${category}%`);
+    const sql = await getDB();
+    const data =
+      await sql`UPDATE budgets SET category = ${updates.category}, maximum = ${updates.maximum}, theme = ${updates.theme} WHERE category = ${category}`;
 
-    if (error) throw error;
-
-    return data;
+    return data as Record<string, unknown>[];
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to update budget.');
@@ -87,13 +72,11 @@ export async function addNewBudget(
   theme: string
 ) {
   try {
-    const { data, error } = await supabase
-      .from('budgets')
-      .insert([{ category, maximum, theme }]);
+    const sql = await getDB();
+    const data =
+      await sql`INSERT INTO budgets (category, maximum, theme) VALUES (${category}, ${maximum}, ${theme})`;
 
-    if (error) throw error;
-
-    return data;
+    return data as Record<string, unknown>[];
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to add new budget.');
@@ -102,11 +85,10 @@ export async function addNewBudget(
 
 export async function fetchTransactions() {
   try {
-    const { data, error } = await supabase.from('transactions').select('*');
+    const sql = await getDB();
+    const data = await sql`SELECT * FROM transactions`;
 
-    if (error) throw error;
-
-    return data;
+    return data as Record<string, unknown>[];
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch revenue data.');
@@ -123,32 +105,37 @@ export async function fetchFilteredTransactions(
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
   try {
-    let queryBuilder = supabase
-      .from('transactions')
-      .select('*')
-      .ilike('name', `%${query}%`)
-      .range(offset, offset + ITEMS_PER_PAGE - 1);
+    const sql = await getDB();
+    // Build WHERE clause
+    let whereClause = sql`name ILIKE ${'%' + query + '%'}`;
 
     if (category) {
-      queryBuilder = queryBuilder.ilike('category', `%${category}%`);
+      whereClause = sql`${whereClause} AND category ILIKE ${'%' + category + '%'}`;
     }
 
-    if (sort === 'latest') {
-      queryBuilder = queryBuilder.order('date', { ascending: false });
-    } else if (sort === 'oldest') {
-      queryBuilder = queryBuilder.order('date', { ascending: true });
+    // Build ORDER BY clause
+    let orderBy = 'date DESC'; // default to 'latest'
+
+    if (sort === 'oldest') {
+      orderBy = 'date ASC';
     } else if (sort === 'a-to-z') {
-      queryBuilder = queryBuilder.order('name', { ascending: true });
+      orderBy = 'name ASC';
     } else if (sort === 'z-to-a') {
-      queryBuilder = queryBuilder.order('name', { ascending: false });
+      orderBy = 'name DESC';
     } else if (sort === 'highest') {
-      queryBuilder = queryBuilder.order('amount', { ascending: false });
+      orderBy = 'amount DESC';
     } else if (sort === 'lowest') {
-      queryBuilder = queryBuilder.order('amount', { ascending: true });
+      orderBy = 'amount ASC';
     }
-    const { data, error } = await queryBuilder;
 
-    if (error) throw error;
+    // Execute the query with dynamic conditions
+    const data = await sql`
+      SELECT * FROM transactions
+      WHERE ${whereClause}
+      ORDER BY ${sql([orderBy])}
+      LIMIT ${ITEMS_PER_PAGE}
+      OFFSET ${offset}
+    `;
 
     return { data };
   } catch (error) {
@@ -159,9 +146,10 @@ export async function fetchFilteredTransactions(
 
 export async function fetchCategories() {
   try {
-    const data = await supabase.from('transactions').select('category, amount');
+    const sql = await getDB();
+    const data = await sql`SELECT category, amount FROM transactions`;
 
-    return data;
+    return data as Record<string, unknown>[];
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch revenue data.');
@@ -170,14 +158,11 @@ export async function fetchCategories() {
 
 export async function fetchTransactionsByCategory(query: string) {
   try {
-    const data = await supabase
-      .from('transactions')
-      .select('*')
-      .ilike('category', `%${query}%`)
-      .order('date', { ascending: false })
-      .limit(3);
+    const sql = await getDB();
+    const data =
+      await sql`SELECT * FROM transactions WHERE category ILIKE ${`%${query}%`} ORDER BY date DESC LIMIT 3`;
 
-    return data;
+    return data as Record<string, unknown>[];
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch categories data.');
@@ -186,12 +171,11 @@ export async function fetchTransactionsByCategory(query: string) {
 
 export async function fetchTransactionsPages(query: string) {
   try {
-    const data = await supabase
-      .from('transactions')
-      .select('*', { count: 'exact', head: true })
-      .ilike('name', `%${query}%`);
+    const sql = await getDB();
+    const data =
+      await sql`SELECT COUNT(*) FROM transactions WHERE name ILIKE ${`%${query}%`}`;
 
-    const totalPages = Math.ceil(Number(data.count) / ITEMS_PER_PAGE);
+    const totalPages = Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE);
     return totalPages;
   } catch (error) {
     console.error('Database Error:', error);
@@ -201,13 +185,10 @@ export async function fetchTransactionsPages(query: string) {
 
 export async function fetchUniqueTransactions() {
   try {
-    const { data, error } = await supabase
-      .from('transactions')
-      .select('category');
+    const sql = await getDB();
+    const data = await sql`SELECT DISTINCT category FROM transactions`;
 
-    if (error) throw error;
-
-    return data;
+    return data as Record<string, unknown>[];
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch revenue data.');
@@ -218,12 +199,10 @@ export async function fetchUniqueTransactions() {
 
 export async function fetchRecurringBills() {
   try {
-    const data = await supabase
-      .from('transactions')
-      .select('*')
-      .eq('recurring', true);
+    const sql = await getDB();
+    const data = await sql`SELECT * FROM transactions WHERE recurring = true`;
 
-    return data;
+    return data as Record<string, unknown>[];
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch recurring data.');
@@ -232,15 +211,11 @@ export async function fetchRecurringBills() {
 
 export async function fetchTotalAmountByCategory() {
   try {
-    const { data, error } = await supabase
-      .from('transactions')
-      .select('category, amount')
-      .gte('date', '2024-08-01')
-      .lte('date', '2024-08-31');
+    const sql = await getDB();
+    const data =
+      await sql`SELECT category, SUM(amount) AS total_amount FROM transactions WHERE date >= '2024-08-01' AND date <= '2024-08-31' GROUP BY category`;
 
-    if (error) throw error;
-
-    return data;
+    return data as Record<string, unknown>[];
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch total amount by category.');
@@ -249,14 +224,11 @@ export async function fetchTotalAmountByCategory() {
 
 export async function getLatestTransaction() {
   try {
-    const { data: latestTransaction, error: latestError } = await supabase
-      .from('transactions')
-      .select('date')
-      .order('date', { ascending: false })
-      .limit(1)
-      .single();
-    if (latestError) throw latestError;
-    return latestTransaction;
+    const sql = await getDB();
+    const latestTransaction =
+      await sql`SELECT date FROM transactions ORDER BY date DESC LIMIT 1`;
+
+    return [...latestTransaction];
   } catch (error) {
     console.error('Error fetching payments due soon:', error);
     throw error;
@@ -265,30 +237,12 @@ export async function getLatestTransaction() {
 
 // POTS
 
-export async function fetchPots() {
-  try {
-    const { data, error } = await supabase.from('pots').select('*');
-
-    if (error) throw error;
-
-    return data;
-  } catch (error) {
-    console.error('Database Error:', error);
-
-    throw new Error('Failed to fetch revenue data.');
-  }
-}
-
 export async function addAmountToPot(pot_id: string, amount: number) {
   try {
-    const { data, error } = await supabase.rpc('add_amount_to_pot', {
-      pot_id: pot_id,
-      amount: amount,
-    });
+    const sql = await getDB();
+    const data = await sql`SELECT add_amount_to_pot(${pot_id}, ${amount})`;
 
-    if (error) throw error;
-
-    return data;
+    return data as Record<string, unknown>[];
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to add amount to pot.');
@@ -297,14 +251,11 @@ export async function addAmountToPot(pot_id: string, amount: number) {
 
 export async function withdrawAmountFromPot(potId: string, amount: number) {
   try {
-    const { data, error } = await supabase.rpc('withdraw_amount_from_pot', {
-      pot_id: potId,
-      amount: amount,
-    });
+    const sql = await getDB();
+    const data =
+      await sql`SELECT withdraw_amount_from_pot(${potId}, ${amount})`;
 
-    if (error) throw error;
-
-    return data;
+    return data as Record<string, unknown>[];
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to withdraw amount from pot.');
@@ -313,13 +264,11 @@ export async function withdrawAmountFromPot(potId: string, amount: number) {
 
 export async function addNewPot(name: string, theme: string, target: number) {
   try {
-    const { data, error } = await supabase
-      .from('pots')
-      .insert([{ name, theme, target, total: 0 }]);
+    const sql = await getDB();
+    const data =
+      await sql`INSERT INTO pots (name, theme, target, total) VALUES (${name}, ${theme}, ${target}, 0) RETURNING *`;
 
-    if (error) throw error;
-
-    return data;
+    return data as Record<string, unknown>[];
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to add new pot.');
@@ -328,14 +277,10 @@ export async function addNewPot(name: string, theme: string, target: number) {
 
 export async function deletePot(name: string) {
   try {
-    const { data, error } = await supabase
-      .from('pots')
-      .delete()
-      .eq('name', name);
+    const sql = await getDB();
+    const data = await sql`DELETE FROM pots WHERE name = ${name}`;
 
-    if (error) throw error;
-
-    return data;
+    return data as Record<string, unknown>[];
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to add new pot.');
@@ -347,14 +292,11 @@ export async function updatePot(
   updates: { name: string; target: number; theme: string }
 ) {
   try {
-    const { data, error } = await supabase
-      .from('pots')
-      .update(updates)
-      .eq('name', potId);
+    const sql = await getDB();
+    const data =
+      await sql`UPDATE pots SET name = ${updates.name}, target = ${updates.target}, theme = ${updates.theme} WHERE name = ${potId}`;
 
-    if (error) throw error;
-
-    return data;
+    return data as Record<string, unknown>[];
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to update pot.');
@@ -363,11 +305,10 @@ export async function updatePot(
 
 export async function fetchThemes() {
   try {
-    const { data, error } = await supabase.from('budgets').select('theme');
+    const sql = await getDB();
+    const data = await sql`SELECT DISTINCT theme FROM pots`;
 
-    if (error) throw error;
-
-    return data;
+    return data as Record<string, unknown>[];
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch themes.');

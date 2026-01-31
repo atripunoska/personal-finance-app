@@ -9,7 +9,6 @@ import {
 import { BudgetCardButtonProps, ModalType, THEMES } from '@/lib/definitions';
 import React, { useState } from 'react';
 import DeleteBudgetModal from './DeleteBudgetModal';
-import { deleteBudget } from '@/lib/data';
 import EditBudgetModal from './EditBudgetModal';
 
 export default function BudgetCardButton({
@@ -30,10 +29,12 @@ export default function BudgetCardButton({
 
   const handleDeleteModal = async (category: string) => {
     try {
-      await deleteBudget(category);
+      await fetch(`/api/budgets?category=${encodeURIComponent(category)}`, {
+        method: 'DELETE',
+      });
       handleCloseModal();
     } catch (error) {
-      console.error('Failed to add money to pot:', error);
+      console.error('Failed to delete budget:', error);
     }
   };
 

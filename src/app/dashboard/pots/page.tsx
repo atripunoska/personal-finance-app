@@ -3,27 +3,40 @@
 import PotCardSkeleton from '@/app/ui/pots/PotCardSkeleton';
 import PotCard from '@/app/ui/pots/PotCard';
 import { Button } from '@/components/ui/button';
-import { fetchPots } from '@/lib/data';
 import { Pot } from '@/lib/definitions';
 
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AddNewPotModal from '@/app/ui/pots/AddNewPotModal';
 
 export default function PotsPage() {
   const [pots, setPots] = useState<Pot[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
+  const loadPots = async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch('/api/pots');
+      if (!response.ok) throw new Error('Failed to fetch pots');
+      const potsData = await response.json();
+      setPots(potsData);
+    } catch (error) {
+      console.error('Failed to load pots:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const loadPots = async () => {
-      try {
-        const potsData = await fetchPots();
-        setPots(potsData);
-      } catch (error) {
-        console.error('Failed to load pots:', error);
-      }
-    };
     loadPots();
   }, []);
+  const handlePotDeleted = () => {
+    loadPots();
+  };
+
+  const handlePotUpdated = () => {
+    loadPots();
+  };
 
   const handleOpenModal = () => {
     setModalOpen(true);
@@ -37,7 +50,7 @@ export default function PotsPage() {
     setPots([...pots, newPot]);
   };
 
-  const themes: string[] = [];
+  const themes: string[] = pots.map((pot) => pot.theme);
 
   return (
     <main>
@@ -48,12 +61,22 @@ export default function PotsPage() {
         </Button>
       </header>
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-        <Suspense fallback={<PotCardSkeleton />}>
-          {pots.map((pot) => {
-            themes.push(pot.theme);
-            return <PotCard key={pot.name} {...pot} potId={pot.name} />;
-          })}
-        </Suspense>
+        {isLoading ? (
+          <>
+            <PotCardSkeleton />
+            <PotCardSkeleton />
+          </>
+        ) : (
+          pots.map((pot) => (
+            <PotCard
+              key={pot.name}
+              {...pot}
+              potId={pot.name}
+              onPotDeleted={handlePotDeleted}
+              onPotUpdated={handlePotUpdated}
+            />
+          ))
+        )}
       </section>
 
       {isModalOpen && (

@@ -20,7 +20,7 @@ export default function BudgetClient({ budgets, categories }: Props) {
 
   const totalAmountByCategory = categories.reduce(
     (acc, { category, amount }) => {
-      acc[category] = (acc[category] || 0) + amount;
+      acc[category] = (acc[category] || 0) + Math.abs(Number(amount));
       return acc;
     },
     {} as Record<string, number>
@@ -60,17 +60,18 @@ export default function BudgetClient({ budgets, categories }: Props) {
         </div>
         <div className="lg:col-span-2 gap-3 flex flex-col">
           {budgets.map((item) => {
-            const progress =
-              (totalAmountByCategory[item.category] / item.maximum) * 100;
+            const amountSpend = totalAmountByCategory[item.category] || 0;
+            const maximum = Number(item.maximum) || 0;
+            const progress = maximum > 0 ? (amountSpend / maximum) * 100 : 0;
 
             return (
               <BudgetCard
                 key={item.category}
-                maximum={item.maximum}
+                maximum={maximum}
                 theme={item.theme}
                 category={item.category}
                 value={progress}
-                amountSpend={totalAmountByCategory[item.category]}
+                amountSpend={amountSpend}
                 categories={categories}
               />
             );

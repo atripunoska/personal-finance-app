@@ -1,9 +1,17 @@
 import BudgetClient from '@/app/ui/budgets/BudgetClient';
-import { fetchBudgets, fetchTotalAmountByCategory } from '@/lib/data';
+import { fetchBudgets, fetchTransactions } from '@/lib/data';
+import { BudgetProps, CategoriesDataProps } from '@/lib/definitions';
 
 export default async function BudgetPage() {
-  const budgets = await fetchBudgets();
-  const categories = await fetchTotalAmountByCategory();
+  const [budgets, categoriesData] = await Promise.all([
+    fetchBudgets(),
+    fetchTransactions(),
+  ]);
 
-  return <BudgetClient budgets={budgets} categories={categories} />;
+  return (
+    <BudgetClient
+      budgets={budgets as unknown as BudgetProps[]}
+      categories={categoriesData as unknown as CategoriesDataProps[]}
+    />
+  );
 }

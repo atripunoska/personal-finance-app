@@ -12,7 +12,6 @@ import Image from 'next/image';
 import clsx from 'clsx';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import { fetchCategories, fetchFilteredTransactions } from '@/lib/data';
 import { USDollar } from '@/lib/utils';
 import Search from '@/components/ui/search';
 import SelectByCategory from './selectByCategory';
@@ -34,17 +33,29 @@ export default function TransactionsTable({
   const searchParams = useSearchParams();
   useEffect(() => {
     const fetchData = async () => {
-      const transactionsData = await fetchFilteredTransactions(
-        query,
-        currentPage,
-        filterCategory === 'all' ? '' : filterCategory,
-        sortOption
-      );
-      setTransactions(transactionsData.data);
+      const params = new URLSearchParams({
+        filtered: 'true',
+        query: query,
+        page: currentPage.toString(),
+        category: filterCategory === 'all' ? '' : filterCategory,
+        sort: sortOption,
+      });
 
-      const categoriesData = await fetchCategories();
+      const [transactionsResponse, categoriesResponse] = await Promise.all([
+        fetch(`/api/transactions?${params.toString()}`),
+        fetch('/api/categories'),
+      ]);
+
+      const transactionsData = await transactionsResponse.json();
+      const categoriesData = await categoriesResponse.json();
+
+      setTransactions(transactionsData.data || []);
       setCategories([
-        ...new Set(categoriesData.data?.map((item) => item.category) || []),
+        ...new Set<string>(
+          categoriesData.data?.map(
+            (item: { category: string }) => item.category
+          ) || []
+        ),
       ]);
     };
 
@@ -125,7 +136,7 @@ export default function TransactionsTable({
                 </TableCell>
                 <TableCell className="text-center">
                   <div className="font-light text-muted-foreground">
-                    {item.date}
+                    {new Date(item.date).toUTCString().slice(4, 16)}
                   </div>
                 </TableCell>
                 <TableCell className="text-right">

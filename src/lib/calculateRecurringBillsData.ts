@@ -28,25 +28,20 @@ export async function calculateRecurringBillsData(
 
   // Separate paid and due soon transactions
   const paidTransactions = uniqueRecurringBills?.filter(
-    (item) =>
-      new Date(item.date) <= latestTransactionDate &&
-      new Date(item.date) > new Date('2024-08-01')
+    (item) => new Date(item.date) <= latestTransactionDate
   );
 
   uniqueRecurringBills?.forEach((item) => {
     const itemDate = new Date(item.date);
-    if (
-      itemDate <= latestTransactionDate &&
-      itemDate > new Date('2024-08-01')
-    ) {
-      totalAmountPaid += item.amount;
+    if (itemDate <= latestTransactionDate) {
+      totalAmountPaid += Math.abs(Number(item.amount));
     }
   });
 
   const upcomingTransactions = uniqueRecurringBills?.filter((item) => {
     const itemDate = new Date(item.date);
     if (getDate(itemDate) > getDate(latestTransactionDate))
-      totalAmountUpcoming = totalAmountUpcoming + item.amount;
+      totalAmountUpcoming = totalAmountUpcoming + Math.abs(Number(item.amount));
     return getDate(itemDate) > getDate(latestTransactionDate);
   });
 
@@ -55,7 +50,7 @@ export async function calculateRecurringBillsData(
 
     if (getDate(itemDate) > getDate(latestTransactionDate)) {
       if (getDate(item.date) > dueSoon && getDate(item.date) < dueSoon + 5) {
-        totalAmountDue = totalAmountDue + item.amount;
+        totalAmountDue = totalAmountDue + Math.abs(Number(item.amount));
       }
     }
 
@@ -65,10 +60,7 @@ export async function calculateRecurringBillsData(
   const totalPaid = paidTransactions?.length ?? 0;
   const totalUpcoming = upcomingTransactions?.length ?? 0;
   const totalDue = dueSoonTransaction?.length ?? 0;
-  const totalAmount =
-    totalAmountPaid && totalAmountUpcoming && totalAmountDue
-      ? totalAmountPaid + totalAmountUpcoming + totalAmountDue
-      : 0;
+  const totalAmount = totalAmountPaid + totalAmountUpcoming + totalAmountDue;
 
   return {
     totalAmountPaid,

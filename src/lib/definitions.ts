@@ -54,7 +54,6 @@ export interface Pot {
   theme: string;
   target: number;
   total: number;
-  // Add other properties of Pot here
 }
 
 export interface Bill {
@@ -115,6 +114,8 @@ export interface PotCardProps {
   target: number;
   total: number;
   potId: string;
+  onPotDeleted?: () => void;
+  onPotUpdated?: () => void;
 }
 
 export interface SelectByCategoryProps {

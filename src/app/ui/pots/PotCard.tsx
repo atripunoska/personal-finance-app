@@ -3,18 +3,25 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { addAmountToPot, withdrawAmountFromPot } from '@/lib/data';
 import { USDollar } from '@/lib/utils';
 import WithdrawMoneyModal from './WithdrawMoneyModal';
 import AddMoneyModal from './AddMoneyModal';
 import Dropdown from './Dropdown';
 import { ModalType, PotCardProps } from '@/lib/definitions';
 
-export default function PotCard({ name, theme, target, total }: PotCardProps) {
+export default function PotCard({
+  name,
+  theme,
+  target,
+  total,
+  onPotDeleted,
+  onPotUpdated,
+}: PotCardProps) {
   const progress = (total / target) * 100;
 
   const [modalType, setModalType] = useState<ModalType>(ModalType.NONE);
   const [potTotal, setPotTotal] = useState<number>(total);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleOpenModal = (type: ModalType) => {
     setModalType(type);
@@ -26,21 +33,59 @@ export default function PotCard({ name, theme, target, total }: PotCardProps) {
 
   const handleAddMoney = async (amount: number) => {
     try {
-      await addAmountToPot(name, amount);
+      setIsLoading(true);
+      const response = await fetch(
+        `/api/pots/${encodeURIComponent(name)}/add`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ amount }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to add money to pot');
+      }
+
       setPotTotal(potTotal + amount);
+      onPotUpdated?.();
       handleCloseModal();
     } catch (error) {
       console.error('Failed to add money to pot:', error);
+      // Optional: Show error toast/notification to user
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleWithdrawMoney = async (amount: number) => {
     try {
-      await withdrawAmountFromPot(name, amount);
+      setIsLoading(true);
+      const response = await fetch(
+        `/api/pots/${encodeURIComponent(name)}/withdraw`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ amount }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to withdraw money from pot');
+      }
+
       setPotTotal(potTotal - amount);
+      onPotUpdated?.();
       handleCloseModal();
     } catch (error) {
       console.error('Failed to withdraw money from pot:', error);
+      // Optional: Show error toast/notification to user
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -53,44 +98,51 @@ export default function PotCard({ name, theme, target, total }: PotCardProps) {
               className="w-4 h-4 rounded-full flex"
               style={{ backgroundColor: `${theme}` }}
             ></div>
-            <h3 className="font-bold text-xl text-grey-900 ">{name}</h3>
+            <h3 className="font-bold text-xl text-grey-900">{name}</h3>
           </div>
-          <Dropdown potId={name} target={target} initialTheme={theme} />
+          <Dropdown
+            potId={name}
+            target={target}
+            initialTheme={theme}
+            onPotDeleted={onPotDeleted}
+          />
         </div>
       </div>
       <div className="flex justify-between">
-        <div className="text-grey-300 font-bold ">Total Saved</div>
-        <div className="text-grey-900 font-bold text-3xl ">
-          {USDollar.format(total)}
+        <div className="text-grey-300 font-bold">Total Saved</div>
+        <div className="text-grey-900 font-bold text-3xl">
+          {USDollar.format(potTotal)}
         </div>
       </div>
       <Progress
         value={progress}
         indicatorColor={theme}
         role="progress"
-        aria-label={name + 'progress bar'}
+        aria-label={name + ' progress bar'}
       />
       <div className="flex justify-between">
-        <div className="text-grey-300 font-bold text-sm ">
+        <div className="text-grey-300 font-bold text-sm">
           {Math.round(progress * 100) / 100}%
         </div>
-        <div className="text-grey-300 font-light text-sm ">
+        <div className="text-grey-300 font-light text-sm">
           Target of {USDollar.format(target)}
         </div>
       </div>
       <div className="flex gap-2 justify-between">
         <Button
-          className="font-bold  text-grey-900 bg-grey-100 flex flex-grow border-2 border-grey-100 hover:bg-white hover:text-black hover:border-2 cursor-pointer"
+          className="font-bold text-grey-900 bg-grey-100 flex flex-grow border-2 border-grey-100 hover:bg-white hover:text-black hover:border-2 cursor-pointer"
           onClick={() => handleOpenModal(ModalType.ADD)}
           aria-label="Open Add Modal"
+          disabled={isLoading}
         >
           + Add Money
         </Button>
 
         <Button
-          className="font-bold  text-grey-900 bg-grey-100 border-2 border-grey-100 flex flex-grow hover:bg-white hover:text-black hover:border-2 cursor-pointer"
+          className="font-bold text-grey-900 bg-grey-100 border-2 border-grey-100 flex flex-grow hover:bg-white hover:text-black hover:border-2 cursor-pointer"
           onClick={() => handleOpenModal(ModalType.WITHDRAW)}
           aria-label="Open Withdraw Modal"
+          disabled={isLoading}
         >
           Withdraw
         </Button>

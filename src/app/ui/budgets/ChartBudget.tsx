@@ -36,7 +36,9 @@ export default function ChartBudget({
       <Table>
         <TableBody>
           {dataProps.map((item) => {
-            const totalAmount = totalAmountByCategory[item.category] || 0;
+            const rawAmount = totalAmountByCategory[item.category];
+            const totalAmount = rawAmount ? Math.abs(Number(rawAmount)) : 0;
+
             return (
               <TableRow key={Math.random()}>
                 <TableCell>
@@ -50,7 +52,7 @@ export default function ChartBudget({
                 </TableCell>
                 <TableCell className="text-right">
                   <span className="font-bold text-lg">
-                    {USDollar.format(Math.abs(totalAmount))}
+                    {USDollar.format(totalAmount)}
                   </span>{' '}
                   of{' '}
                   <span className="text-muted-foreground text-sm font-semibold ">

@@ -22,7 +22,7 @@ export default function PotsWidget({ pots }: PotsWidgetProps) {
         <div className="flex justify-between gap-4 md:flex-row-reverse flex-col-reverse content-between">
           <div className="grid  grid-cols-2 mb-3 flex-1 content-between ">
             {pots.map((item: Pot, index: number) => {
-              potsTotal += item.total;
+              potsTotal += parseInt(item.total.toString());
 
               if (index > 3) return;
 

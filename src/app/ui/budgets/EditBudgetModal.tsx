@@ -1,6 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Modal } from '../modal';
-import { fetchThemes, updateBudget } from '@/lib/data';
 import { Button } from '@/components/ui/button';
 import { closest } from 'color-2-name';
 import { CategoriesDataProps } from '@/lib/definitions';
@@ -32,9 +31,11 @@ const EditBudgetModal: React.FC<{
 
   useEffect(() => {
     async function fetchUsedThemes() {
-      const usedThemes: { theme: string }[] = await fetchThemes();
-
-      const themeNames = usedThemes.map((item) => item.theme);
+      const response = await fetch('/api/budgets/themes');
+      const usedThemes = await response.json();
+      const themeNames = usedThemes.map(
+        (item: { theme: string }) => item.theme
+      );
       setThemes(themeNames);
     }
 
@@ -43,10 +44,13 @@ const EditBudgetModal: React.FC<{
 
   const handleUpdateBudget = async () => {
     try {
-      await updateBudget(category, {
-        maximum: maxAmount,
-        theme: theme,
-        category: category,
+      await fetch(`/api/budgets?category=${encodeURIComponent(categoryId)}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          category: category,
+          maximum: maxAmount,
+          theme: theme,
+        }),
       });
       onClose();
     } catch (error) {
