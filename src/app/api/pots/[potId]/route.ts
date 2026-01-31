@@ -4,11 +4,12 @@ import { getDB } from '@/lib/db';
 // GET specific pot
 export async function GET(
   request: Request,
-  { params }: { params: { potId: string } }
+  { params }: { params: Promise<{ potId: string }> }
 ) {
   try {
+    const { potId } = await params;
     const sql = await getDB();
-    const result = await sql`SELECT * FROM pots WHERE name = ${params.potId}`;
+    const result = await sql`SELECT * FROM pots WHERE name = ${potId}`;
 
     if (result.length === 0) {
       return NextResponse.json({ error: 'Pot not found' }, { status: 404 });
@@ -24,16 +25,17 @@ export async function GET(
 // PATCH - Update pot
 export async function PATCH(
   request: Request,
-  { params }: { params: { potId: string } }
+  { params }: { params: Promise<{ potId: string }> }
 ) {
   try {
+    const { potId } = await params;
     const { name, target, theme } = await request.json();
     const sql = await getDB();
 
     const result = await sql`
-      UPDATE pots 
-      SET name = ${name}, target = ${target}, theme = ${theme} 
-      WHERE name = ${params.potId}
+      UPDATE pots
+      SET name = ${name}, target = ${target}, theme = ${theme}
+      WHERE name = ${potId}
       RETURNING *
     `;
 
@@ -50,11 +52,12 @@ export async function PATCH(
 // DELETE pot
 export async function DELETE(
   request: Request,
-  { params }: { params: { potId: string } }
+  { params }: { params: Promise<{ potId: string }> }
 ) {
   try {
+    const { potId } = await params;
     const sql = await getDB();
-    await sql`DELETE FROM pots WHERE name = ${params.potId}`;
+    await sql`DELETE FROM pots WHERE name = ${potId}`;
 
     return NextResponse.json({ success: true });
   } catch (error) {

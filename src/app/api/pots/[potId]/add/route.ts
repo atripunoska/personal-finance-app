@@ -3,16 +3,17 @@ import { getDB } from '@/lib/db';
 
 export async function POST(
   request: Request,
-  { params }: { params: { potId: string } }
+  { params }: { params: Promise<{ potId: string }> }
 ) {
   try {
+    const { potId } = await params;
     const { amount } = await request.json();
     const sql = await getDB();
 
     const result = await sql`
       UPDATE pots
       SET total = total + ${amount}
-      WHERE name = ${params.potId}
+      WHERE name = ${potId}
       RETURNING *
     `;
 
