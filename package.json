@@ -30,7 +30,7 @@
     "color-2-name": "^1.4.4",
     "date-fns": "^4.1.0",
     "lucide-react": "^0.476.0",
-    "next": "15.2.0",
+    "next": "^16.1.6",
     "next-auth": "^5.0.0-beta.25",
     "postgres": "^3.4.8",
     "react": "^19.0.0",
