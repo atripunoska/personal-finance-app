@@ -1,7 +1,5 @@
 import { getDB } from '@/lib/db';
 
-const sql = await getDB();
-
 export async function fetchPages() {
   try {
     const sql = await getDB();
@@ -17,6 +15,7 @@ export async function fetchPages() {
 
 export async function fetchBalance() {
   try {
+    const sql = await getDB();
     const data = await sql`SELECT * FROM balance`;
 
     return data;
@@ -30,6 +29,7 @@ export async function fetchBalance() {
 
 export async function fetchBudgets() {
   try {
+    const sql = await getDB();
     const data = await sql`SELECT * FROM budgets`;
 
     return data;
@@ -41,6 +41,7 @@ export async function fetchBudgets() {
 
 export async function deleteBudget(category: string) {
   try {
+    const sql = await getDB();
     const data = await sql`DELETE FROM budgets WHERE category = ${category}`;
 
     return data;
@@ -55,6 +56,7 @@ export async function updateBudget(
   updates: { category: string; maximum: number; theme: string }
 ) {
   try {
+    const sql = await getDB();
     const data =
       await sql`UPDATE budgets SET category = ${updates.category}, maximum = ${updates.maximum}, theme = ${updates.theme} WHERE category = ${category}`;
 
@@ -70,6 +72,7 @@ export async function addNewBudget(
   theme: string
 ) {
   try {
+    const sql = await getDB();
     const data =
       await sql`INSERT INTO budgets (category, maximum, theme) VALUES (${category}, ${maximum}, ${theme})`;
 
@@ -82,6 +85,7 @@ export async function addNewBudget(
 
 export async function fetchTransactions() {
   try {
+    const sql = await getDB();
     const data = await sql`SELECT * FROM transactions`;
 
     return data;
@@ -101,6 +105,7 @@ export async function fetchFilteredTransactions(
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
   try {
+    const sql = await getDB();
     // Build WHERE clause
     let whereClause = sql`name ILIKE ${'%' + query + '%'}`;
 
@@ -125,10 +130,10 @@ export async function fetchFilteredTransactions(
 
     // Execute the query with dynamic conditions
     const data = await sql`
-      SELECT * FROM transactions 
+      SELECT * FROM transactions
       WHERE ${whereClause}
       ORDER BY ${sql([orderBy])}
-      LIMIT ${ITEMS_PER_PAGE} 
+      LIMIT ${ITEMS_PER_PAGE}
       OFFSET ${offset}
     `;
 
@@ -141,6 +146,7 @@ export async function fetchFilteredTransactions(
 
 export async function fetchCategories() {
   try {
+    const sql = await getDB();
     const data = await sql`SELECT category, amount FROM transactions`;
 
     return data;
@@ -152,6 +158,7 @@ export async function fetchCategories() {
 
 export async function fetchTransactionsByCategory(query: string) {
   try {
+    const sql = await getDB();
     const data =
       await sql`SELECT * FROM transactions WHERE category ILIKE ${`%${query}%`} ORDER BY date DESC LIMIT 3`;
 
@@ -164,6 +171,7 @@ export async function fetchTransactionsByCategory(query: string) {
 
 export async function fetchTransactionsPages(query: string) {
   try {
+    const sql = await getDB();
     const data =
       await sql`SELECT COUNT(*) FROM transactions WHERE name ILIKE ${`%${query}%`}`;
 
@@ -177,6 +185,7 @@ export async function fetchTransactionsPages(query: string) {
 
 export async function fetchUniqueTransactions() {
   try {
+    const sql = await getDB();
     const data = await sql`SELECT DISTINCT category FROM transactions`;
 
     return data;
@@ -190,6 +199,7 @@ export async function fetchUniqueTransactions() {
 
 export async function fetchRecurringBills() {
   try {
+    const sql = await getDB();
     const data = await sql`SELECT * FROM transactions WHERE recurring = true`;
 
     return data;
@@ -201,6 +211,7 @@ export async function fetchRecurringBills() {
 
 export async function fetchTotalAmountByCategory() {
   try {
+    const sql = await getDB();
     const data =
       await sql`SELECT category, SUM(amount) AS total_amount FROM transactions WHERE date >= '2024-08-01' AND date <= '2024-08-31' GROUP BY category`;
 
@@ -213,6 +224,7 @@ export async function fetchTotalAmountByCategory() {
 
 export async function getLatestTransaction() {
   try {
+    const sql = await getDB();
     const latestTransaction =
       await sql`SELECT date FROM transactions ORDER BY date DESC LIMIT 1`;
 
@@ -227,6 +239,7 @@ export async function getLatestTransaction() {
 
 export async function addAmountToPot(pot_id: string, amount: number) {
   try {
+    const sql = await getDB();
     const data = await sql`SELECT add_amount_to_pot(${pot_id}, ${amount})`;
 
     return data;
@@ -238,6 +251,7 @@ export async function addAmountToPot(pot_id: string, amount: number) {
 
 export async function withdrawAmountFromPot(potId: string, amount: number) {
   try {
+    const sql = await getDB();
     const data =
       await sql`SELECT withdraw_amount_from_pot(${potId}, ${amount})`;
 
@@ -250,6 +264,7 @@ export async function withdrawAmountFromPot(potId: string, amount: number) {
 
 export async function addNewPot(name: string, theme: string, target: number) {
   try {
+    const sql = await getDB();
     const data =
       await sql`INSERT INTO pots (name, theme, target, total) VALUES (${name}, ${theme}, ${target}, 0) RETURNING *`;
 
@@ -262,6 +277,7 @@ export async function addNewPot(name: string, theme: string, target: number) {
 
 export async function deletePot(name: string) {
   try {
+    const sql = await getDB();
     const data = await sql`DELETE FROM pots WHERE name = ${name}`;
 
     return data;
@@ -276,6 +292,7 @@ export async function updatePot(
   updates: { name: string; target: number; theme: string }
 ) {
   try {
+    const sql = await getDB();
     const data =
       await sql`UPDATE pots SET name = ${updates.name}, target = ${updates.target}, theme = ${updates.theme} WHERE name = ${potId}`;
 
@@ -288,6 +305,7 @@ export async function updatePot(
 
 export async function fetchThemes() {
   try {
+    const sql = await getDB();
     const data = await sql`SELECT DISTINCT theme FROM pots`;
 
     return data;
