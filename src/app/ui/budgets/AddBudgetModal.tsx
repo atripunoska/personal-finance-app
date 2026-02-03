@@ -1,4 +1,5 @@
 import React, { useState, useEffect, ChangeEvent } from 'react';
+import { showToast } from 'nextjs-toast-notify';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -70,9 +71,24 @@ export default function AddBudgetModal({
           theme: selectedTheme,
         }),
       });
+
       onClose();
+      showToast.success('Budget added successfully!', {
+        duration: 4000,
+        position: 'bottom-right',
+        transition: 'fadeIn',
+        sound: false,
+        progress: true,
+      });
     } catch (error) {
       console.error('Failed to add new budget:', error);
+      showToast.error('Failed to add budget!', {
+        duration: 4000,
+        position: 'bottom-right',
+        transition: 'fadeIn',
+        sound: false,
+        progress: true,
+      });
     }
   };
 

@@ -3,6 +3,7 @@ import { Modal } from '../modal';
 import { Button } from '@/components/ui/button';
 import { closest } from 'color-2-name';
 import { CategoriesDataProps } from '@/lib/definitions';
+import { showToast } from 'nextjs-toast-notify';
 
 const EditBudgetModal: React.FC<{
   onClose: () => void;
@@ -53,8 +54,22 @@ const EditBudgetModal: React.FC<{
         }),
       });
       onClose();
+      showToast.success('Budget updated successfully!', {
+        duration: 4000,
+        position: 'bottom-right',
+        transition: 'fadeIn',
+        sound: false,
+        progress: true,
+      });
     } catch (error) {
       console.error('Failed to update budget:', error);
+      showToast.error('Failed to update budget!', {
+        duration: 4000,
+        position: 'bottom-right',
+        transition: 'fadeIn',
+        sound: false,
+        progress: true,
+      });
     }
   };
 

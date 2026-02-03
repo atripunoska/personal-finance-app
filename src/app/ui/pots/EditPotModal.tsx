@@ -3,6 +3,7 @@ import { Modal } from '../modal';
 
 import { Button } from '@/components/ui/button';
 import { closest } from 'color-2-name';
+import { showToast } from 'nextjs-toast-notify';
 
 const EditPotModal: React.FC<{
   onClose: () => void;
@@ -37,8 +38,22 @@ const EditPotModal: React.FC<{
       });
 
       onClose();
+      showToast.success('Pot updated successfully!', {
+        duration: 4000,
+        position: 'bottom-right',
+        transition: 'fadeIn',
+        sound: false,
+        progress: true,
+      });
     } catch (error) {
       console.error('Failed to update pot:', error);
+      showToast.error('Failed to update pot!', {
+        duration: 4000,
+        position: 'bottom-right',
+        transition: 'fadeIn',
+        sound: false,
+        progress: true,
+      });
     }
   };
 

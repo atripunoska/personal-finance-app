@@ -4,6 +4,7 @@ import { createPortal } from 'react-dom';
 import { Modal } from '../modal';
 import { closest } from 'color-2-name';
 import { Pot } from '@/lib/definitions';
+import { showToast } from 'nextjs-toast-notify';
 
 export default function AddNewPotModal({
   onClose,
@@ -34,8 +35,22 @@ export default function AddNewPotModal({
         onAddPot(newPot); // Pass the new pot to the parent component
       }
       onClose();
+      showToast.success('Pot added successfully!', {
+        duration: 4000,
+        position: 'bottom-right',
+        transition: 'fadeIn',
+        sound: false,
+        progress: true,
+      });
     } catch (error) {
       console.error('Failed to add new pot:', error);
+      showToast.error('Failed to add new pot!', {
+        duration: 4000,
+        position: 'bottom-right',
+        transition: 'fadeIn',
+        sound: false,
+        progress: true,
+      });
     }
   };
 
