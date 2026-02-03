@@ -4,6 +4,7 @@ import PotCardSkeleton from '@/app/ui/pots/PotCardSkeleton';
 import PotCard from '@/app/ui/pots/PotCard';
 import { Button } from '@/components/ui/button';
 import { Pot } from '@/lib/definitions';
+import { fetchPotsClient } from '@/lib/data';
 
 import React, { useEffect, useState } from 'react';
 import AddNewPotModal from '@/app/ui/pots/AddNewPotModal';
@@ -16,9 +17,7 @@ export default function PotsPage() {
   const loadPots = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch('/api/pots');
-      if (!response.ok) throw new Error('Failed to fetch pots');
-      const potsData = await response.json();
+      const potsData = await fetchPotsClient();
       setPots(potsData);
     } catch (error) {
       console.error('Failed to load pots:', error);

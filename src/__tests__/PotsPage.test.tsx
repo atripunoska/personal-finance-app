@@ -2,11 +2,12 @@
 /* eslint-disable react/display-name */
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import PotsPage from '../app/dashboard/pots/page';
-import { fetchPots } from '../lib/data';
+import { fetchPotsClient } from '../lib/data';
+
 import { Pot } from '../lib/definitions';
 
 jest.mock('../lib/data', () => ({
-  fetchPots: jest.fn(),
+  fetchPotsClient: jest.fn(),
 }));
 
 jest.mock('../app/ui/pots/PotCard', () => ({ name, potId }: Pot) => (
@@ -26,12 +27,22 @@ jest.mock('../app/ui/pots/AddNewPotModal', () => (props: any) => (
 
 describe('PotsPage', () => {
   const mockPots: Pot[] = [
-    { name: 'Emergency Fund', theme: 'green' },
-    { name: 'Vacation', theme: 'orange' },
+    {
+      name: 'Emergency Fund',
+      theme: 'green',
+      target: 0,
+      total: 0,
+    },
+    {
+      name: 'Vacation',
+      theme: 'orange',
+      target: 0,
+      total: 0,
+    },
   ];
 
   beforeEach(() => {
-    (fetchPots as jest.Mock).mockResolvedValue(mockPots);
+    (fetchPotsClient as jest.Mock).mockResolvedValue(mockPots);
   });
 
   it('renders header and loads pots', async () => {
