@@ -36,7 +36,12 @@ describe('GET /api/pots/[potId]', () => {
   });
 
   it('returns a specific pot when found', async () => {
-    const mockPot = { name: 'Vacation', target: 2000, theme: '#FF0000', total: 500 };
+    const mockPot = {
+      name: 'Vacation',
+      target: 2000,
+      theme: '#FF0000',
+      total: 500,
+    };
     mockSql.mockResolvedValueOnce([mockPot]);
 
     const request = createMockRequest();
@@ -85,7 +90,12 @@ describe('PATCH /api/pots/[potId]', () => {
   });
 
   it('updates a pot and returns the updated data', async () => {
-    const updatedPot = { name: 'Vacation Fund', target: 3000, theme: '#00FF00', total: 500 };
+    const updatedPot = {
+      name: 'Vacation Fund',
+      target: 3000,
+      theme: '#00FF00',
+      total: 500,
+    };
     mockSql.mockResolvedValueOnce([updatedPot]);
 
     const request = createMockRequest({

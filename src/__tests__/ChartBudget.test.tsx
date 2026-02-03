@@ -5,7 +5,10 @@ import { BudgetProps, TotalAmountByCategory } from '../lib/definitions';
 // Mock react-chartjs-2
 jest.mock('react-chartjs-2', () => ({
   Doughnut: ({ data }: { data: { datasets: { data: number[] }[] } }) => (
-    <div data-testid="doughnut-chart" data-values={JSON.stringify(data.datasets[0].data)}>
+    <div
+      data-testid="doughnut-chart"
+      data-values={JSON.stringify(data.datasets[0].data)}
+    >
       Doughnut Chart
     </div>
   ),
@@ -165,9 +168,7 @@ describe('ChartBudget', () => {
   });
 
   it('renders empty state when no budgets provided', () => {
-    render(
-      <ChartBudget dataProps={[]} totalAmountByCategory={{}} />
-    );
+    render(<ChartBudget dataProps={[]} totalAmountByCategory={{}} />);
 
     expect(screen.getByTestId('doughnut-chart')).toBeInTheDocument();
     expect(
@@ -181,10 +182,15 @@ describe('ChartBudget', () => {
     ];
 
     const { container } = render(
-      <ChartBudget dataProps={dataProps} totalAmountByCategory={{ Colored: 50 }} />
+      <ChartBudget
+        dataProps={dataProps}
+        totalAmountByCategory={{ Colored: 50 }}
+      />
     );
 
-    const colorIndicator = container.querySelector('[style*="background-color"]');
+    const colorIndicator = container.querySelector(
+      '[style*="background-color"]'
+    );
     expect(colorIndicator).toHaveStyle({ backgroundColor: '#FF5733' });
   });
 });

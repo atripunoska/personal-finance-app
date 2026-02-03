@@ -93,11 +93,15 @@ describe('BudgetClient', () => {
 
     // Food: 120 + 80 = 200
     const foodCard = screen.getByTestId('budget-card-Food');
-    expect(foodCard.querySelector('[data-testid="amount-spend"]')).toHaveTextContent('200');
+    expect(
+      foodCard.querySelector('[data-testid="amount-spend"]')
+    ).toHaveTextContent('200');
 
     // Entertainment: 150
     const entertainmentCard = screen.getByTestId('budget-card-Entertainment');
-    expect(entertainmentCard.querySelector('[data-testid="amount-spend"]')).toHaveTextContent('150');
+    expect(
+      entertainmentCard.querySelector('[data-testid="amount-spend"]')
+    ).toHaveTextContent('150');
   });
 
   it('calculates progress percentage correctly', () => {
@@ -112,7 +116,9 @@ describe('BudgetClient', () => {
 
     // Progress = (100 / 200) * 100 = 50%
     const card = screen.getByTestId('budget-card-Test');
-    expect(card.querySelector('[data-testid="progress"]')).toHaveTextContent('50');
+    expect(card.querySelector('[data-testid="progress"]')).toHaveTextContent(
+      '50'
+    );
   });
 
   it('handles zero maximum gracefully (progress = 0)', () => {
@@ -126,7 +132,9 @@ describe('BudgetClient', () => {
     render(<BudgetClient budgets={budgets} categories={categories} />);
 
     const card = screen.getByTestId('budget-card-ZeroMax');
-    expect(card.querySelector('[data-testid="progress"]')).toHaveTextContent('0');
+    expect(card.querySelector('[data-testid="progress"]')).toHaveTextContent(
+      '0'
+    );
   });
 
   it('handles categories with no spending', () => {
@@ -138,8 +146,12 @@ describe('BudgetClient', () => {
     render(<BudgetClient budgets={budgets} categories={categories} />);
 
     const card = screen.getByTestId('budget-card-NoSpending');
-    expect(card.querySelector('[data-testid="amount-spend"]')).toHaveTextContent('0');
-    expect(card.querySelector('[data-testid="progress"]')).toHaveTextContent('0');
+    expect(
+      card.querySelector('[data-testid="amount-spend"]')
+    ).toHaveTextContent('0');
+    expect(card.querySelector('[data-testid="progress"]')).toHaveTextContent(
+      '0'
+    );
   });
 
   it('uses absolute value for negative amounts', () => {
@@ -153,7 +165,9 @@ describe('BudgetClient', () => {
     render(<BudgetClient budgets={budgets} categories={categories} />);
 
     const card = screen.getByTestId('budget-card-Negative');
-    expect(card.querySelector('[data-testid="amount-spend"]')).toHaveTextContent('50');
+    expect(
+      card.querySelector('[data-testid="amount-spend"]')
+    ).toHaveTextContent('50');
   });
 
   it('renders empty state when no budgets provided', () => {
@@ -180,9 +194,13 @@ describe('BudgetClient', () => {
     render(<BudgetClient budgets={mockBudgets} categories={mockCategories} />);
 
     const foodCard = screen.getByTestId('budget-card-Food');
-    expect(foodCard.querySelector('[data-testid="maximum"]')).toHaveTextContent('300');
+    expect(foodCard.querySelector('[data-testid="maximum"]')).toHaveTextContent(
+      '300'
+    );
 
     const entertainmentCard = screen.getByTestId('budget-card-Entertainment');
-    expect(entertainmentCard.querySelector('[data-testid="maximum"]')).toHaveTextContent('500');
+    expect(
+      entertainmentCard.querySelector('[data-testid="maximum"]')
+    ).toHaveTextContent('500');
   });
 });

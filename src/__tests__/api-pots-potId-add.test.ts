@@ -36,7 +36,12 @@ describe('POST /api/pots/[potId]/add', () => {
   });
 
   it('adds amount to pot and returns updated pot', async () => {
-    const updatedPot = { name: 'Vacation', target: 2000, theme: '#FF0000', total: 750 };
+    const updatedPot = {
+      name: 'Vacation',
+      target: 2000,
+      theme: '#FF0000',
+      total: 750,
+    };
     mockSql.mockResolvedValueOnce([updatedPot]);
 
     const request = createMockRequest({ amount: 250 });
@@ -50,7 +55,12 @@ describe('POST /api/pots/[potId]/add', () => {
   });
 
   it('adds a small amount successfully', async () => {
-    const updatedPot = { name: 'Savings', target: 1000, theme: '#00FF00', total: 10 };
+    const updatedPot = {
+      name: 'Savings',
+      target: 1000,
+      theme: '#00FF00',
+      total: 10,
+    };
     mockSql.mockResolvedValueOnce([updatedPot]);
 
     const request = createMockRequest({ amount: 10 });
@@ -65,7 +75,12 @@ describe('POST /api/pots/[potId]/add', () => {
   });
 
   it('adds a large amount successfully', async () => {
-    const updatedPot = { name: 'House', target: 50000, theme: '#0000FF', total: 10000 };
+    const updatedPot = {
+      name: 'House',
+      target: 50000,
+      theme: '#0000FF',
+      total: 10000,
+    };
     mockSql.mockResolvedValueOnce([updatedPot]);
 
     const request = createMockRequest({ amount: 5000 });
@@ -95,7 +110,12 @@ describe('POST /api/pots/[potId]/add', () => {
   });
 
   it('calls database with correct pot name and amount', async () => {
-    const updatedPot = { name: 'TestPot', target: 500, theme: '#000', total: 150 };
+    const updatedPot = {
+      name: 'TestPot',
+      target: 500,
+      theme: '#000',
+      total: 150,
+    };
     mockSql.mockResolvedValueOnce([updatedPot]);
 
     const request = createMockRequest({ amount: 150 });
