@@ -1,5 +1,4 @@
 import { getDB } from '@/lib/db';
-import { Pot } from '@/lib/definitions';
 
 export async function fetchPages() {
   try {
@@ -314,11 +313,4 @@ export async function fetchThemes() {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch themes.');
   }
-}
-
-// Client-side fetch for pots
-export async function fetchPotsClient(): Promise<Pot[]> {
-  const response = await fetch('/api/pots');
-  if (!response.ok) throw new Error('Failed to fetch pots');
-  return response.json();
 }

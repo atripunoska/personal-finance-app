@@ -4,7 +4,7 @@ import PotCardSkeleton from '@/app/ui/pots/PotCardSkeleton';
 import PotCard from '@/app/ui/pots/PotCard';
 import { Button } from '@/components/ui/button';
 import { Pot } from '@/lib/definitions';
-import { fetchPotsClient } from '@/lib/data';
+import { fetchPotsClient } from '@/lib/client-data';
 
 import React, { useEffect, useState } from 'react';
 import AddNewPotModal from '@/app/ui/pots/AddNewPotModal';
