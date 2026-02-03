@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal } from '../modal';
 import { createPortal } from 'react-dom';
 import { Button } from '@/components/ui/button';
+import { showToast } from 'nextjs-toast-notify';
 
 export default function DeleteBudgetModal({
   onClose,
@@ -25,9 +26,24 @@ export default function DeleteBudgetModal({
       if (response.ok) {
         onDeleteBudget();
       }
+
       onClose();
+      showToast.success('Budget deleted successfully!', {
+        duration: 4000,
+        position: 'bottom-right',
+        transition: 'fadeIn',
+        sound: false,
+        progress: true,
+      });
     } catch (error) {
       console.error('Failed to delete budget:', error);
+      showToast.error('Failed to delete budget!', {
+        duration: 4000,
+        position: 'bottom-right',
+        transition: 'fadeIn',
+        sound: false,
+        progress: true,
+      });
     }
   };
   return createPortal(

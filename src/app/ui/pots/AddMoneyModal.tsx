@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Modal } from '../modal';
 import { createPortal } from 'react-dom';
 import { Button } from '@/components/ui/button';
+import { showToast } from 'nextjs-toast-notify';
 
 const AddMoneyModal: React.FC<{
   onClose: () => void;
@@ -12,6 +13,13 @@ const AddMoneyModal: React.FC<{
 
   const handleAddMoney = () => {
     onAddMoney(amount);
+    showToast.success('Money added successfully in the pot!', {
+      duration: 4000,
+      position: 'bottom-right',
+      transition: 'fadeIn',
+      sound: false,
+      progress: true,
+    });
   };
   return createPortal(
     <Modal

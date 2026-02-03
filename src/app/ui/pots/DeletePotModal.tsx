@@ -1,6 +1,7 @@
 import { Modal } from '../modal';
 import { createPortal } from 'react-dom';
 import { Button } from '@/components/ui/button';
+import { showToast } from 'nextjs-toast-notify';
 
 export default function DeletePotModal({
   onClose,
@@ -22,8 +23,22 @@ export default function DeletePotModal({
         onDeletePot();
       }
       onClose();
+      showToast.success('Pot deleted successfully!', {
+        duration: 4000,
+        position: 'bottom-right',
+        transition: 'fadeIn',
+        sound: false,
+        progress: true,
+      });
     } catch (error) {
-      console.error('Failed to add new pot:', error);
+      console.error('Failed to delete pot:', error);
+      showToast.error('Failed to delete pot!', {
+        duration: 4000,
+        position: 'bottom-right',
+        transition: 'fadeIn',
+        sound: false,
+        progress: true,
+      });
     }
   };
   return createPortal(

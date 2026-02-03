@@ -8,6 +8,7 @@ import WithdrawMoneyModal from './WithdrawMoneyModal';
 import AddMoneyModal from './AddMoneyModal';
 import Dropdown from './Dropdown';
 import { ModalType, PotCardProps } from '@/lib/definitions';
+import { showToast } from 'nextjs-toast-notify';
 
 export default function PotCard({
   name,
@@ -52,9 +53,22 @@ export default function PotCard({
       setPotTotal(potTotal + amount);
       onPotUpdated?.();
       handleCloseModal();
+      showToast.success('Potd successfully!', {
+        duration: 4000,
+        position: 'bottom-right',
+        transition: 'fadeIn',
+        sound: false,
+        progress: true,
+      });
     } catch (error) {
       console.error('Failed to add money to pot:', error);
-      // Optional: Show error toast/notification to user
+      showToast.error('Failed to add money to pot!', {
+        duration: 4000,
+        position: 'bottom-right',
+        transition: 'fadeIn',
+        sound: false,
+        progress: true,
+      });
     } finally {
       setIsLoading(false);
     }
@@ -81,9 +95,22 @@ export default function PotCard({
       setPotTotal(potTotal - amount);
       onPotUpdated?.();
       handleCloseModal();
+      showToast.success('Money withdrawn successfully!', {
+        duration: 4000,
+        position: 'bottom-right',
+        transition: 'fadeIn',
+        sound: false,
+        progress: true,
+      });
     } catch (error) {
       console.error('Failed to withdraw money from pot:', error);
-      // Optional: Show error toast/notification to user
+      showToast.error('Failed to withdraw money from pot!', {
+        duration: 4000,
+        position: 'bottom-right',
+        transition: 'fadeIn',
+        sound: false,
+        progress: true,
+      });
     } finally {
       setIsLoading(false);
     }
