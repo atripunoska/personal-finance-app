@@ -2,11 +2,12 @@
 /* eslint-disable react/display-name */
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import PotsPage from '../app/dashboard/pots/page';
-import { fetchPotsClient } from '../lib/data';
+
+import { fetchPotsClient } from '../lib/client-data';
 
 import { Pot } from '../lib/definitions';
 
-jest.mock('../lib/data', () => ({
+jest.mock('../lib/client-data', () => ({
   fetchPotsClient: jest.fn(),
 }));
 
