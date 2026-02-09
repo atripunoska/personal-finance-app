@@ -4,10 +4,10 @@ export default function NavSkeleton() {
       {[...Array(4)].map((_, idx) => (
         <div
           key={idx}
-          className="flex items-center gap-3 h-12 animate-pulse rounded-md bg-gray-800 p-3"
+          className="flex items-center gap-3 h-12 animate-pulse rounded-md bg-gray-800 dark:bg-grey-500 p-3"
         >
-          <div className="h-6 w-6 rounded bg-gray-700" />
-          <div className="h-4 w-24 rounded bg-gray-700" />
+          <div className="h-6 w-6 rounded bg-gray-700 dark:bg-grey-300" />
+          <div className="h-4 w-24 rounded bg-gray-700 dark:bg-grey-300" />
         </div>
       ))}
     </div>

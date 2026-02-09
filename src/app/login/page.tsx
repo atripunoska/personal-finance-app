@@ -13,7 +13,7 @@ function LoginButton() {
     <button
       type="submit"
       disabled={pending}
-      className="w-full bg-gray-900 text-white p-2 rounded hover:bg-gray-700 disabled:bg-gray-400 cursor-pointer"
+      className="w-full bg-gray-900 dark:bg-foreground text-white dark:text-background p-2 rounded hover:bg-gray-700 dark:hover:bg-grey-300 disabled:bg-gray-400 cursor-pointer"
     >
       {pending ? 'Logging in...' : 'Log in'}
     </button>
@@ -24,7 +24,7 @@ export default function LoginPage() {
   const [errorMessage, dispatch] = useActionState(authenticate, undefined);
 
   return (
-    <div className="flex flex-row items-center justify-center h-screen bg-amber-50 lg:gap-2">
+    <div className="flex flex-row items-center justify-center h-screen bg-amber-50 dark:bg-background lg:gap-2">
       <div className="lg:w-1/3 gap-3">
         <Image
           src="/assets/images/Sidebar.png"
@@ -38,7 +38,7 @@ export default function LoginPage() {
       <div className="lg:w-2/3">
         <form
           action={dispatch}
-          className="bg-white p-7 flex flex-col gap-3 w-full md:w-[600px] mx-auto"
+          className="bg-white dark:bg-card p-7 flex flex-col gap-3 w-full md:w-[600px] mx-auto rounded-md"
         >
           {' '}
           <h1 className="font-bold text-4xl mb-4">Login</h1>
@@ -72,14 +72,16 @@ export default function LoginPage() {
             />
           </div>
           {errorMessage && (
-            <div className="text-red-600 text-sm">{errorMessage}</div>
+            <div className="text-red-600 dark:text-red text-sm">
+              {errorMessage}
+            </div>
           )}
           <LoginButton />
         </form>
 
         <p className="mt-4 text-center text-sm">
           Don&apos;t have an account?{' '}
-          <Link href="/signup" className="text-blue-600 hover:underline">
+          <Link href="/signup" className="text-blue-600 dark:text-blue hover:underline">
             Sign up
           </Link>
         </p>

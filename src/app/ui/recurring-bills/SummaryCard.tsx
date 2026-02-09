@@ -18,7 +18,7 @@ export default function SummaryCard({
   totalAmountDue: number;
 }) {
   return (
-    <div className="bg-white text-grey-900 p-6 rounded-md flex flex-col mt-3">
+    <div className="bg-white dark:bg-card text-grey-900 dark:text-foreground p-6 rounded-md flex flex-col mt-3">
       <h3 className="font-bold mb-3">Summary</h3>
       <Table>
         <TableBody>
@@ -39,8 +39,8 @@ export default function SummaryCard({
             </TableCell>
           </TableRow>
           <TableRow>
-            <TableCell className="text-red-700 font-light">Due soon</TableCell>
-            <TableCell className="text-right font-bold text-red-700">
+            <TableCell className="text-red-700 dark:text-red font-light">Due soon</TableCell>
+            <TableCell className="text-right font-bold text-red-700 dark:text-red">
               {totalDue} ({USDollar.format(Math.abs(totalAmountDue))})
             </TableCell>
           </TableRow>

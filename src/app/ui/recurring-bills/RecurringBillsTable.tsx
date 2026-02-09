@@ -61,7 +61,7 @@ export default function RecurringBillsTable({
   );
 
   return (
-    <div className="bg-white text-grey-900 p-6 rounded-md">
+    <div className="bg-white dark:bg-card text-grey-900 dark:text-foreground p-6 rounded-md">
       <div className="flex flex-col lg:flex-row lg:justify-between mb-4 gap-2">
         <SearchBills
           placeholder={'Search bills'}
@@ -100,7 +100,7 @@ export default function RecurringBillsTable({
                     className={clsx({
                       ' flex items-center ': true,
                       'text-green': getDate(item.date) < dueSoon,
-                      'text-red-700 ':
+                      'text-red-700 dark:text-red ':
                         getDate(item.date) > dueSoon &&
                         getDate(item.date) < dueSoon + 5,
                     })}
@@ -136,7 +136,7 @@ export default function RecurringBillsTable({
                       className={
                         clsx({
                           ' flex justify-end ': true,
-                          'text-red-700 ':
+                          'text-red-700 dark:text-red ':
                             getDate(item.date) > dueSoon &&
                             getDate(item.date) < dueSoon + 5,
                         }) + `font-bold`

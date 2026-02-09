@@ -5,7 +5,7 @@ import NavLinksSkeleton from './NavLinksSkeleton';
 
 export default function Sidemenu() {
   return (
-    <div className="flex h-full md:flex-col pt-3 md:pt-0 md:py-4  bg-gray-900 rounded-br-md rounded-tr-md">
+    <div className="flex h-full md:flex-col pt-3 md:pt-0 md:py-4 bg-gray-900 dark:bg-grey-900 rounded-br-md rounded-tr-md">
       <Image
         src="/./assets/images/logo-large.svg"
         height={22}
@@ -17,7 +17,7 @@ export default function Sidemenu() {
       <Suspense fallback={<NavLinksSkeleton />}>
         <NavLinks />
       </Suspense>
-      <div className="hidden h-auto w-full grow rounded-md bg-gray-900 md:block"></div>
+      <div className="hidden h-auto w-full grow rounded-md bg-gray-900 dark:bg-grey-900 md:block"></div>
     </div>
   );
 }

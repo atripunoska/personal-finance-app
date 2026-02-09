@@ -125,7 +125,7 @@ export default function PotCard({
               className="w-4 h-4 rounded-full flex"
               style={{ backgroundColor: `${theme}` }}
             ></div>
-            <h3 className="font-bold text-xl text-grey-900">{name}</h3>
+            <h3 className="font-bold text-xl text-grey-900 dark:text-foreground">{name}</h3>
           </div>
           <Dropdown
             potId={name}
@@ -136,8 +136,8 @@ export default function PotCard({
         </div>
       </div>
       <div className="flex justify-between">
-        <div className="text-grey-300 font-bold">Total Saved</div>
-        <div className="text-grey-900 font-bold text-3xl">
+        <div className="text-grey-300 dark:text-muted-foreground font-bold">Total Saved</div>
+        <div className="text-grey-900 dark:text-foreground font-bold text-3xl">
           {USDollar.format(potTotal)}
         </div>
       </div>
@@ -148,16 +148,16 @@ export default function PotCard({
         aria-label={name + ' progress bar'}
       />
       <div className="flex justify-between">
-        <div className="text-grey-300 font-bold text-sm">
+        <div className="text-grey-300 dark:text-muted-foreground font-bold text-sm">
           {Math.round(progress * 100) / 100}%
         </div>
-        <div className="text-grey-300 font-light text-sm">
+        <div className="text-grey-300 dark:text-muted-foreground font-light text-sm">
           Target of {USDollar.format(target)}
         </div>
       </div>
       <div className="flex gap-2 justify-between">
         <Button
-          className="font-bold text-grey-900 bg-grey-100 flex flex-grow border-2 border-grey-100 hover:bg-white hover:text-black hover:border-2 cursor-pointer"
+          className="font-bold text-grey-900 dark:text-foreground bg-grey-100 dark:bg-secondary flex flex-grow border-2 border-grey-100 dark:border-secondary hover:bg-white dark:hover:bg-accent hover:text-black dark:hover:text-foreground hover:border-2 cursor-pointer"
           onClick={() => handleOpenModal(ModalType.ADD)}
           aria-label="Open Add Modal"
           disabled={isLoading}
@@ -166,7 +166,7 @@ export default function PotCard({
         </Button>
 
         <Button
-          className="font-bold text-grey-900 bg-grey-100 border-2 border-grey-100 flex flex-grow hover:bg-white hover:text-black hover:border-2 cursor-pointer"
+          className="font-bold text-grey-900 dark:text-foreground bg-grey-100 dark:bg-secondary border-2 border-grey-100 dark:border-secondary flex flex-grow hover:bg-white dark:hover:bg-accent hover:text-black dark:hover:text-foreground hover:border-2 cursor-pointer"
           onClick={() => handleOpenModal(ModalType.WITHDRAW)}
           aria-label="Open Withdraw Modal"
           disabled={isLoading}
