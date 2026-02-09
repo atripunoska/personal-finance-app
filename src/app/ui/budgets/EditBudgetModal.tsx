@@ -114,7 +114,10 @@ const EditBudgetModal: React.FC<{
               </option>
             ))}
           </select>
-          <label htmlFor="max" className="text-sm font-semibold text-grey-500 dark:text-muted-foreground">
+          <label
+            htmlFor="max"
+            className="text-sm font-semibold text-grey-500 dark:text-muted-foreground"
+          >
             Maximum Spend
           </label>
           <input

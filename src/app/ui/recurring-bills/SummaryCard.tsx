@@ -39,7 +39,9 @@ export default function SummaryCard({
             </TableCell>
           </TableRow>
           <TableRow>
-            <TableCell className="text-red-700 dark:text-red font-light">Due soon</TableCell>
+            <TableCell className="text-red-700 dark:text-red font-light">
+              Due soon
+            </TableCell>
             <TableCell className="text-right font-bold text-red-700 dark:text-red">
               {totalDue} ({USDollar.format(Math.abs(totalAmountDue))})
             </TableCell>

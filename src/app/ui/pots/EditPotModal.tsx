@@ -79,7 +79,10 @@ const EditPotModal: React.FC<{
       <p>If your saving targets change, feel free to update your pots.</p>
       <div>
         <form className="flex flex-col gap-3 mt-4">
-          <label htmlFor="name" className="text-sm font-semibold text-grey-500 dark:text-muted-foreground">
+          <label
+            htmlFor="name"
+            className="text-sm font-semibold text-grey-500 dark:text-muted-foreground"
+          >
             Pot Name
           </label>
           <input

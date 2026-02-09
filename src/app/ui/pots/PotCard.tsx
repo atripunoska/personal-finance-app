@@ -125,7 +125,9 @@ export default function PotCard({
               className="w-4 h-4 rounded-full flex"
               style={{ backgroundColor: `${theme}` }}
             ></div>
-            <h3 className="font-bold text-xl text-grey-900 dark:text-foreground">{name}</h3>
+            <h3 className="font-bold text-xl text-grey-900 dark:text-foreground">
+              {name}
+            </h3>
           </div>
           <Dropdown
             potId={name}
@@ -136,7 +138,9 @@ export default function PotCard({
         </div>
       </div>
       <div className="flex justify-between">
-        <div className="text-grey-300 dark:text-muted-foreground font-bold">Total Saved</div>
+        <div className="text-grey-300 dark:text-muted-foreground font-bold">
+          Total Saved
+        </div>
         <div className="text-grey-900 dark:text-foreground font-bold text-3xl">
           {USDollar.format(potTotal)}
         </div>

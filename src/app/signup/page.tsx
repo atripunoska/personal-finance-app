@@ -74,12 +74,17 @@ export default function RegisterPage() {
           </p>
         </div>
         {errorMessage && (
-          <div className="text-red-600 dark:text-red text-sm">{errorMessage}</div>
+          <div className="text-red-600 dark:text-red text-sm">
+            {errorMessage}
+          </div>
         )}
         <RegisterButton />{' '}
         <p className="mt-4 text-center text-sm">
           Already have an account?{' '}
-          <Link href="/login" className="text-blue-600 dark:text-blue hover:underline">
+          <Link
+            href="/login"
+            className="text-blue-600 dark:text-blue hover:underline"
+          >
             Log in
           </Link>
         </p>

@@ -138,7 +138,10 @@ export default function AddBudgetModal({
         />
       </div>
       <div className="mb-4 flex flex-col">
-        <label htmlFor="theme" className="text-sm font-semibold text-grey-500 dark:text-muted-foreground">
+        <label
+          htmlFor="theme"
+          className="text-sm font-semibold text-grey-500 dark:text-muted-foreground"
+        >
           Theme
         </label>
         <select
