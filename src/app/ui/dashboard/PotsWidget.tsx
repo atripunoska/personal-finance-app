@@ -11,7 +11,9 @@ export default function PotsWidget({ pots }: PotsWidgetProps) {
     <Card className="mb-3">
       <CardContent>
         <div className="flex justify-between mb-3">
-          <h2 className="text-xl text-grey-900 font-semibold ">Pots</h2>
+          <h2 className="text-xl text-grey-900 dark:text-foreground font-semibold ">
+            Pots
+          </h2>
           <Link
             href="/dashboard/pots"
             className="text-muted-foreground text-sm  font-medium"
@@ -36,7 +38,7 @@ export default function PotsWidget({ pots }: PotsWidgetProps) {
                     <span className="text-xs text-muted-foreground">
                       {item.name}{' '}
                     </span>
-                    <div className="text-grey-900 font-bold  ">
+                    <div className="text-grey-900 dark:text-foreground font-bold  ">
                       {USDollar.format(item.total)}
                     </div>
                   </div>
@@ -45,7 +47,7 @@ export default function PotsWidget({ pots }: PotsWidgetProps) {
             })}
           </div>
 
-          <div className="bg-beige-100 p-3 rounded-2xl flex flex-col w-full  flex-1 items-center justify-center">
+          <div className="bg-beige-100 dark:bg-secondary p-3 rounded-2xl flex flex-col w-full  flex-1 items-center justify-center">
             <div className="flex items-center justify-center content-center gap-3">
               <Image
                 src="./assets/images/icon-pot.svg"
@@ -55,8 +57,10 @@ export default function PotsWidget({ pots }: PotsWidgetProps) {
                 loading="lazy"
               />
               <div className="flex flex-col pl-3">
-                <span className="text-gray-400 mb-3">Total savings</span>
-                <span className="text-gray-900 font-extrabold  text-2xl text-md-4xl">
+                <span className="text-gray-400 dark:text-muted-foreground mb-3">
+                  Total savings
+                </span>
+                <span className="text-gray-900 dark:text-foreground font-extrabold  text-2xl text-md-4xl">
                   {USDollar.format(potsTotal)}
                 </span>
               </div>

@@ -19,7 +19,7 @@ export default function PotsWidgetSkeleton() {
           </div>
         ))}
       </div>
-      <div className="bg-beige-100 p-3 rounded-2xl flex flex-col w-full flex-1 items-center justify-center">
+      <div className="bg-beige-100 dark:bg-secondary p-3 rounded-2xl flex flex-col w-full flex-1 items-center justify-center">
         <div className="flex items-center justify-center content-center gap-3">
           <Skeleton className="w-10 h-10 rounded-full" />
           <div className="flex flex-col pl-3">

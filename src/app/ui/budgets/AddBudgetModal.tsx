@@ -102,7 +102,7 @@ export default function AddBudgetModal({
       <div className="mb-4">
         <label
           htmlFor="category"
-          className="block text-sm font-medium text-gray-700"
+          className="block text-sm font-medium text-gray-700 dark:text-grey-300"
         >
           Budget Category
         </label>
@@ -125,7 +125,7 @@ export default function AddBudgetModal({
       <div className="mb-4">
         <label
           htmlFor="maximum"
-          className="block text-sm font-medium text-gray-700"
+          className="block text-sm font-medium text-gray-700 dark:text-grey-300"
         >
           Maximum Amount
         </label>
@@ -138,7 +138,10 @@ export default function AddBudgetModal({
         />
       </div>
       <div className="mb-4 flex flex-col">
-        <label htmlFor="theme" className="text-sm font-semibold text-grey-500">
+        <label
+          htmlFor="theme"
+          className="text-sm font-semibold text-grey-500 dark:text-muted-foreground"
+        >
           Theme
         </label>
         <select

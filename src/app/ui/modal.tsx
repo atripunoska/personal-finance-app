@@ -37,7 +37,7 @@ export const Modal: React.FC<ModalProps> = (props) => {
       ref={modalRef}
       onKeyDown={handleKeyDown}
     >
-      <div className="bg-white p-4 w-[600px] rounded-md ">
+      <div className="bg-white dark:bg-card p-4 w-[600px] rounded-md ">
         <div className="flex justify-between mb-4">
           {title && <div className="font-bold text-3xl">{title}</div>}
           {hasCloseBtn && (

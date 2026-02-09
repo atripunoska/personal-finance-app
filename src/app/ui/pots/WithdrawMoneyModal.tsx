@@ -32,7 +32,7 @@ const WithdrawMoneyModal: React.FC<{
         <form action="" className="flex flex-col gap-3 mt-4">
           <label
             htmlFor="amountToWithdraw"
-            className="text-sm font-semibold text-grey-500"
+            className="text-sm font-semibold text-grey-500 dark:text-muted-foreground"
           >
             Amount to withdraw
           </label>
@@ -44,7 +44,7 @@ const WithdrawMoneyModal: React.FC<{
             placeholder="Enter amount"
           />
           <Button
-            className="text-white  font-bold cursor-pointer"
+            className="text-white  font-bold cursor-pointer dark:text-gray-900"
             onClick={handleWithdrawMoney}
             aria-label="Confirm Withdrawal"
           >

@@ -39,7 +39,7 @@ const AddMoneyModal: React.FC<{
         <form action="" className="flex flex-col gap-3 mt-4">
           <label
             htmlFor="amountToAdd"
-            className="text-sm font-semibold text-grey-500"
+            className="text-sm font-semibold text-grey-500 dark:text-muted-foreground"
           >
             Amount to add
           </label>
@@ -51,7 +51,7 @@ const AddMoneyModal: React.FC<{
             placeholder="Enter amount"
           />
           <Button
-            className="text-white  font-bold cursor-pointer"
+            className="text-white  font-bold cursor-pointer dark:text-gray-900"
             onClick={handleAddMoney}
             aria-label="Confirm addition"
           >

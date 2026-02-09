@@ -43,7 +43,7 @@ export default function BudgetCardButton({
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
-            className="font-bold text-grey-500 cursor-pointer hover:bg-grey-100 hover:text-grey-900"
+            className="font-bold text-grey-500 dark:text-muted-foreground cursor-pointer hover:bg-grey-100 dark:hover:bg-secondary hover:text-grey-900 dark:hover:text-foreground"
             variant="secondary"
             aria-label="Open Dropdown"
           >

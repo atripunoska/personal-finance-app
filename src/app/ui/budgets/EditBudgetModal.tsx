@@ -97,7 +97,7 @@ const EditBudgetModal: React.FC<{
         <form className="flex flex-col gap-3 mt-4">
           <label
             htmlFor="category"
-            className="text-sm font-semibold text-grey-500"
+            className="text-sm font-semibold text-grey-500 dark:text-muted-foreground"
           >
             Budget Category
           </label>
@@ -114,7 +114,10 @@ const EditBudgetModal: React.FC<{
               </option>
             ))}
           </select>
-          <label htmlFor="max" className="text-sm font-semibold text-grey-500">
+          <label
+            htmlFor="max"
+            className="text-sm font-semibold text-grey-500 dark:text-muted-foreground"
+          >
             Maximum Spend
           </label>
           <input
@@ -127,7 +130,7 @@ const EditBudgetModal: React.FC<{
           />
           <label
             htmlFor="theme"
-            className="text-sm font-semibold text-grey-500"
+            className="text-sm font-semibold text-grey-500 dark:text-muted-foreground"
           >
             Theme
           </label>

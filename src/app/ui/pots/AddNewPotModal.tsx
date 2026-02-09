@@ -65,7 +65,7 @@ export default function AddNewPotModal({
         <form className="flex flex-col gap-3 mt-4">
           <label
             htmlFor="category"
-            className="text-sm font-semibold text-grey-500"
+            className="text-sm font-semibold text-grey-500 dark:text-muted-foreground"
           >
             Pot Name
           </label>
@@ -80,7 +80,7 @@ export default function AddNewPotModal({
 
           <label
             htmlFor="target"
-            className="text-sm font-semibold text-grey-500"
+            className="text-sm font-semibold text-grey-500 dark:text-muted-foreground"
           >
             Target
           </label>
@@ -95,7 +95,7 @@ export default function AddNewPotModal({
 
           <label
             htmlFor="theme"
-            className="text-sm font-semibold text-grey-500"
+            className="text-sm font-semibold text-grey-500 dark:text-muted-foreground"
           >
             Theme
           </label>
@@ -122,7 +122,7 @@ export default function AddNewPotModal({
             })}
           </select>
           <Button
-            className="text-white font-bold cursor-pointer"
+            className="text-white font-bold cursor-pointer dark:text-gray-900"
             onClick={handleAddPot}
             aria-label="Confirm addition"
           >

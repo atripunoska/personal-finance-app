@@ -8,8 +8,10 @@ export default function BalanceCard({ type, id, amount }: BalanceCardProps) {
     <div
       className={clsx({
         'rounded-md p-4 justify-content flex flex-col flex-1 ': true,
-        'bg-gray-900 text-white': type === 'current',
-        'bg-white text-gray-900': type !== 'current',
+        'bg-gray-900 dark:bg-foreground text-white dark:text-background':
+          type === 'current',
+        'bg-white dark:bg-card text-gray-900 dark:text-foreground':
+          type !== 'current',
       })}
       key={id}
     >

@@ -36,7 +36,7 @@ export default async function Transactions(props: {
       </Card>
       <Suspense
         fallback={
-          <div className="mt-4 h-10 animate-pulse bg-gray-200 rounded" />
+          <div className="mt-4 h-10 animate-pulse bg-gray-200 dark:bg-secondary rounded" />
         }
       >
         <PaginationWrapper query={query} />
