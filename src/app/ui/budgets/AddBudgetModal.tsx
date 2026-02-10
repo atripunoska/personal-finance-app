@@ -7,6 +7,13 @@ import { createPortal } from 'react-dom';
 import { Modal } from '../modal';
 import { closest } from 'color-2-name';
 import { AddBudgetModalProps } from '@/lib/definitions';
+import {
+  budgetSchema,
+  getFieldErrors,
+  getFieldError,
+  FieldErrors,
+} from '@/lib/validations';
+import { z } from 'zod';
 
 export default function AddBudgetModal({
   onClose,
@@ -17,6 +24,9 @@ export default function AddBudgetModal({
   const [maximum, setMaximum] = useState('');
   const [selectedTheme, setSelectedTheme] = useState('');
   const [isMounted, setIsMounted] = useState(false);
+  const [errors, setErrors] = useState<
+    FieldErrors<z.infer<typeof budgetSchema>>
+  >({});
 
   const [themes, setThemes] = useState<string[]>([]);
 
@@ -57,11 +67,23 @@ export default function AddBudgetModal({
     setCategory(event.target.value);
   }
 
+  const handleBlur = (field: string, value: string | number) => {
+    const error = getFieldError(budgetSchema, field, value);
+    setErrors((prev) => ({ ...prev, [field]: error }));
+  };
+
   const handleAddBudget = async () => {
-    if (!category || !maximum || !selectedTheme) {
-      alert('Please fill in all fields.');
+    const data = {
+      category,
+      maximum: Number.parseFloat(maximum),
+      theme: selectedTheme,
+    };
+    const result = getFieldErrors(budgetSchema, data);
+    if (!result.success) {
+      setErrors(result.errors);
       return;
     }
+    setErrors({});
     try {
       await fetch('/api/budgets', {
         method: 'POST',
@@ -134,8 +156,15 @@ export default function AddBudgetModal({
           type="number"
           value={maximum}
           onChange={(e) => setMaximum(e.target.value)}
-          required
+          onBlur={(e) =>
+            handleBlur('maximum', Number.parseFloat(e.target.value))
+          }
         />
+        {errors.maximum && (
+          <p className="text-red-600 dark:text-red text-sm mt-1">
+            {errors.maximum}
+          </p>
+        )}
       </div>
       <div className="mb-4 flex flex-col">
         <label

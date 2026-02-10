@@ -4,6 +4,13 @@ import { Button } from '@/components/ui/button';
 import { closest } from 'color-2-name';
 import { CategoriesDataProps } from '@/lib/definitions';
 import { showToast } from 'nextjs-toast-notify';
+import {
+  budgetSchema,
+  getFieldErrors,
+  getFieldError,
+  FieldErrors,
+} from '@/lib/validations';
+import { z } from 'zod';
 
 const EditBudgetModal: React.FC<{
   onClose: () => void;
@@ -27,6 +34,9 @@ const EditBudgetModal: React.FC<{
   const [category, setCategory] = useState<string>(categoryId);
   const [maxAmount, setMaxAmount] = useState<number>(maximumAmount);
   const [themes, setThemes] = useState<string[]>([]);
+  const [errors, setErrors] = useState<
+    FieldErrors<z.infer<typeof budgetSchema>>
+  >({});
 
   const allCategories = [...new Set(categories.map((item) => item.category))];
 
@@ -43,7 +53,19 @@ const EditBudgetModal: React.FC<{
     fetchUsedThemes();
   }, []);
 
+  const handleBlur = (field: string, value: string | number) => {
+    const error = getFieldError(budgetSchema, field, value);
+    setErrors((prev) => ({ ...prev, [field]: error }));
+  };
+
   const handleUpdateBudget = async () => {
+    const data = { category, maximum: maxAmount, theme };
+    const result = getFieldErrors(budgetSchema, data);
+    if (!result.success) {
+      setErrors(result.errors);
+      return;
+    }
+    setErrors({});
     try {
       await fetch(`/api/budgets?category=${encodeURIComponent(categoryId)}`, {
         method: 'PUT',
@@ -126,8 +148,14 @@ const EditBudgetModal: React.FC<{
             className="border border-gray-300 rounded-md p-2"
             value={maxAmount}
             onChange={handleChangeMax}
+            onBlur={(e) => handleBlur('maximum', Number(e.target.value))}
             placeholder="Enter target amount"
           />
+          {errors.maximum && (
+            <p className="text-red-600 dark:text-red text-sm mt-1">
+              {errors.maximum}
+            </p>
+          )}
           <label
             htmlFor="theme"
             className="text-sm font-semibold text-grey-500 dark:text-muted-foreground"
