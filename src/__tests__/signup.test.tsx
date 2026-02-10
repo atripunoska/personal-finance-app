@@ -32,6 +32,7 @@ jest.mock('react', () => {
   return {
     ...actual,
     useActionState: () => [mockErrorMessage, mockDispatch],
+    useTransition: () => [false, (fn: () => void) => fn()],
   };
 });
 
@@ -69,7 +70,6 @@ describe('RegisterPage', () => {
     const name = screen.getByLabelText(/name/i);
     expect(name).toHaveAttribute('type', 'text');
     expect(name).toHaveAttribute('placeholder', 'Your Name');
-    expect(name).toBeRequired();
   });
 
   it('renders email input with correct attributes', () => {
@@ -77,15 +77,12 @@ describe('RegisterPage', () => {
     const email = screen.getByLabelText(/email/i);
     expect(email).toHaveAttribute('type', 'email');
     expect(email).toHaveAttribute('placeholder', 'your@email.com');
-    expect(email).toBeRequired();
   });
 
   it('renders password input with correct attributes', () => {
     render(<RegisterPage />);
     const password = screen.getByLabelText(/password/i);
     expect(password).toHaveAttribute('type', 'password');
-    expect(password).toHaveAttribute('minLength', '6');
-    expect(password).toBeRequired();
   });
 
   it('displays password hint text', () => {

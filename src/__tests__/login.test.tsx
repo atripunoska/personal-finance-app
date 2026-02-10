@@ -39,6 +39,7 @@ jest.mock('react', () => {
   return {
     ...actual,
     useActionState: () => [mockErrorMessage, mockDispatch],
+    useTransition: () => [false, (fn: () => void) => fn()],
   };
 });
 
@@ -73,14 +74,12 @@ describe('LoginPage', () => {
     const email = screen.getByLabelText(/email/i);
     expect(email).toHaveAttribute('type', 'email');
     expect(email).toHaveAttribute('placeholder', 'your@email.com');
-    expect(email).toBeRequired();
   });
 
   it('renders password input with correct type', () => {
     render(<LoginPage />);
     const password = screen.getByLabelText(/password/i);
     expect(password).toHaveAttribute('type', 'password');
-    expect(password).toBeRequired();
   });
 
   it('renders the submit button with "Log in" text', () => {

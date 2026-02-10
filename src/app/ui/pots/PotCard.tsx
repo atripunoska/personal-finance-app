@@ -192,6 +192,7 @@ export default function PotCard({
           onClose={handleCloseModal}
           hasCloseBtn={true}
           onWithdrawMoney={handleWithdrawMoney}
+          maxAmount={potTotal}
         />
       )}
     </Card>

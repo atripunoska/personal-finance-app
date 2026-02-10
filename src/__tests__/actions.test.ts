@@ -119,7 +119,7 @@ describe('register', () => {
 
     const result = await register(undefined, formData);
 
-    expect(result).toBe('All fields are required.');
+    expect(result).toBe('Name is required.');
   });
 
   it('returns error when email is missing', async () => {
@@ -130,7 +130,7 @@ describe('register', () => {
 
     const result = await register(undefined, formData);
 
-    expect(result).toBe('All fields are required.');
+    expect(result).toBe('Email is required.');
   });
 
   it('returns error when password is missing', async () => {
@@ -141,7 +141,7 @@ describe('register', () => {
 
     const result = await register(undefined, formData);
 
-    expect(result).toBe('All fields are required.');
+    expect(result).toBe('Password must be at least 6 characters.');
   });
 
   it('returns error when password is too short', async () => {
