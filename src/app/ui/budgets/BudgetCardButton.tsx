@@ -54,6 +54,7 @@ export default function BudgetCardButton({
           <DropdownMenuItem
             onClick={() => handleOpenModal(ModalType.EDIT)}
             className="cursor-pointer"
+            role="menuitem"
           >
             Edit Budget
           </DropdownMenuItem>
@@ -61,6 +62,7 @@ export default function BudgetCardButton({
           <DropdownMenuItem
             onClick={() => handleOpenModal(ModalType.DELETE)}
             className="cursor-pointer"
+            role="menuitem"
           >
             Delete Budget
           </DropdownMenuItem>
