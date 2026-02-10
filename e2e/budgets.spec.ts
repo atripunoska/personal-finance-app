@@ -39,17 +39,19 @@ test.describe('Budgets Page', () => {
     // Click add budget button
     await page.getByRole('button', { name: /add new budget/i }).click();
 
-    // Modal should be visible
-    await expect(page.getByText('Add New Budget')).toBeVisible();
+    // Modal should be visible (exact match to avoid matching header button text)
+    await expect(
+      page.getByText('Add New Budget', { exact: true })
+    ).toBeVisible();
 
     // Check form fields
     await expect(page.getByText('Budget Category')).toBeVisible();
     await expect(page.getByText('Maximum Amount')).toBeVisible();
     await expect(page.getByText('Theme')).toBeVisible();
 
-    // Check submit button
+    // Check submit button (exact match to avoid matching header button)
     await expect(
-      page.getByRole('button', { name: /add budget/i })
+      page.getByRole('button', { name: 'Add Budget', exact: true })
     ).toBeVisible();
   });
 
@@ -58,9 +60,11 @@ test.describe('Budgets Page', () => {
   }) => {
     // Open modal
     await page.getByRole('button', { name: /add new budget/i }).click();
-    await expect(page.getByText('Add New Budget')).toBeVisible();
+    await expect(
+      page.getByText('Add New Budget', { exact: true })
+    ).toBeVisible();
 
-    // Close modal (look for X button or close button)
+    // Close modal using the close button with aria-label="Close Modal"
     const closeButton = page.getByRole('button', { name: /close modal/i });
     if ((await closeButton.count()) > 0) {
       await closeButton.first().click();
@@ -69,8 +73,10 @@ test.describe('Budgets Page', () => {
       await page.keyboard.press('Escape');
     }
 
-    // Modal should be closed
-    await expect(page.getByText('Add New Budget')).not.toBeVisible();
+    // Modal should be closed (exact match so header button doesn't interfere)
+    await expect(
+      page.getByText('Add New Budget', { exact: true })
+    ).not.toBeVisible();
   });
 
   test('should display budget cards if budgets exist', async ({ page }) => {
@@ -78,16 +84,19 @@ test.describe('Budgets Page', () => {
     await page.waitForLoadState('networkidle');
 
     // Check if any budget cards exist (they have a progress bar and maximum amount)
-    const budgetCards = page.locator('[class*="budget"]').or(
-      page.getByText(/maximum of/i)
-    );
+    const budgetCards = page
+      .locator('[class*="budget"]')
+      .or(page.getByText(/maximum of/i));
 
     // If budgets exist, verify card structure
     const cardCount = await budgetCards.count();
     if (cardCount > 0) {
       // At least one budget should show spent/remaining info
       await expect(
-        page.getByText(/spent/i).or(page.getByText(/remaining/i)).first()
+        page
+          .getByText(/spent/i)
+          .or(page.getByText(/remaining/i))
+          .first()
       ).toBeVisible();
     }
   });
@@ -131,29 +140,33 @@ test.describe('Budget CRUD Operations', () => {
   test('should create a new budget', async ({ page }) => {
     // Open add budget modal
     await page.getByRole('button', { name: /add new budget/i }).click();
-    await expect(page.getByText('Add New Budget')).toBeVisible();
+    await expect(
+      page.getByText('Add New Budget', { exact: true })
+    ).toBeVisible();
 
     // Select a category from dropdown
-    const categorySelect = page.locator('select').first();
+    const categorySelect = page.locator('select#category');
     await categorySelect.selectOption({ index: 1 }); // Select first available category
 
     // Enter maximum amount
     const amountInput = page.locator('#maximum');
     await amountInput.fill('500');
 
-    // Select a theme (second dropdown)
-    const themeSelect = page.locator('select').nth(1);
+    // Select a theme (theme dropdown)
+    const themeSelect = page.locator('select#theme');
     const themeOptions = await themeSelect.locator('option').count();
     if (themeOptions > 1) {
       await themeSelect.selectOption({ index: 1 });
     }
 
-    // Submit the form
-    await page.getByRole('button', { name: /add budget/i }).click();
+    // Submit the form (exact match to avoid matching header button)
+    await page.getByRole('button', { name: 'Add Budget', exact: true }).click();
 
     // Should show success toast or modal closes
     await expect(async () => {
-      const modalVisible = await page.getByText('Add New Budget').isVisible();
+      const modalVisible = await page
+        .getByText('Add New Budget', { exact: true })
+        .isVisible();
       const toastVisible = await page
         .getByText(/success|added|created/i)
         .isVisible()
@@ -166,38 +179,8 @@ test.describe('Budget CRUD Operations', () => {
   test('should open edit budget modal from card menu', async ({ page }) => {
     await page.waitForLoadState('networkidle');
 
-    // Find a budget card's menu button (usually "..." or ellipsis)
-    const menuButtons = page.locator('button').filter({ hasText: /⋮|\.\.\./ });
-    const menuButtonCount = await menuButtons.count();
-
-    if (menuButtonCount === 0) {
-      // Try finding by aria-label or other patterns
-      const altMenuButtons = page.getByRole('button', { name: /menu|options/i });
-      if ((await altMenuButtons.count()) === 0) {
-        test.skip(true, 'No budget cards with menu buttons found');
-        return;
-      }
-      await altMenuButtons.first().click();
-    } else {
-      await menuButtons.first().click();
-    }
-
-    // Click edit option
-    await page.getByText(/edit/i).click();
-
-    // Edit modal should open
-    await expect(page.getByText('Edit Budget')).toBeVisible();
-
-    // Check form fields are pre-populated
-    await expect(page.getByText('Budget Category')).toBeVisible();
-    await expect(page.getByText('Maximum Spend')).toBeVisible();
-  });
-
-  test('should open delete confirmation modal', async ({ page }) => {
-    await page.waitForLoadState('networkidle');
-
-    // Find menu button on budget card
-    const menuButtons = page.locator('button').filter({ hasText: /⋮|\.\.\./ });
+    // Find a budget card's dropdown menu button by its aria-label
+    const menuButtons = page.getByRole('button', { name: '...', exact: true });
     const menuButtonCount = await menuButtons.count();
 
     if (menuButtonCount === 0) {
@@ -207,20 +190,59 @@ test.describe('Budget CRUD Operations', () => {
 
     await menuButtons.first().click();
 
-    // Click delete option
-    await page.getByText(/delete/i).click();
+    // Wait for the dropdown menu to appear before clicking items
+    const menu = page.getByRole('menu');
+    await expect(menu).toBeVisible();
+
+    // Click edit option from the dropdown menu
+    await menu.getByRole('menuitem', { name: /Edit Budget/i }).click();
+
+    // Edit modal should open
+    await expect(page.locator('dialog').getByText('Edit Budget')).toBeVisible();
+
+    // Check form fields are pre-populated
+    await expect(
+      page.locator('dialog').getByText('Budget Category')
+    ).toBeVisible();
+    await expect(
+      page.locator('dialog').getByText('Maximum Spend')
+    ).toBeVisible();
+  });
+
+  test('should open delete confirmation modal', async ({ page }) => {
+    await page.waitForLoadState('networkidle');
+
+    // Find menu button on budget card
+    const menuButtons = page.getByRole('button', { name: '...', exact: true });
+    const menuButtonCount = await menuButtons.count();
+
+    if (menuButtonCount === 0) {
+      test.skip(true, 'No budget cards with menu buttons found');
+      return;
+    }
+
+    await menuButtons.first().click();
+
+    // Wait for the dropdown menu to appear before clicking items
+    const menu = page.getByRole('menu');
+    await expect(menu).toBeVisible();
+
+    // Click delete option from the dropdown menu
+    await menu.getByRole('menuitem', { name: /Delete Budget/i }).click();
 
     // Delete confirmation modal should open
     await expect(
-      page.getByText(/are you sure you want to delete this budget/i)
+      page.getByText(
+        /Are you sure you want to delete this budget? This action cannot be reversed, and all the data inside it will be removed forever./i
+      )
     ).toBeVisible();
 
     // Should have confirm and cancel buttons
     await expect(
-      page.getByRole('button', { name: /yes|confirm|delete/i })
+      page.getByRole('button', { name: /Yes, Confirm Deletion/i })
     ).toBeVisible();
     await expect(
-      page.getByRole('button', { name: /no|cancel|go back/i })
+      page.getByRole('button', { name: /No, go back/i })
     ).toBeVisible();
   });
 
@@ -228,21 +250,31 @@ test.describe('Budget CRUD Operations', () => {
     await page.waitForLoadState('networkidle');
 
     // Find menu button
-    const menuButtons = page.locator('button').filter({ hasText: /⋮|\.\.\./ });
+    const menuButtons = page.getByRole('button', { name: '...', exact: true });
     if ((await menuButtons.count()) === 0) {
       test.skip(true, 'No budget cards found');
       return;
     }
 
     await menuButtons.first().click();
-    await page.getByText(/delete/i).click();
 
-    // Click cancel/no button
-    await page.getByRole('button', { name: /no|cancel|go back/i }).click();
+    // Wait for the dropdown menu to appear before clicking items
+    const menu = page.getByRole('menu');
+    await expect(menu).toBeVisible();
+
+    await menu.getByRole('menuitem', { name: /Delete Budget/i }).click();
+
+    // Wait for delete modal to appear
+    await expect(
+      page.getByText(/are you sure you want to delete this budget/i)
+    ).toBeVisible();
+
+    // Click cancel/go back button
+    await page.getByRole('button', { name: /No, go back/i }).click();
 
     // Modal should close
     await expect(
-      page.getByText(/are you sure|confirm deletion/i)
+      page.getByText(/are you sure you want to delete this budget/i)
     ).not.toBeVisible();
   });
 });
