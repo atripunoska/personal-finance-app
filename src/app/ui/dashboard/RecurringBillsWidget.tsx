@@ -24,13 +24,13 @@ export default function RecurringBillsWidget({
         </Link>
       </div>
       <div className="flex flex-col">
-        <div className="p-3 rounded bg-beige-100 border-l-3 border-green flex justify-between mb-1">
+        <div className="p-3 rounded bg-beige-100 dark:bg-secondary border-l-3 border-green flex justify-between mb-1">
           <span className="font-light text-muted-foreground">Paid Bills</span>
           <span className="font-bold">
             {USDollar.format(Math.abs(totalAmountPaid))}
           </span>
         </div>
-        <div className="p-3 rounded bg-beige-100 border-l-3 border-yellow flex justify-between mb-1">
+        <div className="p-3 rounded bg-beige-100 dark:bg-secondary border-l-3 border-yellow flex justify-between mb-1">
           <span className="font-light text-muted-foreground">
             Total Upcoming
           </span>
@@ -38,7 +38,7 @@ export default function RecurringBillsWidget({
             {USDollar.format(Math.abs(totalAmountUpcoming))}
           </span>
         </div>
-        <div className="p-3 rounded bg-beige-100 border-l-3 border-blue flex justify-between mb-1">
+        <div className="p-3 rounded bg-beige-100 dark:bg-secondary border-l-3 border-blue flex justify-between mb-1">
           <span className="font-light text-muted-foreground">Due Soon</span>
           <span className="font-bold">
             {USDollar.format(Math.abs(totalAmountDue))}

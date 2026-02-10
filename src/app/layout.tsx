@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { Public_Sans } from 'next/font/google';
 import { WebVitals } from '@/app/ui/WebVitals';
+import { ThemeProvider } from '@/components/ThemeProvider';
 
 const publicSans = Public_Sans({ subsets: ['latin'], display: 'optional' });
 
@@ -16,10 +17,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${publicSans.className} antialiased bg-beige-100`}>
-        <WebVitals />
-        {children}
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${publicSans.className} antialiased`}>
+        <ThemeProvider>
+          <WebVitals />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

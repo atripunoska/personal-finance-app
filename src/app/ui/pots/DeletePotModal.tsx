@@ -62,7 +62,7 @@ export default function DeletePotModal({
             Yes, Confirm Deletion
           </Button>
           <Button
-            className="text-white font-bold cursor-pointer"
+            className="text-white font-bold cursor-pointer dark:text-gray-900"
             onClick={onClose}
             aria-label="Go Back"
           >

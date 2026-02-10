@@ -4,6 +4,13 @@ import { Modal } from '../modal';
 import { Button } from '@/components/ui/button';
 import { closest } from 'color-2-name';
 import { showToast } from 'nextjs-toast-notify';
+import {
+  potSchema,
+  getFieldErrors,
+  getFieldError,
+  FieldErrors,
+} from '@/lib/validations';
+import { z } from 'zod';
 
 const EditPotModal: React.FC<{
   onClose: () => void;
@@ -25,8 +32,23 @@ const EditPotModal: React.FC<{
   const [name, setName] = useState<string>(initialName);
   const [theme, setTheme] = useState<string>(initialTheme);
   const [targetAmount, setTargetAmount] = useState<number>(target);
+  const [errors, setErrors] = useState<FieldErrors<z.infer<typeof potSchema>>>(
+    {}
+  );
+
+  const handleBlur = (field: string, value: string | number) => {
+    const error = getFieldError(potSchema, field, value);
+    setErrors((prev) => ({ ...prev, [field]: error }));
+  };
 
   const handleUpdatePot = async () => {
+    const data = { name, target: targetAmount, theme };
+    const result = getFieldErrors(potSchema, data);
+    if (!result.success) {
+      setErrors(result.errors);
+      return;
+    }
+    setErrors({});
     try {
       await fetch(`/api/pots/${potId}`, {
         method: 'PATCH',
@@ -79,7 +101,10 @@ const EditPotModal: React.FC<{
       <p>If your saving targets change, feel free to update your pots.</p>
       <div>
         <form className="flex flex-col gap-3 mt-4">
-          <label htmlFor="name" className="text-sm font-semibold text-grey-500">
+          <label
+            htmlFor="name"
+            className="text-sm font-semibold text-grey-500 dark:text-muted-foreground"
+          >
             Pot Name
           </label>
           <input
@@ -88,11 +113,17 @@ const EditPotModal: React.FC<{
             className="border border-gray-300 rounded-md p-2"
             value={name}
             onChange={handleSetName}
+            onBlur={(e) => handleBlur('name', e.target.value)}
             placeholder="Enter pot name"
           />
+          {errors.name && (
+            <p className="text-red-600 dark:text-red text-sm mt-1">
+              {errors.name}
+            </p>
+          )}
           <label
             htmlFor="target"
-            className="text-sm font-semibold text-grey-500"
+            className="text-sm font-semibold text-grey-500 dark:text-muted-foreground"
           >
             Target Amount
           </label>
@@ -102,11 +133,17 @@ const EditPotModal: React.FC<{
             className="border border-gray-300 rounded-md p-2"
             value={targetAmount}
             onChange={handleSetTarget}
+            onBlur={(e) => handleBlur('target', Number(e.target.value))}
             placeholder="Enter target amount"
           />
+          {errors.target && (
+            <p className="text-red-600 dark:text-red text-sm mt-1">
+              {errors.target}
+            </p>
+          )}
           <label
             htmlFor="theme"
-            className="text-sm font-semibold text-grey-500"
+            className="text-sm font-semibold text-grey-500 dark:text-muted-foreground"
           >
             Theme
           </label>

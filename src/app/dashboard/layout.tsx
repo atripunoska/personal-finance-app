@@ -8,6 +8,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { logout } from '@/lib/actions';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 export default async function Layout({
   children,
@@ -22,11 +23,12 @@ export default async function Layout({
         <Sidemenu />
       </div>
       <div className="flex-grow p-6 md:overflow-y-auto md:p-12">
-        <div className="text-right ">
+        <div className="flex justify-end items-center gap-2">
+          <ThemeToggle />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
-                className="font-bold text-grey-500 cursor-pointer bg-gray-200 hover:bg-grey-100 hover:text-grey-900"
+                className="font-bold text-muted-foreground cursor-pointer bg-secondary hover:bg-accent hover:text-foreground"
                 variant="secondary"
                 aria-label="Open Dropdown"
               >

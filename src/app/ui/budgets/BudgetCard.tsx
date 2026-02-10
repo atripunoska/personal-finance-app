@@ -35,7 +35,7 @@ export default function BudgetCard({
   }, [category]);
 
   return (
-    <Card className="bg-white p-3">
+    <Card className="bg-white dark:bg-card p-3">
       <CardContent>
         <div className="flex justify-between">
           <div className="flex items-center">
@@ -89,7 +89,7 @@ export default function BudgetCard({
               </span>
             </div>
           </div>
-          <div className="bg-beige-100 p-4 col-span-2 rounded-md mt-4">
+          <div className="bg-beige-100 dark:bg-secondary p-4 col-span-2 rounded-md mt-4">
             <h4 className="font-bold text-lg mb-3">Latest spending</h4>
             <BudgetCardTable transactions={transactions} />
           </div>

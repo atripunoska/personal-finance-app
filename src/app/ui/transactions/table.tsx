@@ -142,7 +142,7 @@ export default function TransactionsTable({
                 <TableCell className="text-right">
                   <div
                     className={clsx({
-                      'text-gray-900': item.amount < 0,
+                      'text-gray-900 dark:text-foreground': item.amount < 0,
                       'text-green-900': item.amount > 0,
                       'font-semibold': true,
                     })}

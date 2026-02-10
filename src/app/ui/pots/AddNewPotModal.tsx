@@ -5,6 +5,13 @@ import { Modal } from '../modal';
 import { closest } from 'color-2-name';
 import { Pot } from '@/lib/definitions';
 import { showToast } from 'nextjs-toast-notify';
+import {
+  potSchema,
+  getFieldErrors,
+  getFieldError,
+  FieldErrors,
+} from '@/lib/validations';
+import { z } from 'zod';
 
 export default function AddNewPotModal({
   onClose,
@@ -20,8 +27,23 @@ export default function AddNewPotModal({
   const [name, setName] = useState<string>('');
   const [theme, setTheme] = useState<string>('');
   const [target, setTarget] = useState<number>(0);
+  const [errors, setErrors] = useState<FieldErrors<z.infer<typeof potSchema>>>(
+    {}
+  );
+
+  const handleBlur = (field: string, value: string | number) => {
+    const error = getFieldError(potSchema, field, value);
+    setErrors((prev) => ({ ...prev, [field]: error }));
+  };
 
   const handleAddPot = async () => {
+    const data = { name, target, theme };
+    const result = getFieldErrors(potSchema, data);
+    if (!result.success) {
+      setErrors(result.errors);
+      return;
+    }
+    setErrors({});
     try {
       const response = await fetch('/api/pots', {
         method: 'POST',
@@ -65,7 +87,7 @@ export default function AddNewPotModal({
         <form className="flex flex-col gap-3 mt-4">
           <label
             htmlFor="category"
-            className="text-sm font-semibold text-grey-500"
+            className="text-sm font-semibold text-grey-500 dark:text-muted-foreground"
           >
             Pot Name
           </label>
@@ -75,12 +97,18 @@ export default function AddNewPotModal({
             className="border border-gray-300 rounded-md p-2"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            onBlur={(e) => handleBlur('name', e.target.value)}
             placeholder="Enter category"
           />
+          {errors.name && (
+            <p className="text-red-600 dark:text-red text-sm mt-1">
+              {errors.name}
+            </p>
+          )}
 
           <label
             htmlFor="target"
-            className="text-sm font-semibold text-grey-500"
+            className="text-sm font-semibold text-grey-500 dark:text-muted-foreground"
           >
             Target
           </label>
@@ -90,12 +118,18 @@ export default function AddNewPotModal({
             className="border border-gray-300 rounded-md p-2"
             value={target}
             onChange={(e) => setTarget(Number(e.target.value))}
+            onBlur={(e) => handleBlur('target', Number(e.target.value))}
             placeholder="Enter target amount"
           />
+          {errors.target && (
+            <p className="text-red-600 dark:text-red text-sm mt-1">
+              {errors.target}
+            </p>
+          )}
 
           <label
             htmlFor="theme"
-            className="text-sm font-semibold text-grey-500"
+            className="text-sm font-semibold text-grey-500 dark:text-muted-foreground"
           >
             Theme
           </label>
@@ -122,7 +156,7 @@ export default function AddNewPotModal({
             })}
           </select>
           <Button
-            className="text-white font-bold cursor-pointer"
+            className="text-white font-bold cursor-pointer dark:text-gray-900"
             onClick={handleAddPot}
             aria-label="Confirm addition"
           >

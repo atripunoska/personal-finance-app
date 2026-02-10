@@ -24,7 +24,7 @@ export default function TransactionsTableWidget({
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[100px] text-black text-xl font-semibold">
+              <TableHead className="w-[100px] text-black dark:text-foreground text-xl font-semibold">
                 Transactions
               </TableHead>
 
@@ -53,7 +53,7 @@ export default function TransactionsTableWidget({
                   <TableCell className="text-right">
                     <div
                       className={clsx({
-                        'text-gray-900': item.amount < 0,
+                        'text-gray-900 dark:text-foreground': item.amount < 0,
                         'text-green': item.amount > 0,
                         'font-bold': true,
                       })}

@@ -8,7 +8,7 @@ export default function TotalBillsCard({
   totalAmount: number;
 }) {
   return (
-    <div className="bg-grey-900 text-white p-6 rounded-md flex flex-col ">
+    <div className="bg-grey-900 dark:bg-foreground text-white dark:text-background p-6 rounded-md flex flex-col ">
       <Image
         src="/./assets/images/icon-recurring-bills.svg"
         width={30}

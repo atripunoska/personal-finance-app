@@ -4,6 +4,7 @@ import { signIn, signOut } from '@/auth';
 import { AuthError } from 'next-auth';
 import { getDB } from './db';
 import bcrypt from 'bcryptjs';
+import { signupSchema } from './validations';
 
 // LOGIN ACTION
 export async function authenticate(
@@ -33,18 +34,18 @@ export async function register(
   prevState: string | undefined,
   formData: FormData
 ) {
-  const name = formData.get('name') as string;
-  const email = formData.get('email') as string;
-  const password = formData.get('password') as string;
+  const raw = {
+    name: (formData.get('name') ?? '') as string,
+    email: (formData.get('email') ?? '') as string,
+    password: (formData.get('password') ?? '') as string,
+  };
 
-  // Validate inputs
-  if (!name || !email || !password) {
-    return 'All fields are required.';
+  const parsed = signupSchema.safeParse(raw);
+  if (!parsed.success) {
+    return parsed.error.issues[0].message;
   }
 
-  if (password.length < 6) {
-    return 'Password must be at least 6 characters.';
-  }
+  const { name, email, password } = parsed.data;
 
   try {
     const sql = await getDB();
