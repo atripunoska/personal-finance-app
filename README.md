@@ -30,7 +30,7 @@
 A comprehensive personal finance management application that helps users track expenses, manage budgets, monitor savings goals, and stay on top of recurring bills. Built as a solution to the [Frontend Mentor Personal Finance App Challenge](https://www.frontendmentor.io/challenges/personal-finance-app-JfjtZgyMt1), this project demonstrates production-ready patterns and modern React architecture.
 
 <div align="center">
-  <img src="public/assets/images/overview.png" alt="Dashboard Overview" width="800" />
+  <img src="public/assets/images/flow.gif" alt="App Overview" width="800" />
 </div>
 
 ---
@@ -219,7 +219,61 @@ AUTH_SECRET=your-secret-key-here
 
 1. Create a new project on [Neon](https://neon.tech) (free tier available)
 2. Copy your connection string to `DATABASE_URL`
-3. Create the required tables: `balance`, `budgets`, `pots`, `transactions`
+3. Create the required tables:
+
+```sql
+-- Users (for NextAuth.js authentication)
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  password TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Navigation pages
+CREATE TABLE pages (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  path VARCHAR(255) NOT NULL,
+  icon VARCHAR(100) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Account balances
+CREATE TABLE balance (
+  id SERIAL PRIMARY KEY,
+  type VARCHAR(50) NOT NULL,
+  amount NUMERIC(12,2) NOT NULL
+);
+
+-- Budget categories
+CREATE TABLE budgets (
+  category VARCHAR(100) PRIMARY KEY,
+  maximum NUMERIC(12,2) NOT NULL,
+  theme VARCHAR(20) NOT NULL
+);
+
+-- Savings pots
+CREATE TABLE pots (
+  name VARCHAR(100) PRIMARY KEY,
+  theme VARCHAR(20) NOT NULL,
+  target NUMERIC(12,2) NOT NULL,
+  total NUMERIC(12,2) NOT NULL DEFAULT 0
+);
+
+-- Transactions
+CREATE TABLE transactions (
+  name VARCHAR(255) NOT NULL,
+  avatar TEXT,
+  amount NUMERIC(12,2) NOT NULL,
+  date DATE NOT NULL,
+  category VARCHAR(100) NOT NULL,
+  recurring BOOLEAN DEFAULT FALSE
+);
+```
+
+
 
 ## Development
 
