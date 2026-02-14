@@ -78,6 +78,7 @@ const AddMoneyModal: React.FC<{
             </p>
           )}
           <Button
+            type="button"
             className="text-white  font-bold cursor-pointer dark:text-gray-900"
             onClick={handleAddMoney}
             aria-label="Confirm addition"
