@@ -8,6 +8,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { BudgetCardButtonProps, ModalType, THEMES } from '@/lib/definitions';
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import DeleteBudgetModal from './DeleteBudgetModal';
 import EditBudgetModal from './EditBudgetModal';
 
@@ -18,6 +19,7 @@ export default function BudgetCardButton({
   categories,
 }: BudgetCardButtonProps) {
   const [modalType, setModalType] = useState<ModalType>(ModalType.NONE);
+  const router = useRouter();
 
   const handleOpenModal = (type: ModalType) => {
     setModalType(type);
@@ -25,6 +27,7 @@ export default function BudgetCardButton({
 
   const handleCloseModal = () => {
     setModalType(ModalType.NONE);
+    router.refresh();
   };
 
   const handleDeleteModal = async (category: string) => {

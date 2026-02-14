@@ -53,13 +53,6 @@ export default function PotCard({
       setPotTotal(potTotal + amount);
       onPotUpdated?.();
       handleCloseModal();
-      showToast.success('Potd successfully!', {
-        duration: 4000,
-        position: 'bottom-right',
-        transition: 'fadeIn',
-        sound: false,
-        progress: true,
-      });
     } catch (error) {
       console.error('Failed to add money to pot:', error);
       showToast.error('Failed to add money to pot!', {

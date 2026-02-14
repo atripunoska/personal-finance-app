@@ -273,8 +273,6 @@ CREATE TABLE transactions (
 );
 ```
 
-
-
 ## Development
 
 ### Start development server (with Turbopack)

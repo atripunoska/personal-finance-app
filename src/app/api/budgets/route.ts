@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { getDB } from '@/lib/db';
 
 // GET all budgets
@@ -28,6 +29,7 @@ export async function POST(request: Request) {
       RETURNING *
     `;
 
+    revalidatePath('/dashboard/budgets');
     return NextResponse.json(result[0]);
   } catch (error) {
     console.error('Database Error:', error);
@@ -54,6 +56,7 @@ export async function DELETE(request: Request) {
     const sql = await getDB();
     const result = await sql`DELETE FROM budgets WHERE category = ${category}`;
 
+    revalidatePath('/dashboard/budgets');
     return NextResponse.json({ success: true, data: result });
   } catch (error) {
     console.error('Database Error:', error);
@@ -87,6 +90,7 @@ export async function PUT(request: Request) {
       RETURNING *
     `;
 
+    revalidatePath('/dashboard/budgets');
     return NextResponse.json(result[0]);
   } catch (error) {
     console.error('Database Error:', error);
